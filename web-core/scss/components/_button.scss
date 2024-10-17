@@ -1,0 +1,16 @@
+@use './color-theme';
+@use './padding';
+@use 'sass:color';
+
+$border-radius: 6px;
+$padding: padding.$button-padding;
+
+$primary-background-color: color-theme.$light-theme-primary-color;
+$primary-background-hover-color: color.adjust(color-theme.$light-theme-primary-color, $red: 10, $green: 10, $blue: 10);
+
+$secondary-background-color: color-theme.$light-theme-secondary-color;
+$secondary-background-hover-color: color.adjust(color-theme.$light-theme-secondary-color, $red: 10, $green: 10, $blue: 10);
+
+$light-background-color: color-theme.$light-theme-background-secondary-color;
+$light-background-hover-color: color.adjust(color-theme.$light-theme-background-secondary-color, $red: -10, $green: -10, $blue: -10);
+$nav-hover-color: color-theme.$light-theme-nav-hover-color;

@@ -1,0 +1,84 @@
+@use '../components/header';
+@use '../components/border';
+@use '../components/input';
+@use '../components/padding';
+@use '../components/margin';
+@use '../components/color-theme';
+@use '../components/button';
+
+.login-page {
+    padding-top: header.$header-height;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+
+    &__form-container {
+        height: 80%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__form {
+            width: 30%;
+            border: border.$small-border-line;
+            border-radius: border.$container-border-radius;
+
+            input {
+                @include input.input-style;
+            }
+
+            &__title {
+                display: flex;
+                justify-content: center;
+                padding: padding.$small-padding;
+                border-radius: border.$container-border-radius;
+                margin-bottom: margin.$title-margin;
+
+                &__label {
+                    margin-bottom: margin.$label-input-margin;
+                }
+            }
+
+            &__username {
+                padding: padding.$small-padding;
+
+                &__label {
+                    margin-bottom: margin.$label-input-margin;
+                }
+            }
+
+            &__password {
+                padding: padding.$small-padding;
+
+                &__label {
+                    margin-bottom: margin.$label-input-margin;
+                }
+            }
+
+            &__text-group {
+                padding: padding.$small-padding;
+                display: flex;
+                justify-content: space-between;
+
+                &__label {
+                    margin-bottom: margin.$label-input-margin;
+                }
+            }
+
+            &__login-button {
+                display: flex;
+                justify-content: center;
+                padding: padding.$button-padding;
+                margin: padding.$small-padding;
+                margin-top: margin.$title-margin;
+                background: color-theme.$light-theme-primary-color;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$primary-background-hover-color;
+                }
+            }
+        }
+    }
+}

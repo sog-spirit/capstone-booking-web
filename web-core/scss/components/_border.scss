@@ -1,0 +1,5 @@
+@use './color-theme';
+
+$small-border-line: 1px solid color-theme.$light-theme-border-line-color;
+$container-border-radius: 6px;
+$input-border-radius: 4px;
