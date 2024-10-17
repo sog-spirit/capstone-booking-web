@@ -1,0 +1,137 @@
+@use './border';
+@use './color-theme';
+@use './padding';
+@use './button';
+@use './shadow';
+@use './margin';
+
+$header-height: 40px;
+
+.header {
+    position: fixed;
+    height: $header-height;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: border.$small-border-line;
+    background: color-theme.$light-theme-background-color;
+
+    &__container {
+        display: flex;
+        width: 80%;
+        justify-content: space-between;
+
+        &__left-group {
+            display: flex;
+            height: 100%;
+
+            &__dropdown-group {
+                &__button {
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    padding: padding.$small-padding;
+                    border-bottom: 3px solid transparent;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$nav-hover-color;
+                    }
+
+                    &--active {
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        padding: padding.$small-padding;
+                        border-bottom: 3px solid button.$primary-background-color;
+                        font-weight: 500;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$nav-hover-color;
+                        }
+                    }
+                }
+
+                &__list {
+                    display: none;
+
+                    &--active {
+                        display: block;
+                        position: absolute;
+                        box-shadow: shadow.$small-shadow;
+                        background: color-theme.$light-theme-background-color;
+                    }
+
+                    &__item {
+                        padding: padding.$small-padding;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$nav-hover-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__right-group {
+            display: flex;
+            align-items: center;
+
+            &__login-button {
+                display: flex;
+                align-items: center;
+                padding: button.$padding;
+                background: button.$primary-background-color;
+                border-radius: button.$border-radius;
+                margin-right: margin.$button-margin;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$primary-background-hover-color;
+                }
+            }
+
+            &__register-button {
+                display: flex;
+                align-items: center;
+                padding: button.$padding;
+                background: button.$secondary-background-color;
+                border-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$secondary-background-hover-color;
+                }
+            }
+
+            &__user-button {
+                display: flex;
+                align-items: center;
+                padding: button.$padding;
+                margin-right: margin.$button-margin;
+                background: button.$light-background-color;
+                border-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
+                }
+            }
+
+            &__logout-button {
+                display: flex;
+                align-items: center;
+                padding: button.$padding;
+                background: button.$light-background-color;
+                border-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
+                }
+            }
+        }
+    }
+}

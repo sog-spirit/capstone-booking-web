@@ -1,0 +1,19 @@
+@use './color-theme';
+@use './shadow';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: color-theme.$light-theme-text-color;
+    background: color-theme.$light-theme-background-color;
+
+    :focus {
+        outline: none;
+        box-shadow: shadow.$focus-shadow;
+    }
+
+    :focus-visible {
+        outline: none;
+    }
+}

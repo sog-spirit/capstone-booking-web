@@ -1,0 +1,32 @@
+@use './color-theme';
+@use './padding';
+@use './border';
+@use './margin';
+
+$border-radius: 4px;
+$line-height: 1.5;
+$font-size: 1rem;
+$input-error-box-shadow: 0 0 0 .2rem rgba(color-theme.$danger, .5);
+
+.input-error {
+    color: color-theme.$danger;
+    box-shadow: $input-error-box-shadow;
+}
+
+.input-error-message {
+    margin-top: margin.$input-item-margin;
+    color: color-theme.$danger;
+}
+
+.required {
+    color: color-theme.$danger;
+}
+
+@mixin input-style {
+    width: 100%;
+    line-height: $line-height;
+    border-radius: $border-radius;
+    border: border.$small-border-line;
+    padding: padding.$small-padding;
+    font-size: $font-size;
+}
