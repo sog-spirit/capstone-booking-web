@@ -1,0 +1,42 @@
+@use '../components/border';
+@use '../components/margin';
+@use '../components/button';
+@use '../components/padding';
+
+.error-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+    &__container {
+        width: 80%;
+
+        &__title {
+            margin-top: margin.$title-margin;
+            margin-bottom: margin.$title-margin;
+        }
+
+        &__content {
+            border-radius: border.$container-border-radius;
+            border: border.$small-border-line;
+            padding: padding.$small-padding;
+
+            p {
+                margin-bottom: margin.$input-item-margin;
+            }
+
+            &__home-button {
+                display: flex;
+                background: button.$primary-background-color;
+                width: fit-content;
+                padding: padding.$button-padding;
+                border-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$primary-background-hover-color;
+                }
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ import { PAGE_URL } from "../../utils/consts/PageURLConsts";
 import { defaultSuccessToastNotification } from "../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../utils/consts/MessageConsts";
 import { HTTP_REQUEST_HEADER, HTTP_REQUEST_METHOD } from "../../utils/consts/HttpRequestConsts";
+import Header from "../../components/Header";
 
 export default function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -88,6 +89,8 @@ export default function RegisterPage() {
     }
 
     return (
+        <>
+        <Header />
         <div className="register-page">
             <div className="register-page__form-container">
                 <div className="register-page__form-container__form">
@@ -143,5 +146,6 @@ export default function RegisterPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

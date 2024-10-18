@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_API_URL, JWT_URL, USER_URL } from "../utils/consts/APIConsts";
 import { LoginContext } from "../App";
@@ -6,8 +6,13 @@ import { HTTP_STATUS } from "../utils/consts/HttpStatusCode";
 import { defaultErrorToastNotification, defaultSuccessToastNotification } from "../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../utils/consts/MessageConsts";
 import { HTTP_REQUEST_HEADER, HTTP_REQUEST_METHOD, REFRESH_TOKEN, ROLE_NAME } from "../utils/consts/HttpRequestConsts";
+import { PAGE_URL } from "../utils/consts/PageURLConsts";
 
 export default function Header() {
+    useEffect(() => {
+        getAccessToken();
+    }, []);
+
     const [dropdownState, setDropdownState] = useState({
         dropdown1: false,
         dropdown2: false,
@@ -40,6 +45,26 @@ export default function Header() {
         localStorage.removeItem(REFRESH_TOKEN);
         localStorage.removeItem(ROLE_NAME);
         defaultSuccessToastNotification(MESSAGE_CONSTS.LOGOUT_SUCCESS);
+    }
+
+    async function getAccessToken() {
+        let submitData = {
+            refreshToken: localStorage.getItem(REFRESH_TOKEN),
+        };
+        const response = await fetch(BASE_API_URL + JWT_URL.BASE + JWT_URL.REFRESH, {
+            method: HTTP_REQUEST_METHOD.POST,
+            headers: HTTP_REQUEST_HEADER.CONTENT_TYPE_APPLICATION_JSON,
+            body: JSON.stringify(submitData),
+        });
+        if (response.status === HTTP_STATUS.OK) {
+            const data = await response.json();
+            console.log(data);
+            loginContext.setLoginState({
+                accessToken: data?.accessToken,
+            });
+        } else {
+            navigate(PAGE_URL.HOME);
+        }
     }
 
     return (

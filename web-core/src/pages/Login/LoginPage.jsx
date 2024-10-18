@@ -7,6 +7,7 @@ import { LoginContext } from "../../App";
 import { defaultSuccessToastNotification } from "../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../utils/consts/MessageConsts";
 import { HTTP_REQUEST_HEADER, HTTP_REQUEST_METHOD, REFRESH_TOKEN, ROLE_NAME } from "../../utils/consts/HttpRequestConsts";
+import Header from "../../components/Header";
 
 export default function LoginPage() {
     const [formData, setFormData] = useState({
@@ -60,6 +61,8 @@ export default function LoginPage() {
     }
 
     return (
+        <>
+        <Header />
         <div className="login-page">
             <div className="login-page__form-container">
                 <div className="login-page__form-container__form">
@@ -90,5 +93,6 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
