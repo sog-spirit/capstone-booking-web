@@ -21,3 +21,7 @@ export const ROLE_URL = {
 export const USER_ROLE_URL = {
     BASE: '/user-role',
 };
+
+export const CENTER_URL = {
+    BASE: '/center',
+};
