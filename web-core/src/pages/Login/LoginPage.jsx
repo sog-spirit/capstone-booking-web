@@ -3,39 +3,33 @@ import { BASE_API_URL, USER_URL } from "../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../utils/consts/HttpStatusCode";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "../../utils/consts/PageURLConsts";
-import { LoginContext } from "../../App";
 import { defaultSuccessToastNotification } from "../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../utils/consts/MessageConsts";
-import { HTTP_REQUEST_HEADER, HTTP_REQUEST_METHOD, REFRESH_TOKEN, ROLE_NAME } from "../../utils/consts/HttpRequestConsts";
+import { ACCESS_TOKEN, HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD, REFRESH_TOKEN, ROLE_NAME } from "../../utils/consts/HttpRequestConsts";
 import Header from "../../components/Header";
+import { LoginContext, TokenContext } from "../../App";
+import { handleInputChange } from "../../utils/input/InputUtils";
 
 export default function LoginPage() {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
     });
-
     const [inputStatus, setInputStatus] = useState({
         username: '',
         password: '',
     });
-
-    function handleInputChange(event) {
-        let { name, value } = event.target;
-        setFormData( prevFormData => ({
-            ...prevFormData,
-            [name]: value,
-        }));
-    }
-
+    const {loginState, setLoginState} = useContext(LoginContext);
+    const {tokenState, setTokenState} = useContext(TokenContext);
     const navigate = useNavigate();
 
-    const loginContext = useContext(LoginContext);
-
     async function submitData() {
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+
         const response = await fetch(BASE_API_URL + USER_URL.BASE + USER_URL.LOGIN, {
             method: HTTP_REQUEST_METHOD.POST,
-            headers: HTTP_REQUEST_HEADER.CONTENT_TYPE_APPLICATION_JSON,
+            headers: headers,
             body: JSON.stringify(formData),
         });
 
@@ -50,12 +44,19 @@ export default function LoginPage() {
                 password: data?.password,
             });
         } else if (response.status === HTTP_STATUS.OK) {
-            loginContext.setLoginState({
-                accessToken: data?.accessToken,
-            });
+            localStorage.setItem(ACCESS_TOKEN, data?.accessToken);
             localStorage.setItem(REFRESH_TOKEN, data?.refreshToken);
             localStorage.setItem(ROLE_NAME, data?.role);
             defaultSuccessToastNotification(MESSAGE_CONSTS.LOGIN_SUCCESS);
+            setLoginState(prevState => ({
+                ...prevState,
+                isLogin: true,
+            }));
+            setTokenState(prevState => ({
+                ...prevState,
+                accessToken: data?.accessToken,
+                refreshToken: data?.refreshToken,
+            }));
             navigate(PAGE_URL.HOME);
         }
     }
@@ -71,12 +72,12 @@ export default function LoginPage() {
                     </div>
                     <div className="login-page__form-container__form__username">
                         <div className="login-page__form-container__form__username__label">Username</div>
-                        <input type="text" placeholder="Username" className={`login-page__form-container__form__username__input ${inputStatus.username ? 'input-error' : ''}`} name="username" onChange={event => handleInputChange(event)} />
+                        <input type="text" placeholder="Username" className={`login-page__form-container__form__username__input ${inputStatus.username ? 'input-error' : ''}`} name="username" onChange={event => handleInputChange(event, setFormData)} />
                         <div className="login-page__form-container__form__username__error-message input-error-message">{inputStatus.username ? inputStatus.username : ''}</div>
                     </div>
                     <div className="login-page__form-container__form__password">
                         <div className="login-page__form-container__form__password__label">Password</div>
-                        <input type="password" placeholder="Password" className={`login-page__form-container__form__password__input ${inputStatus.password ? 'input-error' : ''}`} name="password" onChange={event => handleInputChange(event)} />
+                        <input type="password" placeholder="Password" className={`login-page__form-container__form__password__input ${inputStatus.password ? 'input-error' : ''}`} name="password" onChange={event => handleInputChange(event, setFormData)} />
                         <div className="login-page__form-container__form__password__error-message input-error-message">{inputStatus.password ? inputStatus.password : ''}</div>
                     </div>
                     <div className="login-page__form-container__form__text-group">

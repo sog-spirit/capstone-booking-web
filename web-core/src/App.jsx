@@ -1,6 +1,5 @@
-import { BrowserRouter, Routes, Route, useNavigate, } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RegisterPage from './pages/Register/RegisterPage';
-import Header from './components/Header';
 import LoginPage from './pages/Login/LoginPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,19 +8,57 @@ import HomePage from './pages/Home/HomePage';
 import { createContext, useEffect, useState } from 'react';
 import CenterManagement from './pages/Center Management/CenterManagement';
 import ErrorPage from './pages/Error/ErrorPage';
-import { BASE_API_URL, JWT_URL } from './utils/consts/APIConsts';
-import { HTTP_REQUEST_HEADER, HTTP_REQUEST_METHOD, REFRESH_TOKEN } from './utils/consts/HttpRequestConsts';
-import { HTTP_STATUS } from './utils/consts/HttpStatusCode';
+import { ACCESS_TOKEN, REFRESH_TOKEN, ROLE_NAME } from './utils/consts/HttpRequestConsts';
+import { refreshAccessToken } from './utils/jwt/JwtUtils';
 
 export const LoginContext = createContext(null);
+export const TokenContext = createContext(null);
 
 export default function App() {
     const [loginState, setLoginState] = useState({
-        accessToken: '',
+        isLogin: false,
+        userRole: '',
     });
+    const [tokenState, setTokenState] = useState({
+        accessToken: localStorage.getItem(ACCESS_TOKEN),
+        refreshToken: localStorage.getItem(REFRESH_TOKEN),
+    });
+
+    useEffect(() => {
+        refreshAccessToken(setTokenState);
+
+        if (localStorage.getItem(ACCESS_TOKEN) && localStorage.getItem(ROLE_NAME)) {
+            setLoginState({
+                isLogin: true,
+                userRole: localStorage.getItem(ROLE_NAME),
+            });
+        } else {
+            setLoginState({
+                isLogin: false,
+                userRole: '',
+            });
+        }
+    }, [loginState.isLogin, loginState.userRole]);
+
+    useEffect(() => {
+        refreshAccessToken(setTokenState);
+
+        if (localStorage.getItem(ACCESS_TOKEN) && localStorage.getItem(ROLE_NAME)) {
+            setTokenState({
+                accessToken: localStorage.getItem(ACCESS_TOKEN),
+                refreshToken: localStorage.getItem(REFRESH_TOKEN),
+            });
+        } else {
+            setTokenState({
+                accessToken: '',
+                refreshToken: '',
+            });
+        }
+    }, [tokenState.accessToken, tokenState.refreshToken]);
 
     return (
         <LoginContext.Provider value={{loginState, setLoginState}}>
+        <TokenContext.Provider value={{tokenState, setTokenState}}>
         <BrowserRouter>
             <Routes>
                 <Route path='*' element={<ErrorPage />} />
@@ -32,6 +69,7 @@ export default function App() {
             </Routes>
             <ToastContainer />
         </BrowserRouter>
+        </TokenContext.Provider>
         </LoginContext.Provider>
     );
 }
