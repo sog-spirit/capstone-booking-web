@@ -1,36 +1,32 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_API_URL, JWT_URL, USER_URL } from "../utils/consts/APIConsts";
-import { LoginContext } from "../App";
 import { HTTP_STATUS } from "../utils/consts/HttpStatusCode";
 import { defaultErrorToastNotification, defaultSuccessToastNotification } from "../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../utils/consts/MessageConsts";
-import { HTTP_REQUEST_HEADER, HTTP_REQUEST_METHOD, REFRESH_TOKEN, ROLE_NAME } from "../utils/consts/HttpRequestConsts";
-import { PAGE_URL } from "../utils/consts/PageURLConsts";
+import { ACCESS_TOKEN, HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD, REFRESH_TOKEN, ROLE_NAME } from "../utils/consts/HttpRequestConsts";
+import { LoginContext, TokenContext } from "../App";
 
 export default function Header() {
-    useEffect(() => {
-        getAccessToken();
-    }, []);
-
     const [dropdownState, setDropdownState] = useState({
         dropdown1: false,
         dropdown2: false,
     });
-
     const [navButtonFocusIndexState, setNavButtonFocusIndexState] = useState(1);
-
     const navigate = useNavigate();
-
-    const loginContext = useContext(LoginContext);
+    const {loginState, setLoginState} = useContext(LoginContext);
+    const {tokenState, setTokenState} = useContext(TokenContext);
 
     async function handleLogout() {
         let bodyData = {
             refreshToken: localStorage.getItem(REFRESH_TOKEN),
         };
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+
         const response = await fetch(BASE_API_URL + JWT_URL.BASE + JWT_URL.LOG_OUT, {
             method: HTTP_REQUEST_METHOD.POST,
-            headers: HTTP_REQUEST_HEADER.CONTENT_TYPE_APPLICATION_JSON,
+            headers: headers,
             body: JSON.stringify(bodyData),
         });
     
@@ -39,32 +35,19 @@ export default function Header() {
             return;
         }
 
-        loginContext.setLoginState({
-            accessToken: '',
-        });
+        localStorage.removeItem(ACCESS_TOKEN);
         localStorage.removeItem(REFRESH_TOKEN);
         localStorage.removeItem(ROLE_NAME);
+        setLoginState(prevState => ({
+            ...prevState,
+            isLogin: false,
+        }));
+        setTokenState(prevState => ({
+            ...prevState,
+            accessToken: '',
+            refreshToken: '',
+        }));
         defaultSuccessToastNotification(MESSAGE_CONSTS.LOGOUT_SUCCESS);
-    }
-
-    async function getAccessToken() {
-        let submitData = {
-            refreshToken: localStorage.getItem(REFRESH_TOKEN),
-        };
-        const response = await fetch(BASE_API_URL + JWT_URL.BASE + JWT_URL.REFRESH, {
-            method: HTTP_REQUEST_METHOD.POST,
-            headers: HTTP_REQUEST_HEADER.CONTENT_TYPE_APPLICATION_JSON,
-            body: JSON.stringify(submitData),
-        });
-        if (response.status === HTTP_STATUS.OK) {
-            const data = await response.json();
-            console.log(data);
-            loginContext.setLoginState({
-                accessToken: data?.accessToken,
-            });
-        } else {
-            navigate(PAGE_URL.HOME);
-        }
     }
 
     return (
@@ -106,7 +89,7 @@ export default function Header() {
                 </div>
                 <div className="header__container__right-group">
                     {
-                    loginContext.loginState.accessToken
+                    loginState.isLogin
                     ?
                     (
                     <>

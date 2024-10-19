@@ -11,6 +11,7 @@ export const JWT_URL = {
     REFRESH: '/refresh',
     LOG_OUT: '/logout',
     BLACKLIST_VERIFY: '/blacklist-verify',
+    VERIFY: '/verify',
 };
 
 export const ROLE_URL = {
@@ -24,4 +25,5 @@ export const USER_ROLE_URL = {
 
 export const CENTER_URL = {
     BASE: '/center',
+    LIST: '/list',
 };

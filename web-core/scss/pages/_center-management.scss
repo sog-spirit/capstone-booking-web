@@ -68,31 +68,109 @@
                     border: border.$small-border-line;
                     border-radius: border.$container-border-radius;
                     display: flex;
+                    justify-content: space-between;
 
-                    &__img {
-                        border-top-left-radius: border.$container-border-radius;
-                        border-bottom-left-radius: border.$container-border-radius;
+                    &:not(:first-child) {
+                        margin-top: margin.$input-item-margin;
+                    }
 
-                        img {
+                    &__info {
+                        display: flex;
+
+                        &__img {
                             border-top-left-radius: border.$container-border-radius;
                             border-bottom-left-radius: border.$container-border-radius;
-                            height: 150px;
-                            width: 150px;
-                            object-fit: cover;
+    
+                            img {
+                                border-top-left-radius: border.$container-border-radius;
+                                border-bottom-left-radius: border.$container-border-radius;
+                                height: 150px;
+                                width: 150px;
+                                object-fit: cover;
+                            }
+                        }
+    
+                        &__detail {
+                            margin-left: margin.$input-item-margin;
+    
+                            &__name {
+                                margin-top: margin.$label-input-margin;
+                                margin-bottom: margin.$label-input-margin;
+                            }
+    
+                            &__address {
+                                margin-bottom: margin.$label-input-margin;
+                            }
                         }
                     }
 
-                    &__detail {
-                        margin-left: margin.$input-item-margin;
+                    &__button-group {
+                        padding: padding.$small-padding;
 
-                        &__name {
-                            margin-top: margin.$label-input-margin;
-                            margin-bottom: margin.$label-input-margin;
+                        &__edit-button {
+                            height: fit-content;
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__pagination {
+                display: flex;
+                margin-top: margin.$input-item-margin;
+
+                &__previous {
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+                    border-top-left-radius: button.$border-radius;
+                    border-bottom-left-radius: button.$border-radius;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+
+                &__numeric-indicator {
+                    display: flex;
+
+                    &__item {
+                        background: button.$light-background-color;
+                        padding: padding.$small-padding;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$light-background-hover-color;
                         }
 
-                        &__address {
-                            margin-bottom: margin.$label-input-margin;
+                        &--active {
+                            background: button.$primary-background-color;
+                            padding: padding.$small-padding;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
                         }
+                    }
+                }
+
+                &__next {
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+                    border-top-right-radius: button.$border-radius;
+                    border-bottom-right-radius: button.$border-radius;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
                     }
                 }
             }

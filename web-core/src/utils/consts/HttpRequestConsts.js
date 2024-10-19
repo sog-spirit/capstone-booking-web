@@ -1,4 +1,5 @@
 export const REFRESH_TOKEN = 'refreshToken';
+export const ACCESS_TOKEN = 'accessToken';
 export const ROLE_NAME = 'role';
 
 export const HTTP_REQUEST_METHOD = {
@@ -6,6 +7,11 @@ export const HTTP_REQUEST_METHOD = {
     POST: 'POST',
 };
 
-export const HTTP_REQUEST_HEADER = {
-    CONTENT_TYPE_APPLICATION_JSON: {'Content-Type': 'application/json'},
+export const HTTP_REQUEST_HEADER_NAME = {
+    CONTENT_TYPE: 'Content-Type',
+    AUTHORIZATION: 'Authorization',
+};
+
+export const HTTP_REQUEST_HEADER_VALUE = {
+    APPLICATION_JSON: 'application/json',
 };
