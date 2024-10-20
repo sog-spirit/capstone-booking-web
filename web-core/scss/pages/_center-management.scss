@@ -115,6 +115,18 @@
                                 background: button.$light-background-hover-color;
                             }
                         }
+
+                        &__detail-button {
+                            height: fit-content;
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
                     }
                 }
             }
