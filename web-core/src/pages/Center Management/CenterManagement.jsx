@@ -48,7 +48,7 @@ export default function CenterManagement() {
     }, [currentPageNumberState, totalPageState, numericIndicatorState.length]);
 
     async function submitAddNewData() {
-        refreshAccessToken(setTokenState);
+        await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
@@ -76,7 +76,7 @@ export default function CenterManagement() {
     }
 
     async function loadCenterList() {
-        refreshAccessToken(setTokenState);
+        await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
@@ -106,7 +106,7 @@ export default function CenterManagement() {
     }
 
     async function submitEditData() {
-        refreshAccessToken(setTokenState);
+        await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
@@ -151,7 +151,7 @@ export default function CenterManagement() {
                         </div>
                     </div>
                     <div className="center-management-page__container__header__button-group">
-                        <div className="center-management-page__container__header__button-group__refresh-button">
+                        <div className="center-management-page__container__header__button-group__refresh-button" onClick={() => loadCenterList()}>
                             Refresh
                         </div>
                         <div className="center-management-page__container__header__button-group__add-new-button" onClick={() => setAddNewModalState(true)}>
