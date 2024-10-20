@@ -1,4 +1,4 @@
-export const DEFAULT_PAGE_SIZE = 1;
+export const DEFAULT_PAGE_SIZE = 5;
 
 export function paginate(currentPageNumber = 1, totalPageNumber = 1, siblingItemCount = 2) {
     const pageNumberList = [];
