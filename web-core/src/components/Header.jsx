@@ -6,6 +6,7 @@ import { defaultErrorToastNotification, defaultSuccessToastNotification } from "
 import { MESSAGE_CONSTS } from "../utils/consts/MessageConsts";
 import { ACCESS_TOKEN, HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD, REFRESH_TOKEN, ROLE_NAME } from "../utils/consts/HttpRequestConsts";
 import { LoginContext, TokenContext } from "../App";
+import { PAGE_URL } from "../utils/consts/PageURLConsts";
 
 export default function Header() {
     const [dropdownState, setDropdownState] = useState({
@@ -48,6 +49,7 @@ export default function Header() {
             refreshToken: '',
         }));
         defaultSuccessToastNotification(MESSAGE_CONSTS.LOGOUT_SUCCESS);
+        navigate(PAGE_URL.HOME);
     }
 
     return (

@@ -9,7 +9,6 @@ import { createContext, useEffect, useState } from 'react';
 import CenterManagement from './pages/Center Management/CenterManagement';
 import ErrorPage from './pages/Error/ErrorPage';
 import { ACCESS_TOKEN, REFRESH_TOKEN, ROLE_NAME } from './utils/consts/HttpRequestConsts';
-import { refreshAccessToken } from './utils/jwt/JwtUtils';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -25,8 +24,6 @@ export default function App() {
     });
 
     useEffect(() => {
-        refreshAccessToken(setTokenState);
-
         if (localStorage.getItem(ACCESS_TOKEN) && localStorage.getItem(ROLE_NAME)) {
             setLoginState({
                 isLogin: true,
@@ -41,8 +38,6 @@ export default function App() {
     }, [loginState.isLogin, loginState.userRole]);
 
     useEffect(() => {
-        refreshAccessToken(setTokenState);
-
         if (localStorage.getItem(ACCESS_TOKEN) && localStorage.getItem(ROLE_NAME)) {
             setTokenState({
                 accessToken: localStorage.getItem(ACCESS_TOKEN),
