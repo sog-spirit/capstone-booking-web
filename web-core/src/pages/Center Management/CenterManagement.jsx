@@ -15,12 +15,23 @@ export default function CenterManagement() {
     const [addNewFormData, setAddNewFormData] = useState({
         name: '',
         address: '',
-        accessToken: '',
     });
     const [addNewInputStatus, setAddNewInputState] = useState({
         name: '',
         address: '',
     });
+
+    const [editModalState, setEditModalState] = useState(false);
+    const [editFormData, setEditFormData] = useState({
+        id: 0,
+        name: '',
+        address: '',
+    });
+    const [editInputStatus, setEditInputState] = useState({
+        name: '',
+        address: '',
+    });
+
     const [centerList, setCenterList] = useState([]);
     const {loginState, setLoginState} = useContext(LoginContext);
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -52,6 +63,15 @@ export default function CenterManagement() {
         if (response.status === HTTP_STATUS.OK) {
             setAddNewModalState(false);
             defaultSuccessToastNotification(MESSAGE_CONSTS.ADD_SUCCESS);
+            setAddNewFormData({
+                name: '',
+                address: '',
+            });
+            setAddNewInputState(prevState => ({
+                ...prevState,
+                name: '',
+                address: '',
+            }));
         }
     }
 
@@ -69,9 +89,50 @@ export default function CenterManagement() {
 
         if (response.status === HTTP_STATUS.OK) {
             let data = await response.json();
-            console.log(data);
             setTotalPageState(data.totalPage);
             setCenterList(data.centerList);
+        }
+    }
+
+    function openEditModal(postId) {
+        let centerRecord = centerList.find(item => item.id === postId);
+        setEditFormData(prevState => ({
+            ...prevState,
+            id: centerRecord?.id,
+            name: centerRecord?.name,
+            address: centerRecord?.address,
+        }))
+        setEditModalState(true);
+    }
+
+    async function submitEditData() {
+        refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+
+        const response = await fetch(BASE_API_URL + CENTER_URL.BASE, {
+            method: HTTP_REQUEST_METHOD.PUT,
+            headers: headers,
+            body: JSON.stringify(editFormData),
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            setEditModalState(false);
+            defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+            setEditFormData(prevState => ({
+                ...prevState,
+                id: 0,
+                name: '',
+                address: ''
+            }));
+            setEditInputState(prevState => ({
+                ...prevState,
+                name: '',
+                address: '',
+            }));
+            loadCenterList();
         }
     }
 
@@ -119,7 +180,7 @@ export default function CenterManagement() {
                                 </div>
                             </div>
                             <div className="center-management-page__container__center-list__list__item__button-group">
-                                <div className="center-management-page__container__center-list__list__item__button-group__edit-button">
+                                <div className="center-management-page__container__center-list__list__item__button-group__edit-button" onClick={() => openEditModal(item.id)}>
                                     Edit
                                 </div>
                             </div>
@@ -163,14 +224,43 @@ export default function CenterManagement() {
                             <div className="center-management-page__add-new-modal__form__content__name__error-message input-error-message">{addNewInputStatus.name ? addNewInputStatus.name : ''}</div>
                         </div>
                         <div className="center-management-page__add-new-modal__form__content__address">
-                        <div className="center-management-page__add-new-modal__form__content__address__label">Address</div>
+                            <div className="center-management-page__add-new-modal__form__content__address__label">Address</div>
                             <input type="text" placeholder="Address" name="address" onChange={event => handleInputChange(event, setAddNewFormData)} className={`center-management-page__add-new-modal__form__content__address__input ${addNewInputStatus.address ? 'input-error' : ''}`} />
                             <div className="center-management-page__add-new-modal__form__content__address__error-message input-error-message">{addNewInputStatus.address ? addNewInputStatus.address : ''}</div>
                         </div>
                     </div>
                     <div className="center-management-page__add-new-modal__form__footer">
                         <div className="center-management-page__add-new-modal__form__footer__create-button" onClick={() => submitAddNewData()}>
-                            Create
+                            Add
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="center-management-page__edit-modal" style={editModalState ? {} : {display: 'none'}}>
+                <div className="center-management-page__edit-modal__form">
+                    <div className="center-management-page__edit-modal__form__header">
+                        <div className="center-management-page__edit-modal__form__header__title">
+                            <h5>Edit center</h5>
+                        </div>
+                        <div className="center-management-page__edit-modal__form__header__close-button" onClick={() => setEditModalState(false)}>
+                            Close
+                        </div>
+                    </div>
+                    <div className="center-management-page__edit-modal__form__content">
+                        <div className="center-management-page__edit-modal__form__content__name">
+                            <div className="center-management-page__edit-modal__form__content__name__label">Name</div>
+                            <input type="text" placeholder="Name" name="name" value={editFormData.name} onChange={event => handleInputChange(event, setEditFormData)} className={`center-management-page__edit-modal__form__content__name ${editInputStatus.name ? 'input-error' : ''}`} />
+                            <div className="center-management-page__edit-modal__form__content__name__error-message input-error-message"></div>
+                        </div>
+                        <div className="center-management-page__edit-modal__form__content__address">
+                            <div className="center-management-page__edit-modal__form__content__address__label">Address</div>
+                            <input type="text" placeholder="Address" name="address" value={editFormData.address} onChange={event => handleInputChange(event, setEditFormData)} className={`center-management-page__edit-modal__form__content__address ${editInputStatus.address ? 'input-error' : ''}`} />
+                            <div className="center-management-page__edit-modal__form__content__address__error-message input-error-message"></div>
+                        </div>
+                    </div>
+                    <div className="center-management-page__edit-modal__form__footer">
+                        <div className="center-management-page__edit-modal__form__footer__save-button" onClick={() => submitEditData()}>
+                            Save
                         </div>
                     </div>
                 </div>

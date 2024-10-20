@@ -5,6 +5,7 @@ export const ROLE_NAME = 'role';
 export const HTTP_REQUEST_METHOD = {
     GET: 'GET',
     POST: 'POST',
+    PUT: 'PUT',
 };
 
 export const HTTP_REQUEST_HEADER_NAME = {

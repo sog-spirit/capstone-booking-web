@@ -4,4 +4,5 @@ export const MESSAGE_CONSTS = {
     LOGOUT_SUCCESS: 'Logout successfully!',
     INVALID_ACTION: 'Invalid action!',
     ADD_SUCCESS: 'Added successfully!',
-}
+    EDIT_SUCCESS: 'Edit successfully!',
+};
