@@ -9,6 +9,8 @@ import { LoginContext, TokenContext } from "../../App";
 import { refreshAccessToken } from "../../utils/jwt/JwtUtils";
 import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../utils/pagination/PaginationUtils";
 import { handleInputChange } from "../../utils/input/InputUtils";
+import { useNavigate } from "react-router-dom";
+import { PAGE_URL } from "../../utils/consts/PageURLConsts";
 
 export default function CenterManagement() {
     const [addNewModalState, setAddNewModalState] = useState(false);
@@ -32,12 +34,15 @@ export default function CenterManagement() {
         address: '',
     });
 
-    const [centerList, setCenterList] = useState([]);
     const {loginState, setLoginState} = useContext(LoginContext);
     const {tokenState, setTokenState} = useContext(TokenContext);
+
+    const [centerList, setCenterList] = useState([]);
     const [currentPageNumberState, setCurrentPageNumberState] = useState(1);
     const [totalPageState, setTotalPageState] = useState(1);
     const [numericIndicatorState, setNumericIndicatorState] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadCenterList();
@@ -136,6 +141,10 @@ export default function CenterManagement() {
         }
     }
 
+    function navigateDetailPage(centerId) {
+        navigate(PAGE_URL.CENTER_MANAGEMENT + `/${centerId}` + PAGE_URL.CENTER_DETAIL);
+    }
+
     return (
         <>
         <Header />
@@ -182,6 +191,9 @@ export default function CenterManagement() {
                             <div className="center-management-page__container__center-list__list__item__button-group">
                                 <div className="center-management-page__container__center-list__list__item__button-group__edit-button" onClick={() => openEditModal(item.id)}>
                                     Edit
+                                </div>
+                                <div className="center-management-page__container__center-list__list__item__button-group__detail-button" onClick={() => navigateDetailPage(item.id)}>
+                                    Detail
                                 </div>
                             </div>
                         </div>

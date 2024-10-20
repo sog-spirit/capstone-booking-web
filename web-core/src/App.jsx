@@ -9,6 +9,7 @@ import { createContext, useEffect, useState } from 'react';
 import CenterManagement from './pages/Center Management/CenterManagement';
 import ErrorPage from './pages/Error/ErrorPage';
 import { ACCESS_TOKEN, REFRESH_TOKEN, ROLE_NAME } from './utils/consts/HttpRequestConsts';
+import CenterDetail from './pages/Center Management/Center Detail/CenterDetail';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -61,6 +62,7 @@ export default function App() {
                 <Route path={PAGE_URL.REGISTER} element={<RegisterPage />} />
                 <Route path={PAGE_URL.LOGIN} element={<LoginPage />} />
                 <Route path={PAGE_URL.CENTER_MANAGEMENT} element={<CenterManagement />} />
+                <Route path={PAGE_URL.CENTER_MANAGEMENT + '/:centerId' + PAGE_URL.CENTER_DETAIL} element={<CenterDetail />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>

@@ -27,3 +27,7 @@ export const CENTER_URL = {
     BASE: '/center',
     LIST: '/list',
 };
+
+export const COURT_URL = {
+    BASE: '/court',
+};
