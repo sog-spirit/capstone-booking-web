@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../../../components/Header";
 import { handleInputChange } from "../../../utils/input/InputUtils";
 import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
@@ -24,6 +24,12 @@ export default function CenterDetail() {
         name: '',
     });
 
+    const [courtListState, setCourtListState] = useState([]);
+
+    useEffect(() => {
+        loadCourtList();
+    }, []);
+
     async function submitAddNewData() {
         await refreshAccessToken(setTokenState);
 
@@ -48,6 +54,25 @@ export default function CenterDetail() {
                 ...prevState,
                 name: '',
             }));
+            loadCourtList();
+        }
+    }
+
+    async function loadCourtList() {
+        await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+
+        const response = await fetch(BASE_API_URL + COURT_URL.BASE + `?centerId=${centerId}`, {
+            method: HTTP_REQUEST_METHOD.GET,
+            headers: headers,
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            let data = await response.json();
+            setCourtListState(data);
         }
     }
 
@@ -79,9 +104,10 @@ export default function CenterDetail() {
                         <h5>Court list</h5>
                     </div>
                     <div className="center-detail-page__container__court-list__list">
-                        <div className="center-detail-page__container__court-list__list__item">
+                        {courtListState.map(item => (
+                        <div className="center-detail-page__container__court-list__list__item" key={item.id}>
                             <div className="center-detail-page__container__court-list__list__item__label">
-                                Court name
+                                {item.name}
                             </div>
                             <div className="center-detail-page__container__court-list__list__item__booking-list">
                                 <div className="center-detail-page__container__court-list__list__item__booking-list__item">
@@ -89,6 +115,7 @@ export default function CenterDetail() {
                                 </div>
                             </div>
                         </div>
+                        ))}
                     </div>
                 </div>
             </div>
