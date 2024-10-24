@@ -25,7 +25,7 @@ export default function App() {
     });
 
     useEffect(() => {
-        if (localStorage.getItem(ACCESS_TOKEN) && localStorage.getItem(ROLE_NAME)) {
+        if (localStorage.getItem(ACCESS_TOKEN) !== "" && localStorage.getItem(ROLE_NAME) !== "") {
             setLoginState({
                 isLogin: true,
                 userRole: localStorage.getItem(ROLE_NAME),
@@ -39,7 +39,7 @@ export default function App() {
     }, [loginState.isLogin, loginState.userRole]);
 
     useEffect(() => {
-        if (localStorage.getItem(ACCESS_TOKEN) && localStorage.getItem(ROLE_NAME)) {
+        if (localStorage.getItem(ACCESS_TOKEN) !== "" && localStorage.getItem(ROLE_NAME) !== "") {
             setTokenState({
                 accessToken: localStorage.getItem(ACCESS_TOKEN),
                 refreshToken: localStorage.getItem(REFRESH_TOKEN),

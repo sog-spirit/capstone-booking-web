@@ -26,9 +26,18 @@ export default function CenterDetail() {
 
     const [courtListState, setCourtListState] = useState([]);
 
+    const [editModalState, setEditModalState] = useState(false);
+    const [editFormData, setEditFormData] = useState({
+        name: '',
+        id: 0,
+    });
+    const [editInputState, setEditInputState] = useState({
+        name: '',
+    });
+
     useEffect(() => {
         loadCourtList();
-    }, []);
+    }, [tokenState.accessToken]);
 
     async function submitAddNewData() {
         await refreshAccessToken(setTokenState);
@@ -76,6 +85,45 @@ export default function CenterDetail() {
         }
     }
 
+    function openEditModal(courtId) {
+        let courtRecord = courtListState.find(item => item.id === courtId);
+        setEditFormData(prevState => ({
+            ...prevState,
+            id: courtRecord?.id,
+            name: courtRecord?.name,
+        }));
+        setEditModalState(true);
+    }
+
+    async function submitEditData() {
+        await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+
+        const response = await fetch(BASE_API_URL + COURT_URL.BASE, {
+            method: HTTP_REQUEST_METHOD.PUT,
+            headers: headers,
+            body: JSON.stringify(editFormData), 
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            setEditModalState(false);
+            defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+            setEditFormData(prevState => ({
+                ...prevState,
+                id: 0,
+                name: '',
+            }));
+            setEditInputState(prevState => ({
+                ...prevState,
+                name: '',
+            }));
+            loadCourtList();
+        }
+    }
+
     return(
         <>
         <Header />
@@ -91,7 +139,7 @@ export default function CenterDetail() {
                         </div>
                     </div>
                     <div className="center-detail-page__container__header__button-group">
-                        <div className="center-detail-page__container__header__button-group__refresh-button">
+                        <div className="center-detail-page__container__header__button-group__refresh-button" onClick={() => loadCourtList()}>
                             Refresh
                         </div>
                         <div className="center-detail-page__container__header__button-group__add-new-button" onClick={() => setAddNewModalState(true)}>
@@ -106,8 +154,17 @@ export default function CenterDetail() {
                     <div className="center-detail-page__container__court-list__list">
                         {courtListState.map(item => (
                         <div className="center-detail-page__container__court-list__list__item" key={item.id}>
-                            <div className="center-detail-page__container__court-list__list__item__label">
-                                {item.name}
+                            <div className="center-detail-page__container__court-list__list__item__header">
+                                <div className="center-detail-page__container__court-list__list__item__header__label-group">
+                                    <div className="center-detail-page__container__court-list__list__item__header__label-group__name">
+                                        {item.name}
+                                    </div>
+                                </div>
+                                <div className="center-detail-page__container__court-list__list__item__header__button-group">
+                                    <div className="center-detail-page__container__court-list__list__item__header__button-group__edit-button" onClick={() => openEditModal(item.id)}>
+                                        Edit
+                                    </div>
+                                </div>
                             </div>
                             <div className="center-detail-page__container__court-list__list__item__booking-list">
                                 <div className="center-detail-page__container__court-list__list__item__booking-list__item">
@@ -139,6 +196,30 @@ export default function CenterDetail() {
                     <div className="center-detail-page__add-new-modal__form__footer">
                         <div className="center-detail-page__add-new-modal__form__footer__add-button" onClick={() => submitAddNewData()}>
                             Add
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="center-detail-page__edit-modal" style={editModalState ? {} : {display: "none"}}>
+                <div className="center-detail-page__edit-modal__form">
+                    <div className="center-detail-page__edit-modal__form__header">
+                        <div className="center-detail-page__edit-modal__form__header__title">
+                            <h5>Edit center</h5>
+                        </div>
+                        <div className="center-detail-page__edit-modal__form__header__close-button" onClick={() => setEditModalState(false)}>
+                            Close
+                        </div>
+                    </div>
+                    <div className="center-detail-page__edit-modal__form__content">
+                        <div className="center-detail-page__edit-modal__form__content__name">
+                            <div className="center-detail-page__edit-modal__form__content__name__label">Name</div>
+                            <input type="text" placeholder="Name" name="name" value={editFormData.name} onChange={event => handleInputChange(event, setEditFormData)} className={`center-detail-page__edit-modal__form__content__name__input ${editInputState.name ? 'input-error' : ''}`} />
+                            <div className="center-detail-page__edit-modal__form__content__name__error-message input-error-message">{editInputState.name ? editInputState.name : ''}</div>
+                        </div>
+                    </div>
+                    <div className="center-detail-page__edit-modal__form__footer">
+                        <div className="center-detail-page__edit-modal__form__footer__save-button" onClick={() => submitEditData()}>
+                            Save
                         </div>
                     </div>
                 </div>

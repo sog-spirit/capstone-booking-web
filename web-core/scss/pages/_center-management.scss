@@ -103,12 +103,14 @@
 
                     &__button-group {
                         padding: padding.$small-padding;
+                        display: flex;
 
                         &__edit-button {
                             height: fit-content;
                             background: button.$light-background-color;
                             padding: padding.$small-padding;
                             border-radius: button.$border-radius;
+                            margin-right: margin.$button-margin;
 
                             &:hover {
                                 cursor: pointer;
