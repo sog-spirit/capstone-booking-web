@@ -12,7 +12,7 @@ import { handleInputChange } from "../../utils/input/InputUtils";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "../../utils/consts/PageURLConsts";
 
-export default function CenterManagement() {
+export default function CenterPage() {
     const [addNewModalState, setAddNewModalState] = useState(false);
     const [addNewFormData, setAddNewFormData] = useState({
         name: '',
@@ -142,7 +142,7 @@ export default function CenterManagement() {
     }
 
     function navigateDetailPage(centerId) {
-        navigate(PAGE_URL.CENTER_MANAGEMENT + `/${centerId}` + PAGE_URL.CENTER_DETAIL);
+        navigate(PAGE_URL.CENTER + `/${centerId}` + PAGE_URL.COURT);
     }
 
     return (
