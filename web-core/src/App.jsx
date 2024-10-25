@@ -10,6 +10,7 @@ import ErrorPage from './pages/Error/ErrorPage';
 import { ACCESS_TOKEN, REFRESH_TOKEN, ROLE_NAME } from './utils/consts/HttpRequestConsts';
 import CenterPage from './pages/Center/CenterPage';
 import CourtPage from './pages/Court/CourtPage';
+import ProductPage from './pages/ProductPage/ProductPage';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -63,6 +64,7 @@ export default function App() {
                 <Route path={PAGE_URL.LOGIN} element={<LoginPage />} />
                 <Route path={PAGE_URL.CENTER} element={<CenterPage />} />
                 <Route path={PAGE_URL.CENTER + '/:centerId' + PAGE_URL.COURT} element={<CourtPage />} />
+                <Route path={PAGE_URL.PRODCUT} element={<ProductPage />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>

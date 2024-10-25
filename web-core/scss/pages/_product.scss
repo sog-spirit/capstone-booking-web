@@ -1,0 +1,184 @@
+@use '../components/header';
+@use '../components/margin';
+@use '../components/border';
+@use '../components/padding';
+@use '../components/button';
+@use '../components/color-theme';
+@use '../components/modal';
+@use '../components/input';
+
+.product-page {
+    padding-top: header.$header-height;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            margin-top: margin.$title-margin;
+            margin-bottom: margin.$title-margin;
+
+            &__button-group {
+                display: flex;
+
+                &__refresh-button {
+                    height: fit-content;
+                    margin-right: margin.$button-margin;
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+                    border-radius: button.$border-radius;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+
+                &__add-new-button {
+                    height: fit-content;
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+                    border-radius: button.$border-radius;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+            }
+        }
+
+        &__product-list {
+            &__title {
+                margin-bottom: margin.$label-input-margin;
+            }
+
+            &__list {
+                display: flex;
+                flex-flow: wrap;
+
+                &__item {
+                    width: 250px;
+                    border: border.$small-border-line;
+                    border-radius: border.$container-border-radius;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-right: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &__info {
+                        &__img {
+                            img {
+                                border-top-left-radius: border.$container-border-radius;
+                                border-top-right-radius: border.$container-border-radius;
+                                height: 200px;
+                                width: 200px;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+
+                    &__detail {
+                        padding: padding.$small-padding;
+
+                        &__name {
+
+                        }
+
+                        &__price {
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &__add-new-modal {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        background: modal.$background-color;
+
+        &__form {
+            top: 50%;
+            left: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 80%;
+            background: color-theme.$light-theme-background-color;
+            border-radius: border.$container-border-radius;
+
+            &__header {
+                display: flex;
+                justify-content: space-between;
+                padding: padding.$small-padding;
+                border-top-left-radius: border.$container-border-radius;
+                border-top-right-radius: border.$container-border-radius;
+
+                &__close-button {
+                    background: button.$light-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+            }
+
+            &__content {
+                padding: padding.$small-padding;
+
+                input {
+                    @include input.input-style;
+                }
+
+                &__name {
+                    &__label {
+                        margin: margin.$label-input-margin;
+                    }
+                }
+
+                &__price {
+                    &__label {
+                        margin: margin.$label-input-margin;
+                    }
+                }
+            }
+
+            &__footer {
+                padding: padding.$small-padding;
+                display: flex;
+                justify-content: end;
+
+                &__add-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+            }
+        }
+    }
+}

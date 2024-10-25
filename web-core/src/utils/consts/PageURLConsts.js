@@ -4,4 +4,5 @@ export const PAGE_URL = {
     LOGIN: '/login',
     CENTER: '/center',
     COURT: '/court',
+    PRODCUT: '/product',
 };
