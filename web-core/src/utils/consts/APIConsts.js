@@ -31,3 +31,8 @@ export const CENTER_URL = {
 export const COURT_URL = {
     BASE: '/court',
 };
+
+export const PRODUCT_URL = {
+    BASE: '/product',
+    LIST: '/list',
+};
