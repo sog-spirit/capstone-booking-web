@@ -932,6 +932,7 @@ small {
   object-fit: cover;
 }
 .product-page__container__product-list__list__item__detail {
+  text-align: center;
   padding: 0.5rem;
 }
 .product-page__add-new-modal {

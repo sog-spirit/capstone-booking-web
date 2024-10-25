@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { handleInputChange } from "../../utils/input/InputUtils";
 import { refreshAccessToken } from "../../utils/jwt/JwtUtils";
@@ -21,6 +21,12 @@ export default function ProductPage() {
         name: '',
         price: '',
     });
+
+    const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+        loadProductList();
+    }, [tokenState.accessToken]);
 
     async function submitAddNewProduct() {
         await refreshAccessToken(setTokenState);
@@ -51,6 +57,24 @@ export default function ProductPage() {
         }
     }
 
+    async function loadProductList() {
+        await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+
+        const response = await fetch(BASE_API_URL + PRODUCT_URL.BASE + PRODUCT_URL.LIST, {
+            method: HTTP_REQUEST_METHOD.GET,
+            headers: headers,
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            let productList = await response.json();
+            setProductList(productList);
+        }
+    }
+
     return (
         <>
         <Header />
@@ -66,7 +90,7 @@ export default function ProductPage() {
                         </div>
                     </div>
                     <div className="product-page__container__header__button-group">
-                        <div className="product-page__container__header__button-group__refresh-button">
+                        <div className="product-page__container__header__button-group__refresh-button" onClick={() => loadProductList()}>
                             Refresh
                         </div>
                         <div className="product-page__container__header__button-group__add-new-button" onClick={() => setAddNewModalState(true)}>
@@ -79,7 +103,8 @@ export default function ProductPage() {
                         <h5>Product list</h5>
                     </div>
                     <div className="product-page__container__product-list__list">
-                        <div className="product-page__container__product-list__list__item">
+                        {productList.map(item => (
+                        <div className="product-page__container__product-list__list__item" key={item.id}>
                             <div className="product-page__container__product-list__list__item__info">
                                 <div className="product-page__container__product-list__list__item__info__img">
                                     <img src={'/no-image.jpg'} />
@@ -87,13 +112,14 @@ export default function ProductPage() {
                             </div>
                             <div className="product-page__container__product-list__list__item__detail">
                                 <div className="product-page__container__product-list__list__item__detail__name">
-                                    Name
+                                    {item.name}
                                 </div>
                                 <div className="product-page__container__product-list__list__item__detail__price">
-                                    Price
+                                    Price: {item.price}
                                 </div>
                             </div>
                         </div>
+                        ))}
                     </div>
                 </div>
             </div>

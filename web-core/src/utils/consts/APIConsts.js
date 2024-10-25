@@ -34,4 +34,5 @@ export const COURT_URL = {
 
 export const PRODUCT_URL = {
     BASE: '/product',
+    LIST: '/list',
 };
