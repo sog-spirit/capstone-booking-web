@@ -11,6 +11,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN, ROLE_NAME } from './utils/consts/HttpReque
 import CenterPage from './pages/Center/CenterPage';
 import CourtPage from './pages/Court/CourtPage';
 import ProductPage from './pages/ProductPage/ProductPage';
+import ProductInventoryPage from './pages/ProductInventory/ProductInventoryPage';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -65,6 +66,7 @@ export default function App() {
                 <Route path={PAGE_URL.CENTER} element={<CenterPage />} />
                 <Route path={PAGE_URL.CENTER + '/:centerId' + PAGE_URL.COURT} element={<CourtPage />} />
                 <Route path={PAGE_URL.PRODCUT} element={<ProductPage />} />
+                <Route path={PAGE_URL.PRODUCT_INVENTORY} element={<ProductInventoryPage />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>

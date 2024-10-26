@@ -1,0 +1,262 @@
+@use '../components/header';
+@use '../components/margin';
+@use '../components/border';
+@use '../components/padding';
+@use '../components/button';
+@use '../components/color-theme';
+@use '../components/modal';
+@use '../components/input';
+@use '../components/shadow';
+
+.product-inventory-page {
+    padding-top: header.$header-height;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            margin-top: margin.$title-margin;
+
+            &__button-group {
+                display: flex;
+
+                &__refresh-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+                    margin-right: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+
+                &__add-new-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+            }
+        }
+
+        &__list {
+            margin-top: margin.$title-margin;
+
+            &__header {
+                display: flex;
+                vertical-align: middle;
+                border-bottom: border.$small-border-line;
+                border-top: border.$small-border-line;
+                font-weight: 700;
+
+                &__product {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+                }
+
+                &__center {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+                }
+
+                &__quantity {
+                    width: 100px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+                }
+            }
+
+            &__content {
+                &__item {
+                    display: flex;
+                    vertical-align: middle;
+                    border-bottom: border.$small-border-line;
+
+                    &__product {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+    
+                    &__center {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+    
+                    &__quantity {
+                        width: 100px;
+                        text-align: end;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+                }
+            }
+        }
+    }
+
+    &__add-new-modal {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        background: modal.$background-color;
+
+        &__form {
+            top: 50%;
+            left: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 80%;
+            background: color-theme.$light-theme-background-color;
+            border-radius: border.$container-border-radius;
+
+            &__header {
+                display: flex;
+                justify-content: space-between;
+                padding: padding.$small-padding;
+                border-top-left-radius: border.$container-border-radius;
+                border-top-right-radius: border.$container-border-radius;
+
+                &__close-button {
+                    background: button.$light-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+            }
+
+            &__content {
+                padding: padding.$small-padding;
+
+                input {
+                    @include input.input-style;
+                }
+
+                &__product {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__select {
+                        &__select-button {
+                            padding: padding.$small-padding;
+                            border: border.$small-border-line;
+                            border-radius: input.$border-radius;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__select-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__center {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__select {
+                        &__select-button {
+                            padding: padding.$small-padding;
+                            border: border.$small-border-line;
+                            border-radius: input.$border-radius;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__select-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__quantity {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+                }
+            }
+
+            &__footer {
+                padding: padding.$small-padding;
+                display: flex;
+                justify-content: end;
+
+                &__add-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+            }
+        }
+    }
+}

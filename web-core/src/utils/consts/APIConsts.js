@@ -36,3 +36,7 @@ export const PRODUCT_URL = {
     BASE: '/product',
     LIST: '/list',
 };
+
+export const PRODUCT_INVENTORY_URL = {
+    BASE: '/product-inventory',
+};
