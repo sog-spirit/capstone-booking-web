@@ -36,6 +36,8 @@ export default function ProductInventoryPage() {
         quantity: '',
     });
 
+    const [productInvetoryList, setProductInventoryList] = useState([]);
+
     useEffect(() => {
         function handler(event) {
             if (!productDropdownRef.current.contains(event.target)) {
@@ -71,6 +73,10 @@ export default function ProductInventoryPage() {
     useEffect(() => {
         loadCenterDropdownList();
     }, [centerDropdownState, tokenState.accessToken]);
+
+    useEffect(() => {
+        loadProductInventoryList();
+    }, [tokenState.accessToken]);
 
     async function loadProductDropdownList() {
         await refreshAccessToken(setTokenState);
@@ -161,6 +167,25 @@ export default function ProductInventoryPage() {
         }
     }
 
+    async function loadProductInventoryList() {
+        await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+
+        const response = await fetch(BASE_API_URL + PRODUCT_INVENTORY_URL.BASE + PRODUCT_INVENTORY_URL.LIST, {
+            method: HTTP_REQUEST_METHOD.GET,
+            headers: headers,
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            let data = await response.json();
+            console.log(data);
+            setProductInventoryList(data);
+        }
+    }
+
     return (
         <>
         <Header />
@@ -192,17 +217,19 @@ export default function ProductInventoryPage() {
                         </div>
                     </div>
                     <div className="product-inventory-page__container__list__content">
-                        <div className="product-inventory-page__container__list__content__item">
+                        {productInvetoryList.map(item => (
+                        <div className="product-inventory-page__container__list__content__item" key={item.id}>
                             <div className="product-inventory-page__container__list__content__item__product">
-                                Product 1
+                                {item.product.name}
                             </div>
                             <div className="product-inventory-page__container__list__content__item__center">
-                                Center 1
+                                {item.center.name}
                             </div>
                             <div className="product-inventory-page__container__list__content__item__quantity">
-                                1
+                                {item.quantity}
                             </div>
                         </div>
+                        ))}
                     </div>
                 </div>
             </div>
