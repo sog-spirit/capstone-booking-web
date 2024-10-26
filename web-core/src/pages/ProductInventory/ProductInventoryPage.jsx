@@ -68,11 +68,11 @@ export default function ProductInventoryPage() {
 
     useEffect(() => {
         loadProductDropdownList();
-    }, [productDropdownState, tokenState.accessToken]);
+    }, [addNewModalState, productDropdownSearchInput, tokenState.accessToken]);
 
     useEffect(() => {
         loadCenterDropdownList();
-    }, [centerDropdownState, tokenState.accessToken]);
+    }, [addNewModalState, centerDropdownSearchInput, tokenState.accessToken]);
 
     useEffect(() => {
         loadProductInventoryList();
@@ -85,7 +85,7 @@ export default function ProductInventoryPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + PRODUCT_URL.BASE + PRODUCT_URL.LIST, {
+        const response = await fetch(BASE_API_URL + PRODUCT_URL.BASE + PRODUCT_URL.LIST + `?query=${productDropdownSearchInput}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -113,7 +113,7 @@ export default function ProductInventoryPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + CENTER_URL.BASE + CENTER_URL.LIST, {
+        const response = await fetch(BASE_API_URL + CENTER_URL.BASE + CENTER_URL.LIST + `?query=${centerDropdownSearchInput}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -181,7 +181,6 @@ export default function ProductInventoryPage() {
 
         if (response.status === HTTP_STATUS.OK) {
             let data = await response.json();
-            console.log(data);
             setProductInventoryList(data);
         }
     }
@@ -251,7 +250,7 @@ export default function ProductInventoryPage() {
                                     {productDropdownTextValue ? productDropdownTextValue : 'Select a product'}
                                 </div>
                                 <div className={`product-inventory-page__add-new-modal__form__content__product__select__select-option ${addNewInputStatus.product ? 'input-error' : ''}`} style={productDropdownState ? {} : {display: 'none'}} ref={productDropdownRef}>
-                                    <input type="text" placeholder="Product" />
+                                    <input type="text" placeholder="Product" onChange={event => setProductDropdownSearchInput(event.target.value)} />
                                     {productDropdownList.map(item => (
                                     <div className="product-inventory-page__add-new-modal__form__content__product__select__select-option__item" key={item.id} onClick={() => selectProductDropdownItem(item.id)}>{item.name}</div>
                                     ))}
@@ -266,7 +265,7 @@ export default function ProductInventoryPage() {
                                     {centerDropdownTextValue ? centerDropdownTextValue : 'Select a center'}
                                 </div>
                                 <div className={`product-inventory-page__add-new-modal__form__content__center__select__select-option ${addNewInputStatus.center ? 'input-error' : ''}`} style={centerDropdownState ? {} : {display: 'none'}} ref={centerDropdownRef}>
-                                    <input type="text" placeholder="Center" />
+                                    <input type="text" placeholder="Center" onChange={event => setCenterDropdownSearchInput(event.target.value)} />
                                     {centerDropdownList.map(item => (
                                     <div className="product-inventory-page__add-new-modal__form__content__center__select__select-option__item" key={item.id} onClick={() => selectCenterDropdownItem(item.id)}>{item.name}</div>
                                     ))}
