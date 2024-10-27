@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import Header from "../../components/Header";
-import { handleInputChange } from "../../utils/input/InputUtils";
-import { refreshAccessToken } from "../../utils/jwt/JwtUtils";
-import { TokenContext } from "../../App";
-import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../utils/consts/HttpRequestConsts";
-import { BASE_API_URL, COURT_URL } from "../../utils/consts/APIConsts";
-import { HTTP_STATUS } from "../../utils/consts/HttpStatusCode";
-import { defaultSuccessToastNotification } from "../../utils/toast/ToastUtils";
-import { MESSAGE_CONSTS } from "../../utils/consts/MessageConsts";
+import Header from "../../../components/Header";
+import { handleInputChange } from "../../../utils/input/InputUtils";
+import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
+import { TokenContext } from "../../../App";
+import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
+import { BASE_API_URL, COURT_URL } from "../../../utils/consts/APIConsts";
+import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
+import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
+import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
 import { useParams } from "react-router-dom";
 
-export default function CourtPage() {
+export default function CourtCenterOwnerPage() {
     const {tokenState, setTokenState} = useContext(TokenContext);
 
     let {centerId} = useParams();

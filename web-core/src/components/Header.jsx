@@ -10,10 +10,6 @@ import { PAGE_URL } from "../utils/consts/PageURLConsts";
 import { refreshAccessToken } from "../utils/jwt/JwtUtils";
 
 export default function Header() {
-    useEffect(() => {
-        refreshAccessToken(setTokenState);
-    });
-
     const [dropdownState, setDropdownState] = useState({
         dropdown1: false,
         dropdown2: false,

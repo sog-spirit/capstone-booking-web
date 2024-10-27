@@ -8,26 +8,45 @@ import HomePage from './pages/Home/HomePage';
 import { createContext, useEffect, useState } from 'react';
 import ErrorPage from './pages/Error/ErrorPage';
 import { ACCESS_TOKEN, REFRESH_TOKEN, ROLE_NAME } from './utils/consts/HttpRequestConsts';
-import CenterPage from './pages/Center/CenterPage';
-import CourtPage from './pages/Court/CourtPage';
-import ProductPage from './pages/ProductPage/ProductPage';
-import ProductInventoryPage from './pages/ProductInventory/ProductInventoryPage';
+import ProductInventoryCenterOwnerPage from './pages/CenterOwnerRole/ProductInventory/ProductInventoryPage';
+import CourtCenterOwnerPage from './pages/CenterOwnerRole/Court/CourtPage';
+import CenterCenterOnwerPage from './pages/CenterOwnerRole/Center/CenterPage';
+import ProductCenterOwnerPage from './pages/CenterOwnerRole/ProductPage/ProductPage';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
 
 export default function App() {
-    const [loginState, setLoginState] = useState({
-        isLogin: false,
-        userRole: '',
+    const [loginState, setLoginState] = useState(() => {
+        if (localStorage.getItem(ACCESS_TOKEN) !== null && localStorage.getItem(ROLE_NAME) !== null) {
+            return {
+                isLogin: true,
+                userRole: localStorage.getItem(ROLE_NAME),
+            };
+        } else {
+            return {
+                isLogin: false,
+                userRole: '',
+            };
+        }
     });
-    const [tokenState, setTokenState] = useState({
-        accessToken: localStorage.getItem(ACCESS_TOKEN),
-        refreshToken: localStorage.getItem(REFRESH_TOKEN),
+
+    const [tokenState, setTokenState] = useState(() => {
+        if (localStorage.getItem(ACCESS_TOKEN) !== null && localStorage.getItem(ROLE_NAME) !== null) {
+            return {
+                accessToken: localStorage.getItem(ACCESS_TOKEN),
+                refreshToken: localStorage.getItem(REFRESH_TOKEN),
+            };
+        } else {
+            return {
+                accessToken: '',
+                refreshToken: '',
+            };
+        }
     });
 
     useEffect(() => {
-        if (localStorage.getItem(ACCESS_TOKEN) !== "" && localStorage.getItem(ROLE_NAME) !== "") {
+        if (localStorage.getItem(ACCESS_TOKEN) !== null && localStorage.getItem(ROLE_NAME) !== null) {
             setLoginState({
                 isLogin: true,
                 userRole: localStorage.getItem(ROLE_NAME),
@@ -41,7 +60,7 @@ export default function App() {
     }, [loginState.isLogin, loginState.userRole]);
 
     useEffect(() => {
-        if (localStorage.getItem(ACCESS_TOKEN) !== "" && localStorage.getItem(ROLE_NAME) !== "") {
+        if (localStorage.getItem(ACCESS_TOKEN) !== null && localStorage.getItem(ROLE_NAME) !== null) {
             setTokenState({
                 accessToken: localStorage.getItem(ACCESS_TOKEN),
                 refreshToken: localStorage.getItem(REFRESH_TOKEN),
@@ -63,10 +82,10 @@ export default function App() {
                 <Route path={PAGE_URL.HOME} element={<HomePage />} />
                 <Route path={PAGE_URL.REGISTER} element={<RegisterPage />} />
                 <Route path={PAGE_URL.LOGIN} element={<LoginPage />} />
-                <Route path={PAGE_URL.CENTER} element={<CenterPage />} />
-                <Route path={PAGE_URL.CENTER + '/:centerId' + PAGE_URL.COURT} element={<CourtPage />} />
-                <Route path={PAGE_URL.PRODCUT} element={<ProductPage />} />
-                <Route path={PAGE_URL.PRODUCT_INVENTORY} element={<ProductInventoryPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER_CENTER_PAGE} element={<CenterCenterOnwerPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER_CENTER_PAGE + '/:centerId' + PAGE_URL.CENTER_OWNER_COURT_PAGE} element={<CourtCenterOwnerPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER_PRODCUT_PAGE} element={<ProductCenterOwnerPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER_PRODUCT_INVENTORY_PAGE} element={<ProductInventoryCenterOwnerPage />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>

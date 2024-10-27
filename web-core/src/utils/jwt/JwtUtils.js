@@ -3,6 +3,10 @@ import { ACCESS_TOKEN, HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP
 import { HTTP_STATUS } from "../consts/HttpStatusCode";
 
 export async function refreshAccessToken(setTokenState) {
+    if (localStorage.getItem(ACCESS_TOKEN) === null || localStorage.getItem(REFRESH_TOKEN) === null) {
+        return;
+    }
+
     const refreshVerifyRequestBody = {
         accessToken: localStorage.getItem(ACCESS_TOKEN),
     };

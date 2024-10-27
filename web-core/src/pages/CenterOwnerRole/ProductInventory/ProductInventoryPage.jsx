@@ -1,15 +1,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import Header from "../../components/Header";
-import { refreshAccessToken } from "../../utils/jwt/JwtUtils";
-import { TokenContext } from "../../App";
-import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../utils/consts/HttpRequestConsts";
-import { BASE_API_URL, CENTER_URL, PRODUCT_INVENTORY_URL, PRODUCT_URL } from "../../utils/consts/APIConsts";
-import { HTTP_STATUS } from "../../utils/consts/HttpStatusCode";
-import { defaultSuccessToastNotification } from "../../utils/toast/ToastUtils";
-import { MESSAGE_CONSTS } from "../../utils/consts/MessageConsts";
-import { handleInputChange } from "../../utils/input/InputUtils";
+import Header from "../../../components/Header";
+import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
+import { TokenContext } from "../../../App";
+import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
+import { BASE_API_URL, CENTER_URL, PRODUCT_INVENTORY_URL, PRODUCT_URL } from "../../../utils/consts/APIConsts";
+import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
+import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
+import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
+import { handleInputChange } from "../../../utils/input/InputUtils";
 
-export default function ProductInventoryPage() {
+export default function ProductInventoryCenterOwnerPage() {
     const {tokenState, setTokenState} = useContext(TokenContext);
 
     const [productDropdownState, setProductDropdownState] = useState(false);

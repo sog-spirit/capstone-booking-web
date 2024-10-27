@@ -1,18 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import Header from "../../components/Header";
-import { BASE_API_URL, CENTER_URL } from "../../utils/consts/APIConsts";
-import { ACCESS_TOKEN, HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../utils/consts/HttpRequestConsts";
-import { HTTP_STATUS } from "../../utils/consts/HttpStatusCode";
-import { defaultSuccessToastNotification } from "../../utils/toast/ToastUtils";
-import { MESSAGE_CONSTS } from "../../utils/consts/MessageConsts";
-import { LoginContext, TokenContext } from "../../App";
-import { refreshAccessToken } from "../../utils/jwt/JwtUtils";
-import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../utils/pagination/PaginationUtils";
-import { handleInputChange } from "../../utils/input/InputUtils";
+import Header from "../../../components/Header";
+import { BASE_API_URL, CENTER_URL } from "../../../utils/consts/APIConsts";
+import { ACCESS_TOKEN, HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
+import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
+import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
+import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
+import { LoginContext, TokenContext } from "../../../App";
+import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
+import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../utils/pagination/PaginationUtils";
+import { handleInputChange } from "../../../utils/input/InputUtils";
 import { useNavigate } from "react-router-dom";
-import { PAGE_URL } from "../../utils/consts/PageURLConsts";
+import { PAGE_URL } from "../../../utils/consts/PageURLConsts";
 
-export default function CenterPage() {
+export default function CenterCenterOnwerPage() {
     const [addNewModalState, setAddNewModalState] = useState(false);
     const [addNewFormData, setAddNewFormData] = useState({
         name: '',
@@ -142,7 +142,7 @@ export default function CenterPage() {
     }
 
     function navigateDetailPage(centerId) {
-        navigate(PAGE_URL.CENTER + `/${centerId}` + PAGE_URL.COURT);
+        navigate(PAGE_URL.CENTER_OWNER_CENTER_PAGE + `/${centerId}` + PAGE_URL.CENTER_OWNER_COURT_PAGE);
     }
 
     return (
