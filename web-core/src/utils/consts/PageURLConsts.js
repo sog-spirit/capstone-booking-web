@@ -5,4 +5,5 @@ export const PAGE_URL = {
     CENTER: '/center',
     COURT: '/court',
     PRODCUT: '/product',
+    PRODUCT_INVENTORY: '/product-inventory',
 };
