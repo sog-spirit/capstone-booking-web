@@ -4,7 +4,7 @@ import { handleInputChange } from "../../../utils/input/InputUtils";
 import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
 import { TokenContext } from "../../../App";
 import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
-import { BASE_API_URL, PRODUCT_URL } from "../../../utils/consts/APIConsts";
+import { BASE_API_URL, IMAGE_URL, PRODUCT_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
@@ -184,7 +184,7 @@ export default function ProductCenterOwnerPage() {
                         <div className="product-page__container__product-list__list__item" key={item.id}>
                             <div className="product-page__container__product-list__list__item__info">
                                 <div className="product-page__container__product-list__list__item__info__img">
-                                    <img src={'/no-image.jpg'} />
+                                    <img src={BASE_API_URL + IMAGE_URL.BASE + IMAGE_URL.PRODUCT + `?productId=${item.id}`} />
                                 </div>
                             </div>
                             <div className="product-page__container__product-list__list__item__detail">
