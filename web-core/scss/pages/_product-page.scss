@@ -170,6 +170,20 @@
                     @include input.input-style;
                 }
 
+                &__photo {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__preview {
+                        img {
+                            width: 100%;
+                            height: 100px;
+                            object-fit: contain;
+                        }
+                    }
+                }
+
                 &__name {
                     &__label {
                         margin-bottom: margin.$label-input-margin;

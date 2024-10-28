@@ -21,6 +21,8 @@ export default function ProductCenterOwnerPage() {
         name: '',
         price: '',
     });
+    const [addNewImage, setAddNewImage] = useState(null);
+    const [addNewImagePreviewUrl, setAddNewImagePreviewUrl] = useState(null);
 
     const [productList, setProductList] = useState([]);
 
@@ -37,19 +39,23 @@ export default function ProductCenterOwnerPage() {
 
     useEffect(() => {
         loadProductList();
-    }, [tokenState.accessToken]);
+    }, [tokenState.accessToken, addNewModalState]);
 
     async function submitAddNewProduct() {
         await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+
+        const formData = new FormData();
+        formData.append('name', addNewFormData.name);
+        formData.append('price', addNewFormData.price);
+        formData.append('photo', addNewImage);
 
         const response = await fetch(BASE_API_URL + PRODUCT_URL.BASE, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
-            body: JSON.stringify(addNewFormData),
+            body: formData,
         });
 
         if (response.status === HTTP_STATUS.OK) {
@@ -138,6 +144,14 @@ export default function ProductCenterOwnerPage() {
         }
     }
 
+    function handleImageChange(event) {
+        const photoFile = event.target.files[0];
+        if (photoFile) {
+            setAddNewImage(photoFile);
+            setAddNewImagePreviewUrl(URL.createObjectURL(photoFile));
+        }
+    }
+
     return (
         <>
         <Header />
@@ -202,6 +216,14 @@ export default function ProductCenterOwnerPage() {
                         </div>
                     </div>
                     <div className="product-page__add-new-modal__form__content">
+                        <div className="product-page__add-new-modal__form__content__photo">
+                            <div className="product-page__add-new-modal__form__content__photo__label">Photo</div>
+                            <input type="file" accept="image/*" onChange={event => handleImageChange(event)} className={`product-page__add-new-modal__form__content__photo__input ${addNewInputState.photo ? 'input-error' : ''}`} />
+                            <div className="product-page__add-new-modal__form__content__photo__preview">
+                                {addNewImagePreviewUrl && <img src={addNewImagePreviewUrl} alt="Add new photo preview" />}
+                            </div>
+                            <div className="product-page__add-new-modal__form__content__photo__error-message input-error-message">{addNewInputState.photo ? addNewInputState.photo : ''}</div>
+                        </div>
                         <div className="product-page__add-new-modal__form__content__name">
                             <div className="product-page__add-new-modal__form__content__name__label">Name</div>
                             <input type="text" placeholder="Name" name="name" onChange={event => handleInputChange(event, setAddNewFormData)} className={`product-page__add-new-modal__form__content__name__input ${addNewInputState.name ? 'input-error' : ''}`} />
