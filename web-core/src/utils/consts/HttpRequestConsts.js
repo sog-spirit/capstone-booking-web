@@ -15,4 +15,5 @@ export const HTTP_REQUEST_HEADER_NAME = {
 
 export const HTTP_REQUEST_HEADER_VALUE = {
     APPLICATION_JSON: 'application/json',
+    MULTIPART_FORM_DATA: 'multipart/form-data',
 };

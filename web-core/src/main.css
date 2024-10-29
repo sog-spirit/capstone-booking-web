@@ -999,6 +999,14 @@ small {
   padding: 0.5rem;
   font-size: 1rem;
 }
+.product-page__add-new-modal__form__content__photo__label {
+  margin-bottom: 0.25rem;
+}
+.product-page__add-new-modal__form__content__photo__preview img {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+}
 .product-page__add-new-modal__form__content__name__label {
   margin-bottom: 0.25rem;
 }
@@ -1067,6 +1075,14 @@ small {
   border: 1px solid #ced0d4;
   padding: 0.5rem;
   font-size: 1rem;
+}
+.product-page__edit-modal__form__content__photo__label {
+  margin-bottom: 0.25rem;
+}
+.product-page__edit-modal__form__content__photo__preview img {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
 }
 .product-page__edit-modal__form__content__name__label {
   margin-bottom: 0.25rem;
