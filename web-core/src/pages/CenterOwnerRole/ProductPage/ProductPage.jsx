@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Header from "../../../components/Header";
 import { handleInputChange } from "../../../utils/input/InputUtils";
 import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
@@ -20,9 +20,11 @@ export default function ProductCenterOwnerPage() {
     const [addNewInputState, setAddNewInputState] = useState({
         name: '',
         price: '',
+        photo: '',
     });
     const [addNewImage, setAddNewImage] = useState(null);
     const [addNewImagePreviewUrl, setAddNewImagePreviewUrl] = useState(null);
+    const addNewImageRef = useRef();
 
     const [productList, setProductList] = useState([]);
 
@@ -35,11 +37,15 @@ export default function ProductCenterOwnerPage() {
     const [editInputState, setEditInputState] = useState({
         name: '',
         price: '',
+        photo: '',
     });
+    const [editImage, setEditImage] = useState(null);
+    const [editImagePreviewUrl, setEditImagePreviewUrl] = useState(null);
+    const editImageRef = useRef();
 
     useEffect(() => {
         loadProductList();
-    }, [tokenState.accessToken, addNewModalState]);
+    }, [tokenState.accessToken, addNewModalState, editModalState]);
 
     async function submitAddNewProduct() {
         await refreshAccessToken(setTokenState);
@@ -59,19 +65,26 @@ export default function ProductCenterOwnerPage() {
         });
 
         if (response.status === HTTP_STATUS.OK) {
-            setAddNewModalState(false);
             defaultSuccessToastNotification(MESSAGE_CONSTS.ADD_SUCCESS);
-            setAddNewFormData(prevState => ({
-                ...prevState,
-                name: '',
-                price: '',
-            }));
-            setAddNewInputState(prevState => ({
-                ...prevState,
-                name: '',
-                price: '',
-            }));
+            closeAddNewModal();
         }
+    }
+
+    function closeAddNewModal() {
+        setAddNewModalState(false);
+        setAddNewFormData(prevState => ({
+            ...prevState,
+            name: '',
+            price: '',
+        }));
+        setAddNewInputState(prevState => ({
+            ...prevState,
+            name: '',
+            price: '',
+        }));
+        setAddNewImage(null);
+        setAddNewImagePreviewUrl(null);
+        addNewImageRef.current.value = null;
     }
 
     async function loadProductList() {
@@ -101,55 +114,70 @@ export default function ProductCenterOwnerPage() {
             price: product.price,
         }));
         setEditModalState(true);
+        setAddNewImage(null);
+        setAddNewImagePreviewUrl(null);
     }
 
     function closeEditModal() {
+        setEditModalState(false);
         setEditFormData(prevState => ({
             ...prevState,
             id: 0,
             name: '',
             price: 0,
         }));
-        setEditModalState(false);
+        setEditInputState(prevState => ({
+            ...prevState,
+            name: '',
+            price: '',
+        }));
+        setEditImage(null);
+        setEditImagePreviewUrl(null);
+        editImageRef.current.value = null;
     }
 
     async function submitEditData() {
         await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+
+        const formData = new FormData();
+        formData.append('id', editFormData.id);
+        formData.append('name', editFormData.name);
+        formData.append('price', editFormData.price);
+        formData.append('photo', editImage);
 
         const response = await fetch(BASE_API_URL + PRODUCT_URL.BASE, {
             method: HTTP_REQUEST_METHOD.PUT,
             headers: headers,
-            body: JSON.stringify(editFormData),
+            body: formData,
         });
 
         if (response.status === HTTP_STATUS.OK) {
-            setEditModalState(false);
+            closeEditModal();
             defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
-            setEditFormData(prevState => ({
-                ...prevState,
-                id: 0,
-                name: '',
-                price: 0,
-            }));
-            setEditInputState(prevState => ({
-                ...prevState,
-                name: '',
-                price: '',
-            }));
-            loadProductList();
         }
     }
 
-    function handleImageChange(event) {
+    function handleAddNewImageChange(event) {
         const photoFile = event.target.files[0];
         if (photoFile) {
             setAddNewImage(photoFile);
             setAddNewImagePreviewUrl(URL.createObjectURL(photoFile));
         }
+    }
+
+    function handleEditImageChange(event) {
+        const photoFile = event.target.files[0];
+        if (photoFile) {
+            setEditImage(photoFile);
+            setEditImagePreviewUrl(URL.createObjectURL(photoFile));
+        }
+    }
+
+    function clearEditImageInput() {
+        editImageRef.current.value = null;
     }
 
     return (
@@ -211,14 +239,14 @@ export default function ProductCenterOwnerPage() {
                         <div className="product-page__add-new-modal__form__header__title">
                             <h5>Add new product</h5>
                         </div>
-                        <div className="product-page__add-new-modal__form__header__close-button" onClick={() => setAddNewModalState(false)}>
+                        <div className="product-page__add-new-modal__form__header__close-button" onClick={() => closeAddNewModal()}>
                             Close
                         </div>
                     </div>
                     <div className="product-page__add-new-modal__form__content">
                         <div className="product-page__add-new-modal__form__content__photo">
                             <div className="product-page__add-new-modal__form__content__photo__label">Photo</div>
-                            <input type="file" accept="image/*" onChange={event => handleImageChange(event)} className={`product-page__add-new-modal__form__content__photo__input ${addNewInputState.photo ? 'input-error' : ''}`} />
+                            <input type="file" ref={addNewImageRef} accept="image/*" onChange={event => handleAddNewImageChange(event)} className={`product-page__add-new-modal__form__content__photo__input ${addNewInputState.photo ? 'input-error' : ''}`} />
                             <div className="product-page__add-new-modal__form__content__photo__preview">
                                 {addNewImagePreviewUrl && <img src={addNewImagePreviewUrl} alt="Add new photo preview" />}
                             </div>
@@ -253,6 +281,14 @@ export default function ProductCenterOwnerPage() {
                         </div>
                     </div>
                     <div className="product-page__edit-modal__form__content">
+                        <div className="product-page__edit-modal__form__content__photo">
+                            <div className="product-page__edit-modal__form__content__photo__label">Photo</div>
+                            <input type="file" ref={editImageRef} accept="image/*" onChange={event => handleEditImageChange(event)} className={`product-page__edit-modal__form__content__photo__input ${editInputState.photo ? 'input-error' : ''}`} />
+                            <div className="product-page__edit-modal__form__content__photo__preview">
+                                {editImagePreviewUrl ? <img src={editImagePreviewUrl} alt="Edit photo preview" /> : <img src={BASE_API_URL + IMAGE_URL.BASE + IMAGE_URL.PRODUCT + `?productId=${editFormData.id}`} alt="Edit photo preview" />}
+                            </div>
+                            <div className="product-page__edit-modal__form__content__photo__error-message input-error-message">{editInputState.photo ? editInputState.photo : ''}</div>
+                        </div>
                         <div className="product-page__edit-modal__form__content__name">
                             <div className="product-page__edit-modal__form__content__name__label">Name</div>
                             <input type="text" placeholder="Name" name="name" value={editFormData.name} onChange={event => handleInputChange(event, setEditFormData)} className={`product-page__edit-modal__form__content__name__input ${editInputState.name ? 'input-error' : ''}`} />
