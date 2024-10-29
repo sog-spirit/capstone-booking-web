@@ -12,6 +12,7 @@ import ProductInventoryCenterOwnerPage from './pages/CenterOwnerRole/ProductInve
 import CourtCenterOwnerPage from './pages/CenterOwnerRole/Court/CourtPage';
 import CenterCenterOnwerPage from './pages/CenterOwnerRole/Center/CenterPage';
 import ProductCenterOwnerPage from './pages/CenterOwnerRole/ProductPage/ProductPage';
+import EmployeeManagementPage from './pages/CenterOwnerRole/EmployeeManagement/EmployeeManagementPage';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -86,6 +87,7 @@ export default function App() {
                 <Route path={PAGE_URL.CENTER_OWNER_CENTER_PAGE + '/:centerId' + PAGE_URL.CENTER_OWNER_COURT_PAGE} element={<CourtCenterOwnerPage />} />
                 <Route path={PAGE_URL.CENTER_OWNER_PRODCUT_PAGE} element={<ProductCenterOwnerPage />} />
                 <Route path={PAGE_URL.CENTER_OWNER_PRODUCT_INVENTORY_PAGE} element={<ProductInventoryCenterOwnerPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER_EMPLOYEE_MANAGEMENT_PAGE} element={<EmployeeManagementPage />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>
