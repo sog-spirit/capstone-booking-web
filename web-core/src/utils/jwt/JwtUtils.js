@@ -1,4 +1,4 @@
-import { BASE_API_URL, JWT_URL } from "../consts/APIConsts";
+import { API_URL } from "../consts/APIConsts";
 import { ACCESS_TOKEN, HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD, REFRESH_TOKEN } from "../consts/HttpRequestConsts";
 import { HTTP_STATUS } from "../consts/HttpStatusCode";
 
@@ -14,7 +14,7 @@ export async function refreshAccessToken(setTokenState) {
     const refreshVerfifyRequestHeaders = new Headers();
     refreshVerfifyRequestHeaders.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-    const refreshVerfifyResponse = await fetch(BASE_API_URL + JWT_URL.BASE + JWT_URL.VERIFY, {
+    const refreshVerfifyResponse = await fetch(API_URL.BASE + API_URL.JWT.BASE + API_URL.JWT.VERIFY, {
         method: HTTP_REQUEST_METHOD.POST,
         headers: refreshVerfifyRequestHeaders,
         body: JSON.stringify(refreshVerifyRequestBody),
@@ -35,7 +35,7 @@ async function getNewAccessToken(setTokenState) {
     const newAccessTokenRequestHeaders = new Headers();
     newAccessTokenRequestHeaders.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-    const newAccessTokenResponse = await fetch(BASE_API_URL + JWT_URL.BASE + JWT_URL.REFRESH, {
+    const newAccessTokenResponse = await fetch(API_URL.BASE + API_URL.JWT.BASE + API_URL.JWT.REFRESH, {
         method: HTTP_REQUEST_METHOD.POST,
         headers: newAccessTokenRequestHeaders,
         body: JSON.stringify(newAccessTokenRequetsBody),

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { BASE_API_URL, USER_URL } from "../../utils/consts/APIConsts";
+import { API_URL } from "../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../utils/consts/HttpStatusCode";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "../../utils/consts/PageURLConsts";
@@ -27,7 +27,7 @@ export default function LoginPage() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(BASE_API_URL + USER_URL.BASE + USER_URL.LOGIN, {
+        const response = await fetch(API_URL.BASE + API_URL.USER.BASE + API_URL.USER.LOGIN, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(formData),

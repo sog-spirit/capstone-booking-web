@@ -4,7 +4,7 @@ import { handleInputChange } from "../../../utils/input/InputUtils";
 import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
 import { TokenContext } from "../../../App";
 import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
-import { BASE_API_URL, COURT_URL } from "../../../utils/consts/APIConsts";
+import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
@@ -46,7 +46,7 @@ export default function CourtCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + COURT_URL.BASE, {
+        const response = await fetch(API_URL.BASE + API_URL.COURT.BASE, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(addNewFormData),
@@ -74,7 +74,7 @@ export default function CourtCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + COURT_URL.BASE + `?centerId=${centerId}`, {
+        const response = await fetch(API_URL.BASE + API_URL.COURT.BASE + `?centerId=${centerId}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -102,7 +102,7 @@ export default function CourtCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + COURT_URL.BASE, {
+        const response = await fetch(API_URL.BASE + API_URL.COURT.BASE, {
             method: HTTP_REQUEST_METHOD.PUT,
             headers: headers,
             body: JSON.stringify(editFormData), 
