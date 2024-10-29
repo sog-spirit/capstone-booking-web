@@ -142,7 +142,7 @@ export default function CenterCenterOnwerPage() {
     }
 
     function navigateDetailPage(centerId) {
-        navigate(PAGE_URL.CENTER_OWNER_CENTER_PAGE + `/${centerId}` + PAGE_URL.CENTER_OWNER_COURT_PAGE);
+        navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_PAGE + `/${centerId}` + PAGE_URL.CENTER_OWNER.COURT_PAGE);
     }
 
     return (

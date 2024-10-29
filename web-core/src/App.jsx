@@ -83,11 +83,11 @@ export default function App() {
                 <Route path={PAGE_URL.HOME} element={<HomePage />} />
                 <Route path={PAGE_URL.REGISTER} element={<RegisterPage />} />
                 <Route path={PAGE_URL.LOGIN} element={<LoginPage />} />
-                <Route path={PAGE_URL.CENTER_OWNER_CENTER_PAGE} element={<CenterCenterOnwerPage />} />
-                <Route path={PAGE_URL.CENTER_OWNER_CENTER_PAGE + '/:centerId' + PAGE_URL.CENTER_OWNER_COURT_PAGE} element={<CourtCenterOwnerPage />} />
-                <Route path={PAGE_URL.CENTER_OWNER_PRODCUT_PAGE} element={<ProductCenterOwnerPage />} />
-                <Route path={PAGE_URL.CENTER_OWNER_PRODUCT_INVENTORY_PAGE} element={<ProductInventoryCenterOwnerPage />} />
-                <Route path={PAGE_URL.CENTER_OWNER_EMPLOYEE_MANAGEMENT_PAGE} element={<EmployeeManagementPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_PAGE} element={<CenterCenterOnwerPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_PAGE + '/:centerId' + PAGE_URL.CENTER_OWNER.COURT_PAGE} element={<CourtCenterOwnerPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.PRODUCT_PAGE} element={<ProductCenterOwnerPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.PRODUCT_INVENTORY_PAGE} element={<ProductInventoryCenterOwnerPage />} />
+                <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.EMPLOYEE_MANAGEMENT_PAGE} element={<EmployeeManagementPage />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>
