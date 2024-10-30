@@ -4,7 +4,7 @@ import { handleInputChange } from "../../../utils/input/InputUtils";
 import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
 import { TokenContext } from "../../../App";
 import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
-import { BASE_API_URL, IMAGE_URL, PRODUCT_URL } from "../../../utils/consts/APIConsts";
+import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
@@ -58,7 +58,7 @@ export default function ProductCenterOwnerPage() {
         formData.append('price', addNewFormData.price);
         formData.append('photo', addNewImage);
 
-        const response = await fetch(BASE_API_URL + PRODUCT_URL.BASE, {
+        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: formData,
@@ -94,7 +94,7 @@ export default function ProductCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + PRODUCT_URL.BASE + PRODUCT_URL.LIST, {
+        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.LIST, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -148,7 +148,7 @@ export default function ProductCenterOwnerPage() {
         formData.append('price', editFormData.price);
         formData.append('photo', editImage);
 
-        const response = await fetch(BASE_API_URL + PRODUCT_URL.BASE, {
+        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE, {
             method: HTTP_REQUEST_METHOD.PUT,
             headers: headers,
             body: formData,
@@ -212,7 +212,7 @@ export default function ProductCenterOwnerPage() {
                         <div className="product-page__container__product-list__list__item" key={item.id}>
                             <div className="product-page__container__product-list__list__item__info">
                                 <div className="product-page__container__product-list__list__item__info__img">
-                                    <img src={BASE_API_URL + IMAGE_URL.BASE + IMAGE_URL.PRODUCT + `?productId=${item.id}`} />
+                                    <img src={API_URL.BASE + API_URL.IMAGE.BASE + API_URL.IMAGE.PRODUCT + `?productId=${item.id}`} />
                                 </div>
                             </div>
                             <div className="product-page__container__product-list__list__item__detail">
@@ -285,7 +285,7 @@ export default function ProductCenterOwnerPage() {
                             <div className="product-page__edit-modal__form__content__photo__label">Photo</div>
                             <input type="file" ref={editImageRef} accept="image/*" onChange={event => handleEditImageChange(event)} className={`product-page__edit-modal__form__content__photo__input ${editInputState.photo ? 'input-error' : ''}`} />
                             <div className="product-page__edit-modal__form__content__photo__preview">
-                                {editImagePreviewUrl ? <img src={editImagePreviewUrl} alt="Edit photo preview" /> : <img src={BASE_API_URL + IMAGE_URL.BASE + IMAGE_URL.PRODUCT + `?productId=${editFormData.id}`} alt="Edit photo preview" />}
+                                {editImagePreviewUrl ? <img src={editImagePreviewUrl} alt="Edit photo preview" /> : <img src={API_URL.BASE + API_URL.IMAGE.BASE + API_URL.IMAGE.PRODUCT + `?productId=${editFormData.id}`} alt="Edit photo preview" />}
                             </div>
                             <div className="product-page__edit-modal__form__content__photo__error-message input-error-message">{editInputState.photo ? editInputState.photo : ''}</div>
                         </div>

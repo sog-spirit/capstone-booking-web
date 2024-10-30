@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import Header from "../../../components/Header";
-import { BASE_API_URL, CENTER_URL } from "../../../utils/consts/APIConsts";
-import { ACCESS_TOKEN, HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
+import { API_URL } from "../../../utils/consts/APIConsts";
+import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
@@ -59,7 +59,7 @@ export default function CenterCenterOnwerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + CENTER_URL.BASE, {
+        const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(addNewFormData),
@@ -87,7 +87,7 @@ export default function CenterCenterOnwerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + CENTER_URL.BASE + CENTER_URL.LIST + `?pageNo=${currentPageNumberState - 1}&pageSize=${DEFAULT_PAGE_SIZE}`, {
+        const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.LIST + `?pageNo=${currentPageNumberState - 1}&pageSize=${DEFAULT_PAGE_SIZE}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -117,7 +117,7 @@ export default function CenterCenterOnwerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + CENTER_URL.BASE, {
+        const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE, {
             method: HTTP_REQUEST_METHOD.PUT,
             headers: headers,
             body: JSON.stringify(editFormData),
@@ -142,7 +142,7 @@ export default function CenterCenterOnwerPage() {
     }
 
     function navigateDetailPage(centerId) {
-        navigate(PAGE_URL.CENTER_OWNER_CENTER_PAGE + `/${centerId}` + PAGE_URL.CENTER_OWNER_COURT_PAGE);
+        navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_PAGE + `/${centerId}` + PAGE_URL.CENTER_OWNER.COURT_PAGE);
     }
 
     return (

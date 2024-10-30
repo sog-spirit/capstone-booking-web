@@ -3,7 +3,7 @@ import Header from "../../../components/Header";
 import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
 import { TokenContext } from "../../../App";
 import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
-import { BASE_API_URL, CENTER_URL, PRODUCT_INVENTORY_URL, PRODUCT_URL } from "../../../utils/consts/APIConsts";
+import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
@@ -85,7 +85,7 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + PRODUCT_URL.BASE + PRODUCT_URL.LIST + `?query=${productDropdownSearchInput}`, {
+        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.LIST + `?query=${productDropdownSearchInput}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -113,7 +113,7 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + CENTER_URL.BASE + CENTER_URL.LIST + `?query=${centerDropdownSearchInput}`, {
+        const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.LIST + `?query=${centerDropdownSearchInput}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -141,7 +141,7 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + PRODUCT_INVENTORY_URL.BASE, {
+        const response = await fetch(API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(addNewFormData),
@@ -174,7 +174,7 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
 
-        const response = await fetch(BASE_API_URL + PRODUCT_INVENTORY_URL.BASE + PRODUCT_INVENTORY_URL.LIST, {
+        const response = await fetch(API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.LIST, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });

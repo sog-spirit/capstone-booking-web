@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BASE_API_URL, ROLE_URL, USER_URL } from "../../utils/consts/APIConsts";
+import { API_URL } from "../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../utils/consts/HttpStatusCode";
 import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "../../utils/consts/PageURLConsts";
@@ -42,7 +42,7 @@ export default function RegisterPage() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(BASE_API_URL + USER_URL.BASE + USER_URL.REGISTER, {
+        const response = await fetch(API_URL.BASE + API_URL.USER.BASE + API_URL.USER.REGISTER, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(formData),
@@ -73,7 +73,7 @@ export default function RegisterPage() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(BASE_API_URL + ROLE_URL.BASE + ROLE_URL.REGISTER_ROLE_LIST, {
+        const response = await fetch(API_URL.BASE + API_URL.ROLE.BASE + API_URL.ROLE.REGISTER_ROLE_LIST, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });

@@ -1313,4 +1313,212 @@ small {
   background: #97c860;
 }
 
+.employee-management-page {
+  padding-top: 40px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.employee-management-page__container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.employee-management-page__container__header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.employee-management-page__container__header__button-group {
+  display: flex;
+}
+.employee-management-page__container__header__button-group__refresh-button {
+  background: #8dbe56;
+  border-radius: 6px;
+  height: fit-content;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+.employee-management-page__container__header__button-group__refresh-button:hover {
+  cursor: pointer;
+  background: #97c860;
+}
+.employee-management-page__container__header__button-group__add-new-button {
+  background: #8dbe56;
+  border-radius: 6px;
+  height: fit-content;
+  padding: 0.5rem;
+}
+.employee-management-page__container__header__button-group__add-new-button:hover {
+  cursor: pointer;
+  background: #97c860;
+}
+.employee-management-page__container__list__title {
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__header {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+  border-top: 1px solid #ced0d4;
+  font-weight: 700;
+}
+.employee-management-page__container__list__view__header__username {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__header__first-name {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__header__last-name {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__header__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__header__phone {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__header__email {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__content__item {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+}
+.employee-management-page__container__list__view__content__item__username {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__content__item__first-name {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__content__item__last-name {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__content__item__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__content__item__phone {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__container__list__view__content__item__email {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.employee-management-page__add-new-modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.5);
+}
+.employee-management-page__add-new-modal__form {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 80%;
+  background: #fafbf8;
+  border-radius: 6px;
+}
+.employee-management-page__add-new-modal__form__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.employee-management-page__add-new-modal__form__header__close-button {
+  background: #e6e6e6;
+  border-radius: 6px;
+  height: fit-content;
+  padding: 0.5rem;
+}
+.employee-management-page__add-new-modal__form__header__close-button:hover {
+  cursor: pointer;
+  background: gainsboro;
+}
+.employee-management-page__add-new-modal__form__content {
+  padding: 0.5rem;
+}
+.employee-management-page__add-new-modal__form__content input {
+  width: 100%;
+  line-height: 1.5;
+  border-radius: 4px;
+  border: 1px solid #ced0d4;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.employee-management-page__add-new-modal__form__content__name {
+  display: flex;
+  justify-content: space-between;
+}
+.employee-management-page__add-new-modal__form__content__name__first-name {
+  margin-right: 0.5rem;
+  width: 100%;
+}
+.employee-management-page__add-new-modal__form__content__name__first-name__label {
+  margin-bottom: 0.25rem;
+}
+.employee-management-page__add-new-modal__form__content__name__last-name {
+  width: 100%;
+}
+.employee-management-page__add-new-modal__form__content__name__last-name__label {
+  margin-bottom: 0.25rem;
+}
+.employee-management-page__add-new-modal__form__content__username__label {
+  margin-bottom: 0.25rem;
+}
+.employee-management-page__add-new-modal__form__content__email__label {
+  margin-bottom: 0.25rem;
+}
+.employee-management-page__add-new-modal__form__content__phone__label {
+  margin-bottom: 0.25rem;
+}
+.employee-management-page__add-new-modal__form__content__password__label {
+  margin-bottom: 0.25rem;
+}
+.employee-management-page__add-new-modal__form__footer {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: end;
+}
+.employee-management-page__add-new-modal__form__footer__add-button {
+  background: #8dbe56;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+.employee-management-page__add-new-modal__form__footer__add-button:hover {
+  cursor: pointer;
+  background: #97c860;
+}
+
 /*# sourceMappingURL=main.css.map */
