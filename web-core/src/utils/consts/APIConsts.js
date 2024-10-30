@@ -38,7 +38,8 @@ export const API_URL = {
         BASE: '/image',
         PRODUCT: '/product',
     },
-    EMPLOYEE_LIST: {
-        BASE: '/employee-list',
+    EMPLOYEE_MANAGEMENT: {
+        BASE: '/employee-management',
+        LIST: '/list',
     },
 };

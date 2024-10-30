@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../../../components/Header";
 import { TokenContext } from "../../../App";
 import { handleInputChange } from "../../../utils/input/InputUtils";
@@ -30,6 +30,12 @@ export default function EmployeeManagementPage() {
         password: '',
     });
 
+    const [employeeList, setEmployeeList] = useState([]);
+
+    useEffect(() => {
+        loadEmployeeList();
+    }, [tokenState.accessToken, addNewModalState]);
+
     async function submitAddNewEmployee() {
         await refreshAccessToken(setTokenState);
 
@@ -44,7 +50,7 @@ export default function EmployeeManagementPage() {
         formData.append('email', addNewFormData.email);
         formData.append('password', addNewFormData.password);
 
-        const response = await fetch(API_URL.BASE + API_URL.EMPLOYEE_LIST.BASE, {
+        const response = await fetch(API_URL.BASE + API_URL.EMPLOYEE_MANAGEMENT.BASE, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: formData,
@@ -78,6 +84,23 @@ export default function EmployeeManagementPage() {
         }));
     }
 
+    async function loadEmployeeList() {
+        await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+
+        const response = await fetch(API_URL.BASE + API_URL.EMPLOYEE_MANAGEMENT.BASE + API_URL.EMPLOYEE_MANAGEMENT.LIST, {
+            method: HTTP_REQUEST_METHOD.GET,
+            headers: headers,
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            let data = await response.json();
+            setEmployeeList(data);
+        }
+    }
+
     return (
         <>
         <Header />
@@ -88,7 +111,7 @@ export default function EmployeeManagementPage() {
                         Search
                     </div>
                     <div className="employee-management-page__container__header__button-group">
-                        <div className="employee-management-page__container__header__button-group__refresh-button">
+                        <div className="employee-management-page__container__header__button-group__refresh-button" onClick={() => loadEmployeeList()}>
                             Refresh
                         </div>
                         <div className="employee-management-page__container__header__button-group__add-new-button" onClick={() => setAddNewModalState(true)}>
@@ -119,17 +142,25 @@ export default function EmployeeManagementPage() {
                             </div>
                         </div>
                         <div className="employee-management-page__container__list__view__content">
-                            <div className="employee-management-page__container__list__view__content__item">
-                                <div className="employee-management-page__container__list__view__content__item__username">
-                                    Username
+                            {employeeList.map(item => (
+                                <div className="employee-management-page__container__list__view__content__item" key={item.id}>
+                                    <div className="employee-management-page__container__list__view__content__item__username">
+                                        {item.employeeUsername}
+                                    </div>
+                                    <div className="employee-management-page__container__list__view__content__item__first-name">
+                                        {item.employeeFirstName}
+                                    </div>
+                                    <div className="employee-management-page__container__list__view__content__item__last-name">
+                                        {item.employeeLastName}
+                                    </div>
+                                    <div className="employee-management-page__container__list__view__content__item__phone">
+                                        {item.employeePhone}
+                                    </div>
+                                    <div className="employee-management-page__container__list__view__content__item__email">
+                                        {item.employeeEmail}
+                                    </div>
                                 </div>
-                                <div className="employee-management-page__container__list__view__content__item__first-name">
-                                    First name
-                                </div>
-                                <div className="employee-management-page__container__list__view__content__item__last-name">
-                                    Last name
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>
