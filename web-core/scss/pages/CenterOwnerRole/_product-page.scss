@@ -1,13 +1,13 @@
-@use '../components/header';
-@use '../components/margin';
-@use '../components/border';
-@use '../components/color-theme';
-@use '../components/button';
-@use '../components/padding';
-@use '../components/input';
-@use '../components/modal';
+@use '../../components/header';
+@use '../../components/margin';
+@use '../../components/border';
+@use '../../components/padding';
+@use '../../components/button';
+@use '../../components/color-theme';
+@use '../../components/modal';
+@use '../../components/input';
 
-.center-management-page {
+.product-page {
     padding-top: header.$header-height;
     min-height: 100vh;
     display: flex;
@@ -55,133 +55,68 @@
             }
         }
 
-        &__center-list {
+        &__product-list {
             &__title {
                 margin-bottom: margin.$label-input-margin;
             }
 
             &__list {
+                display: flex;
+                flex-flow: wrap;
+
                 &__item {
+                    width: 250px;
                     border: border.$small-border-line;
                     border-radius: border.$container-border-radius;
                     display: flex;
-                    justify-content: space-between;
-
-                    &:not(:first-child) {
-                        margin-top: margin.$input-item-margin;
-                    }
+                    flex-direction: column;
+                    align-items: center;
+                    margin-right: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
 
                     &__info {
-                        display: flex;
-
                         &__img {
-                            border-top-left-radius: border.$container-border-radius;
-                            border-bottom-left-radius: border.$container-border-radius;
-    
                             img {
                                 border-top-left-radius: border.$container-border-radius;
-                                border-bottom-left-radius: border.$container-border-radius;
-                                height: 150px;
-                                width: 150px;
+                                border-top-right-radius: border.$container-border-radius;
+                                height: 200px;
+                                width: 200px;
                                 object-fit: cover;
                             }
                         }
-    
-                        &__detail {
-                            margin-left: margin.$input-item-margin;
-    
-                            &__name {
-                                margin-top: margin.$label-input-margin;
-                                margin-bottom: margin.$label-input-margin;
-                            }
-    
-                            &__address {
-                                margin-bottom: margin.$label-input-margin;
-                            }
+                    }
+
+                    &__detail {
+                        text-align: center;
+
+                        padding: padding.$small-padding;
+
+                        &__name {
+
+                        }
+
+                        &__price {
+
                         }
                     }
 
                     &__button-group {
-                        padding: padding.$small-padding;
+                        width: 100%;
                         display: flex;
+                        justify-content: end;
+                        padding: padding.$small-padding;
 
                         &__edit-button {
-                            height: fit-content;
                             background: button.$light-background-color;
-                            padding: padding.$small-padding;
                             border-radius: button.$border-radius;
-                            margin-right: margin.$button-margin;
-
+                            height: fit-content;
+                            padding: padding.$small-padding;
+    
                             &:hover {
                                 cursor: pointer;
                                 background: button.$light-background-hover-color;
                             }
                         }
-
-                        &__detail-button {
-                            height: fit-content;
-                            background: button.$light-background-color;
-                            padding: padding.$small-padding;
-                            border-radius: button.$border-radius;
-
-                            &:hover {
-                                cursor: pointer;
-                                background: button.$light-background-hover-color;
-                            }
-                        }
-                    }
-                }
-            }
-
-            &__pagination {
-                display: flex;
-                margin-top: margin.$input-item-margin;
-
-                &__previous {
-                    background: button.$light-background-color;
-                    padding: padding.$small-padding;
-                    border-top-left-radius: button.$border-radius;
-                    border-bottom-left-radius: button.$border-radius;
-
-                    &:hover {
-                        cursor: pointer;
-                        background: button.$light-background-hover-color;
-                    }
-                }
-
-                &__numeric-indicator {
-                    display: flex;
-
-                    &__item {
-                        background: button.$light-background-color;
-                        padding: padding.$small-padding;
-
-                        &:hover {
-                            cursor: pointer;
-                            background: button.$light-background-hover-color;
-                        }
-
-                        &--active {
-                            background: button.$primary-background-color;
-                            padding: padding.$small-padding;
-
-                            &:hover {
-                                cursor: pointer;
-                                background: button.$primary-background-hover-color;
-                            }
-                        }
-                    }
-                }
-
-                &__next {
-                    background: button.$light-background-color;
-                    padding: padding.$small-padding;
-                    border-top-right-radius: button.$border-radius;
-                    border-bottom-right-radius: button.$border-radius;
-
-                    &:hover {
-                        cursor: pointer;
-                        background: button.$light-background-hover-color;
                     }
                 }
             }
@@ -235,13 +170,27 @@
                     @include input.input-style;
                 }
 
+                &__photo {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__preview {
+                        img {
+                            width: 100%;
+                            height: 100px;
+                            object-fit: contain;
+                        }
+                    }
+                }
+
                 &__name {
                     &__label {
                         margin-bottom: margin.$label-input-margin;
                     }
                 }
 
-                &__address {
+                &__price {
                     &__label {
                         margin-bottom: margin.$label-input-margin;
                     }
@@ -253,7 +202,7 @@
                 display: flex;
                 justify-content: end;
 
-                &__create-button {
+                &__add-button {
                     background: button.$primary-background-color;
                     border-radius: button.$border-radius;
                     height: fit-content;
@@ -315,13 +264,27 @@
                     @include input.input-style;
                 }
 
+                &__photo {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__preview {
+                        img {
+                            width: 100%;
+                            height: 100px;
+                            object-fit: contain;
+                        }
+                    }
+                }
+
                 &__name {
                     &__label {
                         margin-bottom: margin.$label-input-margin;
                     }
                 }
 
-                &__address {
+                &__price {
                     &__label {
                         margin-bottom: margin.$label-input-margin;
                     }

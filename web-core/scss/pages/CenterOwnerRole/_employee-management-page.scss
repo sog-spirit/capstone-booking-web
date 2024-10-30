@@ -1,12 +1,12 @@
-@use '../components/header';
-@use '../components/margin';
-@use '../components/border';
-@use '../components/padding';
-@use '../components/button';
-@use '../components/color-theme';
-@use '../components/modal';
-@use '../components/input';
-@use '../components/shadow';
+@use '../../components/header';
+@use '../../components/margin';
+@use '../../components/border';
+@use '../../components/padding';
+@use '../../components/button';
+@use '../../components/color-theme';
+@use '../../components/modal';
+@use '../../components/input';
+@use '../../components/shadow';
 
 .employee-management-page {
     padding-top: header.$header-height;
