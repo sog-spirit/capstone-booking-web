@@ -45,5 +45,6 @@ export const API_URL = {
     },
     COURT_BOOKING: {
         BASE: '/court-booking',
+        LIST: '/list',
     },
 };

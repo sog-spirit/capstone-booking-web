@@ -9,6 +9,7 @@ import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { handleInputChange } from "../../../utils/input/InputUtils";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
+import CourtBookingList from "./CourtBookingList";
 
 export default function UserCourtPage() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -174,9 +175,7 @@ export default function UserCourtPage() {
                                 </div>
                             </div>
                             <div className="user-court-page__container__court-list__list__item__booking-list">
-                                <div className="user-court-page__container__court-list__list__item__booking-list__item">
-                                    8:00-10:00
-                                </div>
+                                <CourtBookingList centerId={centerId} courtId={item.id} />
                             </div>
                         </div>
                         ))}
