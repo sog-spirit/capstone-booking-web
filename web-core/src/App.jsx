@@ -14,6 +14,7 @@ import CenterCenterOnwerPage from './pages/CenterOwnerRole/Center/CenterPage';
 import ProductCenterOwnerPage from './pages/CenterOwnerRole/ProductPage/ProductPage';
 import EmployeeManagementPage from './pages/CenterOwnerRole/EmployeeManagement/EmployeeManagementPage';
 import UserCenterPage from './pages/UserRole/Center/UserCenterPage';
+import UserCourtPage from './pages/UserRole/Court/UserCourtPage';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -91,6 +92,7 @@ export default function App() {
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.EMPLOYEE_MANAGEMENT_PAGE} element={<EmployeeManagementPage />} />
 
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE} element={<UserCenterPage />} />
+                <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE + '/:centerId' + PAGE_URL.USER.COURT_PAGE} element={<UserCourtPage />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>

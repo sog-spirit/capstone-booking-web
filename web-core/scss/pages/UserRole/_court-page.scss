@@ -1,0 +1,64 @@
+@use '../../components/header';
+@use '../../components/margin';
+@use '../../components/border';
+@use '../../components/padding';
+@use '../../components/button';
+@use '../../components/color-theme';
+@use '../../components/input';
+
+.user-court-page {
+    padding-top: header.$header-height;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            margin-top: margin.$title-margin;
+            margin-bottom: margin.$title-margin;
+        }
+
+        &__court-list {
+            &__title {
+
+            }
+
+            &__list {
+                &__item {
+                    border: border.$small-border-line;
+                    border-radius: border.$container-border-radius;
+
+                    &:not(:first-child) {
+                        margin-top: margin.$input-item-margin;
+                    }
+
+                    &__header {
+                        display:  flex;
+                        justify-content: space-between;
+                        padding-top: padding.$small-padding;
+                        padding-left: padding.$small-padding;
+                        padding-right: padding.$small-padding;
+                    }
+
+                    &__booking-list {
+                        padding: padding.$small-padding;
+
+                        &__item {
+                            width: fit-content;
+                            background: color-theme.$light-theme-background-secondary-color;
+                            padding: padding.$small-padding;
+                            border-radius: border.$input-border-radius;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

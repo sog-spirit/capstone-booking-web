@@ -14,5 +14,6 @@ export const PAGE_URL = {
     USER: {
         BASE: '/user',
         CENTER_PAGE: '/center',
+        COURT_PAGE: '/court',
     },
 };
