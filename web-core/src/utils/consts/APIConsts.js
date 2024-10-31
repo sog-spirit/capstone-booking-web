@@ -25,6 +25,7 @@ export const API_URL = {
     },
     COURT: {
         BASE: '/court',
+        LIST: '/list',
     },
     PRODUCT: {
         BASE: '/product',
@@ -41,5 +42,8 @@ export const API_URL = {
     EMPLOYEE_MANAGEMENT: {
         BASE: '/employee-management',
         LIST: '/list',
+    },
+    COURT_BOOKING: {
+        BASE: '/court-booking',
     },
 };

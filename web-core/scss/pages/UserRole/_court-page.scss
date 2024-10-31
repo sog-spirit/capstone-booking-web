@@ -5,6 +5,8 @@
 @use '../../components/button';
 @use '../../components/color-theme';
 @use '../../components/input';
+@use '../../components/modal';
+@use '../../components/shadow';
 
 .user-court-page {
     padding-top: header.$header-height;
@@ -23,12 +25,23 @@
             justify-content: space-between;
             margin-top: margin.$title-margin;
             margin-bottom: margin.$title-margin;
+
+            &__button-group {
+                &__booking-button {
+                    background: button.$light-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+            }
         }
 
         &__court-list {
-            &__title {
-
-            }
 
             &__list {
                 &__item {
@@ -56,6 +69,110 @@
                             padding: padding.$small-padding;
                             border-radius: border.$input-border-radius;
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    &__new-booking-modal {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        background: modal.$background-color;
+
+        &__form {
+            top: 50%;
+            left: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 80%;
+            background: color-theme.$light-theme-background-color;
+            border-radius: border.$container-border-radius;
+
+            &__header {
+                display: flex;
+                justify-content: space-between;
+                padding: padding.$small-padding;
+                border-top-left-radius: border.$container-border-radius;
+                border-top-right-radius: border.$container-border-radius;
+
+                &__close-button {
+                    background: button.$light-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+            }
+
+            &__content {
+                padding: padding.$small-padding;
+
+                input {
+                    @include input.input-style;
+                }
+
+                &__court {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__select {
+                        &__select-button {
+                            padding: padding.$small-padding;
+                            border: border.$small-border-line;
+                            border-radius: input.$border-radius;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__select-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__footer {
+                padding: padding.$small-padding;
+                display: flex;
+                justify-content: end;
+
+                &__add-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
                     }
                 }
             }
