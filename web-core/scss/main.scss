@@ -10,9 +10,13 @@
 
 @use './pages/register-page';
 @use './pages/login-page';
-@use './pages/center-management';
 @use './pages/error-page';
-@use './pages/center-detail';
-@use './pages/product-page';
-@use './pages/product-inventory-page';
-@use './pages/employee-management-page';
+
+@use './pages/CenterOwnerRole/center-detail';
+@use './pages/CenterOwnerRole/center-management';
+@use './pages/CenterOwnerRole/product-page';
+@use './pages/CenterOwnerRole/product-inventory-page';
+@use './pages/CenterOwnerRole/employee-management-page';
+
+@use './pages/UserRole/center-page';
+@use './pages/UserRole/court-page';

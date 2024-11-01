@@ -1,0 +1,147 @@
+@use '../../components/header';
+@use '../../components/margin';
+@use '../../components/border';
+@use '../../components/color-theme';
+@use '../../components/button';
+@use '../../components/padding';
+@use '../../components/input';
+
+.user-center-page {
+    padding-top: header.$header-height;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            margin-top: margin.$title-margin;
+            margin-bottom: margin.$title-margin;
+        }
+
+        &__center-list {
+            &__title {
+                margin-bottom: margin.$label-input-margin;
+            }
+
+            &__list {
+                &__item {
+                    border: border.$small-border-line;
+                    border-radius: border.$container-border-radius;
+                    display: flex;
+                    justify-content: space-between;
+
+                    &:not(:first-child) {
+                        margin-top: margin.$input-item-margin;
+                    }
+
+                    &__info {
+                        display: flex;
+
+                        &__img {
+                            border-top-left-radius: border.$container-border-radius;
+                            border-bottom-left-radius: border.$container-border-radius;
+    
+                            img {
+                                border-top-left-radius: border.$container-border-radius;
+                                border-bottom-left-radius: border.$container-border-radius;
+                                height: 150px;
+                                width: 150px;
+                                object-fit: cover;
+                            }
+                        }
+    
+                        &__detail {
+                            margin-left: margin.$input-item-margin;
+    
+                            &__name {
+                                margin-top: margin.$label-input-margin;
+                                margin-bottom: margin.$label-input-margin;
+                            }
+    
+                            &__address {
+                                margin-bottom: margin.$label-input-margin;
+                            }
+                        }
+                    }
+
+                    &__button-group {
+                        padding: padding.$small-padding;
+                        display: flex;
+
+                        &__detail-button {
+                            height: fit-content;
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__pagination {
+                display: flex;
+                margin-top: margin.$input-item-margin;
+
+                &__previous {
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+                    border-top-left-radius: button.$border-radius;
+                    border-bottom-left-radius: button.$border-radius;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+
+                &__numeric-indicator {
+                    display: flex;
+
+                    &__item {
+                        background: button.$light-background-color;
+                        padding: padding.$small-padding;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$light-background-hover-color;
+                        }
+
+                        &--active {
+                            background: button.$primary-background-color;
+                            padding: padding.$small-padding;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+                    }
+                }
+
+                &__next {
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+                    border-top-right-radius: button.$border-radius;
+                    border-bottom-right-radius: button.$border-radius;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+            }
+        }
+    }
+}

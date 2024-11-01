@@ -10,4 +10,10 @@ export const PAGE_URL = {
         PRODUCT_INVENTORY_PAGE: '/product-inventory',
         EMPLOYEE_MANAGEMENT_PAGE: '/employee-management',
     },
+
+    USER: {
+        BASE: '/user',
+        CENTER_PAGE: '/center',
+        COURT_PAGE: '/court',
+    },
 };
