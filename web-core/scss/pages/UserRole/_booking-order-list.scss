@@ -1,0 +1,43 @@
+@use '../../components/header';
+@use '../../components/margin';
+@use '../../components/border';
+@use '../../components/color-theme';
+@use '../../components/button';
+@use '../../components/padding';
+@use '../../components/input';
+
+.user-booking-order-list {
+    padding-top: header.$header-height;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            margin-top: margin.$title-margin;
+            margin-bottom: margin.$title-margin;
+        }
+
+        &__booking-order-list {
+            &__title {
+                margin-bottom: margin.$label-input-margin;
+            }
+
+            &__list {
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+
+                &:not(:first-child) {
+                    margin-top: margin.$input-item-margin;
+                }
+            }
+        }
+    }
+}

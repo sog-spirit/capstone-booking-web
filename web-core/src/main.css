@@ -1796,4 +1796,33 @@ small {
   background: #97c860;
 }
 
+.user-booking-order-list {
+  padding-top: 40px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.user-booking-order-list__container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.user-booking-order-list__container__header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.user-booking-order-list__container__booking-order-list__title {
+  margin-bottom: 0.25rem;
+}
+.user-booking-order-list__container__booking-order-list__list {
+  border: 1px solid #ced0d4;
+  border-radius: 6px;
+}
+.user-booking-order-list__container__booking-order-list__list:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 /*# sourceMappingURL=main.css.map */

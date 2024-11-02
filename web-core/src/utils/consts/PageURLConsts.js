@@ -15,5 +15,6 @@ export const PAGE_URL = {
         BASE: '/user',
         CENTER_PAGE: '/center',
         COURT_PAGE: '/court',
+        BOOKING_ORDER_LIST: '/booking-order-list',
     },
 };
