@@ -1541,6 +1541,156 @@ small {
   background: #97c860;
 }
 
+.booking-order-management {
+  padding-top: 40px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.booking-order-management__container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.booking-order-management__container__header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.booking-order-management__container__header__button-group {
+  display: flex;
+}
+.booking-order-management__container__header__button-group__refresh-button {
+  background: #8dbe56;
+  border-radius: 6px;
+  height: fit-content;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+.booking-order-management__container__header__button-group__refresh-button:hover {
+  cursor: pointer;
+  background: #97c860;
+}
+.booking-order-management__container__list {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+.booking-order-management__container__list__header {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+  border-top: 1px solid #ced0d4;
+  font-weight: 700;
+  width: 2000px;
+}
+.booking-order-management__container__list__header__order-id {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__header__create-timestamp {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__header__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__header__court {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__header__user {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__header__usage-date {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__header__usage-date {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__header__usage-time-start {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__header__usage-time-end {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__header__status {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+  width: 2000px;
+}
+.booking-order-management__container__list__content__item__order-id {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item__create-timestamp {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item__court {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item__user {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item__usage-date {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item__usage-date {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item__usage-time-start {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item__usage-time-end {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.booking-order-management__container__list__content__item__status {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .user-center-page {
   padding-top: 40px;
   min-height: 100vh;

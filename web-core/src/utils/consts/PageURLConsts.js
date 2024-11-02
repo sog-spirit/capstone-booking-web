@@ -9,6 +9,7 @@ export const PAGE_URL = {
         PRODUCT_PAGE: '/product',
         PRODUCT_INVENTORY_PAGE: '/product-inventory',
         EMPLOYEE_MANAGEMENT_PAGE: '/employee-management',
+        BOOKING_ORDER_MANAGEMENT: '/booking-order-management',
     },
 
     USER: {
