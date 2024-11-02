@@ -46,5 +46,7 @@ export const API_URL = {
     COURT_BOOKING: {
         BASE: '/court-booking',
         LIST: '/list',
+        USER_ORDER: '/user-order',
+        CENTER_OWNER: '/center-owner',
     },
 };
