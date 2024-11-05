@@ -17,5 +17,6 @@ export const PAGE_URL = {
         CENTER_PAGE: '/center',
         COURT_PAGE: '/court',
         BOOKING_ORDER_LIST: '/booking-order-list',
+        CENTER_REVIEW: '/center-review',
     },
 };
