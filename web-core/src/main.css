@@ -1691,6 +1691,93 @@ small {
   margin-bottom: 0.5rem;
 }
 
+.center-review {
+  padding-top: 40px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.center-review__container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.center-review__container__header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.center-review__container__header__button-group {
+  display: flex;
+}
+.center-review__container__header__button-group__refresh-button {
+  background: #8dbe56;
+  border-radius: 6px;
+  height: fit-content;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+.center-review__container__header__button-group__refresh-button:hover {
+  cursor: pointer;
+  background: #97c860;
+}
+.center-review__container__review-list {
+  margin-top: 1rem;
+}
+.center-review__container__review-list__list__header {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+  border-top: 1px solid #ced0d4;
+  font-weight: 700;
+}
+.center-review__container__review-list__list__header__id {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.center-review__container__review-list__list__header__user {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.center-review__container__review-list__list__header__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.center-review__container__review-list__list__header__content {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.center-review__container__review-list__list__content__item {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+}
+.center-review__container__review-list__list__content__item__id {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.center-review__container__review-list__list__content__item__user {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.center-review__container__review-list__list__content__item__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.center-review__container__review-list__list__content__item__content {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .user-center-page {
   padding-top: 40px;
   min-height: 100vh;

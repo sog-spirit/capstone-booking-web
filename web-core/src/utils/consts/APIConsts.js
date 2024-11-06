@@ -54,5 +54,6 @@ export const API_URL = {
         BASE: '/center-review',
         LIST: '/list',
         USER: '/user',
+        CENTER_OWNER: '/center-owner',
     },
 };
