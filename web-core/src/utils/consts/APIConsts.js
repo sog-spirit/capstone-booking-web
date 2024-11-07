@@ -48,5 +48,12 @@ export const API_URL = {
         LIST: '/list',
         USER_ORDER: '/user-order',
         CENTER_OWNER: '/center-owner',
+        CENTER_LIST: '/center-list',
+    },
+    CENTER_REVIEW: {
+        BASE: '/center-review',
+        LIST: '/list',
+        USER: '/user',
+        CENTER_OWNER: '/center-owner',
     },
 };

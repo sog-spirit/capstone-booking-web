@@ -17,6 +17,8 @@ import UserCenterPage from './pages/UserRole/Center/UserCenterPage';
 import UserCourtPage from './pages/UserRole/Court/UserCourtPage';
 import UserBookingOrderList from './pages/UserRole/BookingOrder/BookingOrderList';
 import BookingOrderManagement from './pages/CenterOwnerRole/BookingOrderManagement/BookingOrderManagement';
+import UserCenterReview from './pages/UserRole/CenterReview/UserCenterReview';
+import CenterReview from './pages/CenterOwnerRole/CenterReview/CenterReview';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -93,10 +95,12 @@ export default function App() {
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.PRODUCT_INVENTORY_PAGE} element={<ProductInventoryCenterOwnerPage />} />
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.EMPLOYEE_MANAGEMENT_PAGE} element={<EmployeeManagementPage />} />
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.BOOKING_ORDER_MANAGEMENT} element={<BookingOrderManagement />} />
+                <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_REVIEW} element={<CenterReview />} />
 
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE} element={<UserCenterPage />} />
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE + '/:centerId' + PAGE_URL.USER.COURT_PAGE} element={<UserCourtPage />} />
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.BOOKING_ORDER_LIST} element={<UserBookingOrderList />} />
+                <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_REVIEW} element={<UserCenterReview />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>
