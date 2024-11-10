@@ -7,6 +7,7 @@
 @use '../../components/input';
 @use '../../components/modal';
 @use '../../components/shadow';
+@use '../../components/z-index';
 
 .user-court-page {
     padding-top: header.$header-height;
@@ -77,7 +78,7 @@
 
     &__new-booking-modal {
         position: fixed;
-        z-index: 1;
+        z-index: z-index.$modal-index;
         left: 0;
         top: 0;
         width: 100%;

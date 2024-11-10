@@ -75,6 +75,19 @@
                         padding: padding.$small-padding;
                         display: flex;
 
+                        &__order-button {
+                            height: fit-content;
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+                            margin-right: margin.$input-item-margin;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+
                         &__detail-button {
                             height: fit-content;
                             background: button.$light-background-color;

@@ -6,8 +6,12 @@ import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_METHOD } from "../../../utils/co
 import { API_URL } from "../../../utils/consts/APIConsts";
 import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../utils/pagination/PaginationUtils";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
+import { useNavigate } from "react-router-dom";
+import { PAGE_URL } from "../../../utils/consts/PageURLConsts";
 
 export default function UserCenterPage() {
+    const navigate = useNavigate();
+
     const {tokenState, setTokenState} = useContext(TokenContext);
 
     const [centerList, setCenterList] = useState([]);
@@ -39,6 +43,14 @@ export default function UserCenterPage() {
             setTotalPage(data.totalPage);
             setCenterList(data.centerList);
         }
+    }
+
+    function navigateToOrderPage(centerId) {
+        navigate(PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE + `/${centerId}` + PAGE_URL.USER.PRODUCT_ORDER);
+    }
+
+    function navigateToDetailPage(centerId) {
+        navigate(PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE + `/${centerId}` + PAGE_URL.USER.COURT_PAGE);
     }
 
     return (
@@ -74,7 +86,10 @@ export default function UserCenterPage() {
                                 </div>
                             </div>
                             <div className="user-center-page__container__center-list__list__item__button-group">
-                                <div className="user-center-page__container__center-list__list__item__button-group__detail-button">
+                                <div className="user-center-page__container__center-list__list__item__button-group__order-button" onClick={() => navigateToOrderPage(item.id)}>
+                                    Order
+                                </div>
+                                <div className="user-center-page__container__center-list__list__item__button-group__detail-button" onClick={() => navigateToDetailPage(item.id)}>
                                     Detail
                                 </div>
                             </div>

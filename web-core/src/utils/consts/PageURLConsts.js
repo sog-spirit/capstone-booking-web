@@ -19,5 +19,6 @@ export const PAGE_URL = {
         COURT_PAGE: '/court',
         BOOKING_ORDER_LIST: '/booking-order-list',
         CENTER_REVIEW: '/center-review',
+        PRODUCT_ORDER: '/product-order',
     },
 };
