@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 export default function CourtCenterOwnerPage() {
     const {tokenState, setTokenState} = useContext(TokenContext);
 
-    let {centerId} = useParams();
+    const {centerId} = useParams();
 
     const [addNewModalState, setAddNewModalState] = useState(false);
     const [addNewFormData, setAddNewFormData] = useState({

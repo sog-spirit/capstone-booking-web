@@ -6,6 +6,7 @@
 @use '../../components/padding';
 @use '../../components/input';
 @use '../../components/modal';
+@use '../../components/z-index';
 
 .center-management-page {
     padding-top: header.$header-height;
@@ -190,7 +191,7 @@
 
     &__add-new-modal {
         position: fixed;
-        z-index: 1;
+        z-index: z-index.$modal-index;
         left: 0;
         top: 0;
         width: 100%;
@@ -270,7 +271,7 @@
 
     &__edit-modal {
         position: fixed;
-        z-index: 1;
+        z-index: z-index.$modal-index;
         left: 0;
         top: 0;
         width: 100%;

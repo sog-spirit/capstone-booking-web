@@ -133,7 +133,7 @@ export default function ProductCenterOwnerPage() {
         }));
         setEditImage(null);
         setEditImagePreviewUrl(null);
-        editImageRef.current.value = null;
+        clearEditImageInput();
     }
 
     async function submitEditData() {

@@ -14,7 +14,7 @@ import CourtBookingList from "./CourtBookingList";
 export default function UserCourtPage() {
     const {tokenState, setTokenState} = useContext(TokenContext);
 
-    let {centerId} = useParams();
+    const {centerId} = useParams();
 
     const [courtList, setCourtList] = useState([]);
 

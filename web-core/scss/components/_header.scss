@@ -4,6 +4,7 @@
 @use './button';
 @use './shadow';
 @use './margin';
+@use './z-index';
 
 $header-height: 40px;
 
@@ -15,6 +16,7 @@ $header-height: 40px;
     justify-content: center;
     border-bottom: border.$small-border-line;
     background: color-theme.$light-theme-background-color;
+    z-index: z-index.$header-index;
 
     &__container {
         display: flex;
