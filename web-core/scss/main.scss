@@ -21,8 +21,8 @@
 @use './pages/CenterOwnerRole/center-review';
 @use './pages/CenterOwnerRole/product-order-management';
 
-@use './pages/UserRole/center-page';
-@use './pages/UserRole/court-page';
-@use './pages/UserRole/booking-order-list';
+@use './pages/UserRole/user-center-page';
+@use './pages/UserRole/user-court-page';
+@use './pages/UserRole/user-booking-order-list';
 @use './pages/UserRole/user-center-review-page';
-@use './pages/UserRole/product-order';
+@use './pages/UserRole/user-product-order';
