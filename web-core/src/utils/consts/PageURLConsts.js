@@ -11,6 +11,7 @@ export const PAGE_URL = {
         EMPLOYEE_MANAGEMENT_PAGE: '/employee-management',
         BOOKING_ORDER_MANAGEMENT: '/booking-order-management',
         CENTER_REVIEW: '/center-review',
+        PRODUCT_ORDER: '/product-order',
     },
 
     USER: {

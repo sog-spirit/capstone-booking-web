@@ -1779,6 +1779,113 @@ small {
   margin-bottom: 0.5rem;
 }
 
+.product-order {
+  padding-top: 40px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.product-order__container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.product-order__container__header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.product-order__container__header__button-group {
+  display: flex;
+}
+.product-order__container__header__button-group__refresh-button {
+  background: #8dbe56;
+  border-radius: 6px;
+  height: fit-content;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+.product-order__container__header__button-group__refresh-button:hover {
+  cursor: pointer;
+  background: #97c860;
+}
+.product-order__container__list {
+  margin-top: 1rem;
+}
+.product-order__container__list__header {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+  border-top: 1px solid #ced0d4;
+  font-weight: 700;
+}
+.product-order__container__list__header__id {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__header__user {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__header__create-timestamp {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__header__total {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__header__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__header__status {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__content__item {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+}
+.product-order__container__list__content__item__id {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__content__item__user {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__content__item__create-timestamp {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__content__item__total {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__content__item__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.product-order__container__list__content__item__status {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .user-center-page {
   padding-top: 40px;
   min-height: 100vh;

@@ -58,5 +58,7 @@ export const API_URL = {
     },
     PRODUCT_ORDER: {
         BASE: '/product-order',
+        LIST: '/list',
+        CENTER_OWNER: '/center-owner',
     },
 };

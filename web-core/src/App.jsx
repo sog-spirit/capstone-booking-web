@@ -20,6 +20,7 @@ import BookingOrderManagement from './pages/CenterOwnerRole/BookingOrderManageme
 import UserCenterReview from './pages/UserRole/CenterReview/UserCenterReview';
 import CenterReview from './pages/CenterOwnerRole/CenterReview/CenterReview';
 import UserProductOrder from './pages/UserRole/ProductOrder/UserProductOrder';
+import ProductOrder from './pages/CenterOwnerRole/ProductOrder/ProductOrder';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -97,6 +98,7 @@ export default function App() {
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.EMPLOYEE_MANAGEMENT_PAGE} element={<EmployeeManagementPage />} />
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.BOOKING_ORDER_MANAGEMENT} element={<BookingOrderManagement />} />
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_REVIEW} element={<CenterReview />} />
+                <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.PRODUCT_ORDER} element={<ProductOrder />} />
 
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE} element={<UserCenterPage />} />
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE + '/:centerId' + PAGE_URL.USER.COURT_PAGE} element={<UserCourtPage />} />
