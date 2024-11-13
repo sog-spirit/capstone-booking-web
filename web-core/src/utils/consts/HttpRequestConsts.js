@@ -1,6 +1,9 @@
-export const REFRESH_TOKEN = 'refreshToken';
-export const ACCESS_TOKEN = 'accessToken';
-export const ROLE_NAME = 'role';
+export const LOGIN_STATE_CONSTS = {
+    REFRESH_TOKEN: 'refreshToken',
+    ACCESS_TOKEN: 'accessToken',
+    ROLE: 'role',
+    USERNAME: 'username',
+};
 
 export const HTTP_REQUEST_METHOD = {
     GET: 'GET',

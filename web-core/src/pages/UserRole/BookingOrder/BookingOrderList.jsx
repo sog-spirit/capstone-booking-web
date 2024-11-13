@@ -16,7 +16,7 @@ export default function UserBookingOrderList() {
     }, []);
 
     async function loadUserBookingOrderList() {
-        refreshAccessToken(setTokenState);
+        await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
@@ -45,38 +45,63 @@ export default function UserBookingOrderList() {
                     </div>
                 </div>
                 <div className="user-booking-order-list__container__booking-order-list">
-                    <div className="user-booking-order-list__container__booking-order-list__title">
-                        List
-                    </div>
                     <div className="user-booking-order-list__container__booking-order-list__list">
-                        {userBookingOrderList.map(item => (
-                        <div className="user-booking-order-list__container__booking-order-list__list__item" key={item.id}>
-                            <div className="user-booking-order-list__container__booking-order-list__list__item__order-id">
-                                {item.id}
+                        <div className="user-booking-order-list__container__booking-order-list__list__header">
+                            <div className="user-booking-order-list__container__booking-order-list__list__header__id">
+                                Id
                             </div>
-                            <div className="user-booking-order-list__container__booking-order-list__list__item__center">
-                                {item.centerName}
+                            <div className="user-booking-order-list__container__booking-order-list__list__header__center">
+                                Center name
                             </div>
-                            <div className="user-booking-order-list__container__booking-order-list__list__item__court">
-                                {item.courtName}
+                            <div className="user-booking-order-list__container__booking-order-list__list__header__court">
+                                Court name
                             </div>
-                            <div className="user-booking-order-list__container__booking-order-list__list__item__create-timestamp">
-                                {item.createTimestamp}
+                            <div className="user-booking-order-list__container__booking-order-list__list__header__create-timestamp">
+                                Create timestamp
                             </div>
-                            <div className="user-booking-order-list__container__booking-order-list__list__item__usage-date">
-                                {item.usageDate}
+                            <div className="user-booking-order-list__container__booking-order-list__list__header__usage-date">
+                                Usage date
                             </div>
-                            <div className="user-booking-order-list__container__booking-order-list__list__item__usage-time-start">
-                                {item.usageTimeStart}
+                            <div className="user-booking-order-list__container__booking-order-list__list__header__usage-time-start">
+                                Usage time start
                             </div>
-                            <div className="user-booking-order-list__container__booking-order-list__list__item__usage-time-end">
-                                {item.usageTimeEnd}
+                            <div className="user-booking-order-list__container__booking-order-list__list__header__usage-time-end">
+                                Usage time end
                             </div>
-                            <div className="user-booking-order-list__container__booking-order-list__list__item__status">
-                                {item.statusName}
+                            <div className="user-booking-order-list__container__booking-order-list__list__header__status">
+                                Status
                             </div>
                         </div>
-                        ))}
+                        <div className="user-booking-order-list__container__booking-order-list__list__content">
+                            {userBookingOrderList.map(item => (
+                            <div className="user-booking-order-list__container__booking-order-list__list__content__item" key={item.id}>
+                                <div className="user-booking-order-list__container__booking-order-list__list__content__item__id">
+                                    {item.id}
+                                </div>
+                                <div className="user-booking-order-list__container__booking-order-list__list__content__item__center">
+                                    {item.centerName}
+                                </div>
+                                <div className="user-booking-order-list__container__booking-order-list__list__content__item__court">
+                                    {item.courtName}
+                                </div>
+                                <div className="user-booking-order-list__container__booking-order-list__list__content__item__create-timestamp">
+                                    {item.createTimestamp}
+                                </div>
+                                <div className="user-booking-order-list__container__booking-order-list__list__content__item__usage-date">
+                                    {item.usageDate}
+                                </div>
+                                <div className="user-booking-order-list__container__booking-order-list__list__content__item__usage-time-start">
+                                    {item.usageTimeStart}
+                                </div>
+                                <div className="user-booking-order-list__container__booking-order-list__list__content__item__usage-time-end">
+                                    {item.usageTimeEnd}
+                                </div>
+                                <div className="user-booking-order-list__container__booking-order-list__list__content__item__status">
+                                    {item.statusName}
+                                </div>
+                            </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

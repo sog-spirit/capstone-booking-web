@@ -7,7 +7,7 @@ import { PAGE_URL } from './utils/consts/PageURLConsts';
 import HomePage from './pages/Home/HomePage';
 import { createContext, useEffect, useState } from 'react';
 import ErrorPage from './pages/Error/ErrorPage';
-import { ACCESS_TOKEN, REFRESH_TOKEN, ROLE_NAME } from './utils/consts/HttpRequestConsts';
+import { LOGIN_STATE_CONSTS } from './utils/consts/HttpRequestConsts';
 import ProductInventoryCenterOwnerPage from './pages/CenterOwnerRole/ProductInventory/ProductInventoryPage';
 import CourtCenterOwnerPage from './pages/CenterOwnerRole/Court/CourtPage';
 import CenterCenterOnwerPage from './pages/CenterOwnerRole/Center/CenterPage';
@@ -27,24 +27,26 @@ export const TokenContext = createContext(null);
 
 export default function App() {
     const [loginState, setLoginState] = useState(() => {
-        if (localStorage.getItem(ACCESS_TOKEN) !== null && localStorage.getItem(ROLE_NAME) !== null) {
+        if (localStorage.getItem(LOGIN_STATE_CONSTS.ACCESS_TOKEN) !== null && localStorage.getItem(LOGIN_STATE_CONSTS.ROLE) !== null) {
             return {
                 isLogin: true,
-                userRole: localStorage.getItem(ROLE_NAME),
+                userRole: localStorage.getItem(LOGIN_STATE_CONSTS.ROLE),
+                username: localStorage.getItem(LOGIN_STATE_CONSTS.USERNAME),
             };
         } else {
             return {
                 isLogin: false,
                 userRole: '',
+                username: '',
             };
         }
     });
 
     const [tokenState, setTokenState] = useState(() => {
-        if (localStorage.getItem(ACCESS_TOKEN) !== null && localStorage.getItem(ROLE_NAME) !== null) {
+        if (localStorage.getItem(LOGIN_STATE_CONSTS.ACCESS_TOKEN) !== null && localStorage.getItem(LOGIN_STATE_CONSTS.ROLE) !== null) {
             return {
-                accessToken: localStorage.getItem(ACCESS_TOKEN),
-                refreshToken: localStorage.getItem(REFRESH_TOKEN),
+                accessToken: localStorage.getItem(LOGIN_STATE_CONSTS.ACCESS_TOKEN),
+                refreshToken: localStorage.getItem(LOGIN_STATE_CONSTS.REFRESH_TOKEN),
             };
         } else {
             return {
@@ -55,24 +57,26 @@ export default function App() {
     });
 
     useEffect(() => {
-        if (localStorage.getItem(ACCESS_TOKEN) !== null && localStorage.getItem(ROLE_NAME) !== null) {
+        if (localStorage.getItem(LOGIN_STATE_CONSTS.ACCESS_TOKEN) !== null && localStorage.getItem(LOGIN_STATE_CONSTS.ROLE) !== null) {
             setLoginState({
                 isLogin: true,
-                userRole: localStorage.getItem(ROLE_NAME),
+                userRole: localStorage.getItem(LOGIN_STATE_CONSTS.ROLE),
+                username: localStorage.getItem(LOGIN_STATE_CONSTS.USERNAME),
             });
         } else {
             setLoginState({
                 isLogin: false,
                 userRole: '',
+                username: '',
             });
         }
     }, [loginState.isLogin, loginState.userRole]);
 
     useEffect(() => {
-        if (localStorage.getItem(ACCESS_TOKEN) !== null && localStorage.getItem(ROLE_NAME) !== null) {
+        if (localStorage.getItem(LOGIN_STATE_CONSTS.ACCESS_TOKEN) !== null && localStorage.getItem(LOGIN_STATE_CONSTS.ROLE) !== null) {
             setTokenState({
-                accessToken: localStorage.getItem(ACCESS_TOKEN),
-                refreshToken: localStorage.getItem(REFRESH_TOKEN),
+                accessToken: localStorage.getItem(LOGIN_STATE_CONSTS.ACCESS_TOKEN),
+                refreshToken: localStorage.getItem(LOGIN_STATE_CONSTS.REFRESH_TOKEN),
             });
         } else {
             setTokenState({

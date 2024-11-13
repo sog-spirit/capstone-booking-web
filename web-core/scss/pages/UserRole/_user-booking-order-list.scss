@@ -26,16 +26,123 @@
         }
 
         &__booking-order-list {
-            &__title {
-                margin-bottom: margin.$label-input-margin;
-            }
 
             &__list {
-                border: border.$small-border-line;
-                border-radius: border.$container-border-radius;
+                margin-top: margin.$input-item-margin;
+                overflow-x: auto;
 
-                &:not(:first-child) {
-                    margin-top: margin.$input-item-margin;
+                &__header {
+                    display: flex;
+                    vertical-align: middle;
+                    border-bottom: border.$small-border-line;
+                    border-top: border.$small-border-line;
+                    font-weight: 700;
+                    width: 2000px;
+
+                    &__id {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__center {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__court {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__create-timestamp {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__usage-date {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__usage-time-start {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__usage-time-end {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__status {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+                }
+
+                &__content {
+                    &__item {
+                        display: flex;
+                        vertical-align: middle;
+                        border-bottom: border.$small-border-line;
+                        width: 2000px;
+
+                        &__id {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__center {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__court {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__create-timestamp {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__usage-date {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__usage-time-start {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__usage-time-end {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__status {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+                    }
                 }
             }
         }

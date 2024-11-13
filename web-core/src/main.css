@@ -2170,15 +2170,103 @@ small {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.user-booking-order-list__container__booking-order-list__title {
-  margin-bottom: 0.25rem;
-}
 .user-booking-order-list__container__booking-order-list__list {
-  border: 1px solid #ced0d4;
-  border-radius: 6px;
-}
-.user-booking-order-list__container__booking-order-list__list:not(:first-child) {
   margin-top: 0.5rem;
+  overflow-x: auto;
+}
+.user-booking-order-list__container__booking-order-list__list__header {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+  border-top: 1px solid #ced0d4;
+  font-weight: 700;
+  width: 2000px;
+}
+.user-booking-order-list__container__booking-order-list__list__header__id {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__header__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__header__court {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__header__create-timestamp {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__header__usage-date {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__header__usage-time-start {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__header__usage-time-end {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__header__status {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__content__item {
+  display: flex;
+  vertical-align: middle;
+  border-bottom: 1px solid #ced0d4;
+  width: 2000px;
+}
+.user-booking-order-list__container__booking-order-list__list__content__item__id {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__content__item__center {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__content__item__court {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__content__item__create-timestamp {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__content__item__usage-date {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__content__item__usage-time-start {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__content__item__usage-time-end {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.user-booking-order-list__container__booking-order-list__list__content__item__status {
+  width: 200px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .user-center-review {

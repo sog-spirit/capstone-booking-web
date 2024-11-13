@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "../../utils/consts/PageURLConsts";
 import { defaultSuccessToastNotification } from "../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../utils/consts/MessageConsts";
-import { ACCESS_TOKEN, HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD, REFRESH_TOKEN, ROLE_NAME } from "../../utils/consts/HttpRequestConsts";
+import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD, LOGIN_STATE_CONSTS } from "../../utils/consts/HttpRequestConsts";
 import Header from "../../components/Header";
 import { LoginContext, TokenContext } from "../../App";
 import { handleInputChange } from "../../utils/input/InputUtils";
@@ -44,12 +44,15 @@ export default function LoginPage() {
                 password: data?.password,
             });
         } else if (response.status === HTTP_STATUS.OK) {
-            localStorage.setItem(ACCESS_TOKEN, data?.accessToken);
-            localStorage.setItem(REFRESH_TOKEN, data?.refreshToken);
-            localStorage.setItem(ROLE_NAME, data?.role);
+            localStorage.setItem(LOGIN_STATE_CONSTS.ACCESS_TOKEN, data?.accessToken);
+            localStorage.setItem(LOGIN_STATE_CONSTS.REFRESH_TOKEN, data?.refreshToken);
+            localStorage.setItem(LOGIN_STATE_CONSTS.ROLE, data?.role);
+            localStorage.setItem(LOGIN_STATE_CONSTS.USERNAME, data?.username);
             defaultSuccessToastNotification(MESSAGE_CONSTS.LOGIN_SUCCESS);
             setLoginState(prevState => ({
                 ...prevState,
+                userRole: data?.role,
+                username: data?.username,
                 isLogin: true,
             }));
             setTokenState(prevState => ({
