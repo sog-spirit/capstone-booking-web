@@ -53,11 +53,11 @@ export default function CenterCenterOnwerPage() {
     }, [currentPageNumberState, totalPageState, numericIndicatorState.length]);
 
     async function submitAddNewData() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE, {
             method: HTTP_REQUEST_METHOD.POST,
@@ -81,11 +81,11 @@ export default function CenterCenterOnwerPage() {
     }
 
     async function loadCenterList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.LIST + `?pageNo=${currentPageNumberState - 1}&pageSize=${DEFAULT_PAGE_SIZE}`, {
             method: HTTP_REQUEST_METHOD.GET,
@@ -111,11 +111,11 @@ export default function CenterCenterOnwerPage() {
     }
 
     async function submitEditData() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE, {
             method: HTTP_REQUEST_METHOD.PUT,

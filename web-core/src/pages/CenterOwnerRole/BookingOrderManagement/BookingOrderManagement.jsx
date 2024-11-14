@@ -4,6 +4,7 @@ import { TokenContext } from "../../../App";
 import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
 import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
+import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
 
 export default function BookingOrderManagement() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -15,8 +16,10 @@ export default function BookingOrderManagement() {
     }, []);
 
     async function loadCourtBookingList() {
+        let accessToken = await refreshAccessToken(setTokenState);
+
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.LIST + API_URL.COURT_BOOKING.CENTER_OWNER, {
             method: HTTP_REQUEST_METHOD.GET,

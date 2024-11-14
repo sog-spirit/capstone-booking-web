@@ -16,10 +16,10 @@ export default function UserBookingOrderList() {
     }, []);
 
     async function loadUserBookingOrderList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.LIST + API_URL.COURT_BOOKING.USER_ORDER, {
             method: HTTP_REQUEST_METHOD.GET,

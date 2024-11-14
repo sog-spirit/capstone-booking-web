@@ -28,10 +28,10 @@ export default function UserCenterPage() {
     }, [currentPageNumber, totalPage, numericIndicatorList.length]);
 
     async function loadCenterList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.LIST + `?pageNo=${currentPageNumber - 1}&pageSize=${DEFAULT_PAGE_SIZE}`, {
             method: HTTP_REQUEST_METHOD.GET,

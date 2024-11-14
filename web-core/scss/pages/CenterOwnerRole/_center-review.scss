@@ -45,12 +45,15 @@
             margin-top: margin.$title-margin;
 
             &__list {
+                overflow-x: auto;
+
                 &__header {
                     display: flex;
                     vertical-align: middle;
                     border-bottom: border.$small-border-line;
                     border-top: border.$small-border-line;
                     font-weight: 700;
+                    min-width: fit-content;
 
                     &__id {
                         width: 200px;
@@ -82,6 +85,7 @@
                         display: flex;
                         vertical-align: middle;
                         border-bottom: border.$small-border-line;
+                        min-width: fit-content;
 
                         &__id {
                             width: 200px;

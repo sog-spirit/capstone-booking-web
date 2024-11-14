@@ -16,10 +16,10 @@ export default function CenterReview() {
     }, [tokenState.accessToken]);
 
     async function loadReviewList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.CENTER_REVIEW.BASE + API_URL.CENTER_REVIEW.LIST + API_URL.CENTER_REVIEW.CENTER_OWNER, {
             method: HTTP_REQUEST_METHOD.GET,

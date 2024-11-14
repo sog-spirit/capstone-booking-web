@@ -62,10 +62,10 @@ export default function UserCourtPage() {
     }, [tokenState.accessToken, courtDropdownSearchInput, courtDropdownState]);
 
     async function loadCourtList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headerss = new Headers();
-        headerss.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headerss.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.COURT.BASE + `?centerId=${centerId}`, {
             method: HTTP_REQUEST_METHOD.GET,
@@ -98,10 +98,10 @@ export default function UserCourtPage() {
     }
 
     async function loadCourtDropdownList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.COURT.BASE + API_URL.COURT.LIST + `?centerId=${centerId}&query=${courtDropdownSearchInput}`, {
             method: HTTP_REQUEST_METHOD.GET,
@@ -125,11 +125,11 @@ export default function UserCourtPage() {
     }
 
     async function submitAddNewBooking() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.COURT_BOOKING.BASE, {
             method: HTTP_REQUEST_METHOD.POST,

@@ -53,10 +53,10 @@ export default function UserCenterReview() {
     }, [tokenState.accessToken]);
 
     async function loadCenterDropdownList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.LIST + API_URL.COURT_BOOKING.USER_ORDER + API_URL.COURT_BOOKING.CENTER_LIST + `?query=${centerDropdownSearchInput}`, {
             method: HTTP_REQUEST_METHOD.GET,
@@ -94,10 +94,10 @@ export default function UserCenterReview() {
     }
 
     async function submitAddNewData() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
         const response = await fetch(API_URL.BASE + API_URL.CENTER_REVIEW.BASE, {
@@ -113,10 +113,10 @@ export default function UserCenterReview() {
     }
 
     async function loadUserReviewList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.CENTER_REVIEW.BASE + API_URL.CENTER_REVIEW.LIST + API_URL.CENTER_REVIEW.USER, {
             method: HTTP_REQUEST_METHOD.GET,

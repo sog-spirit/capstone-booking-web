@@ -37,10 +37,10 @@ export default function EmployeeManagementPage() {
     }, [tokenState.accessToken, addNewModalState]);
 
     async function submitAddNewEmployee() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const formData = new FormData();
         formData.append('username', addNewFormData.username);
@@ -85,10 +85,10 @@ export default function EmployeeManagementPage() {
     }
 
     async function loadEmployeeList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const response = await fetch(API_URL.BASE + API_URL.EMPLOYEE_MANAGEMENT.BASE + API_URL.EMPLOYEE_MANAGEMENT.LIST, {
             method: HTTP_REQUEST_METHOD.GET,

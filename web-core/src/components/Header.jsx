@@ -66,6 +66,34 @@ export default function Header() {
         navigate(PAGE_URL.USER.BASE + PAGE_URL.USER.BOOKING_ORDER_LIST);
     }
 
+    function navigateCenterOwnerCenterPage() {
+        navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_PAGE);
+    }
+
+    function navigateCenterOwnerProductPage () {
+        navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.PRODUCT_PAGE);
+    }
+
+    function navigateCenterOwnerProductInventoryPage() {
+        navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.PRODUCT_INVENTORY_PAGE);
+    }
+
+    function navigateCenterOwnerEmployeeManagementPage() {
+        navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.EMPLOYEE_MANAGEMENT_PAGE);
+    }
+
+    function navigateCenterOwnerBookingOrderManagementPage() {
+        navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.BOOKING_ORDER_MANAGEMENT);
+    }
+
+    function navigateCenterOwnerCenterReviewPage() {
+        navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_REVIEW);
+    }
+
+    function navigateCenterOwnerProductOrderPage() {
+        navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.PRODUCT_ORDER);
+    }
+
     return (
         <div className="header">
             <div className="header__container">
@@ -117,28 +145,25 @@ export default function Header() {
                             Center owner
                         </div>
                         <div className={`header__container__left-group__dropdown-group__list${dropdownState.dropdown1 ? '--active' : ''}`}>
-                            <div className="header__container__left-group__dropdown-group__list__item">
+                            <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerBookingOrderManagementPage()}>
                                 Booking order management
                             </div>
-                            <div className="header__container__left-group__dropdown-group__list__item">
+                            <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerCenterPage()}>
                                 Center
                             </div>
-                            <div className="header__container__left-group__dropdown-group__list__item">
+                            <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerCenterReviewPage()}>
                                 Center review
                             </div>
-                            <div className="header__container__left-group__dropdown-group__list__item">
-                                Court
-                            </div>
-                            <div className="header__container__left-group__dropdown-group__list__item">
+                            <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerEmployeeManagementPage()}>
                                 Employee management
                             </div>
-                            <div className="header__container__left-group__dropdown-group__list__item">
+                            <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerProductInventoryPage()}>
                                 Product inventory
                             </div>
-                            <div className="header__container__left-group__dropdown-group__list__item">
+                            <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerProductOrderPage()}>
                                 Product order
                             </div>
-                            <div className="header__container__left-group__dropdown-group__list__item">
+                            <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerProductPage()}>
                                 Product page
                             </div>
                         </div>

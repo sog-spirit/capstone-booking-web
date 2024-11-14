@@ -53,7 +53,7 @@
                 border-bottom: border.$small-border-line;
                 border-top: border.$small-border-line;
                 font-weight: 700;
-                width: 2000px;
+                min-width: fit-content;
                 
                 &__order-id {
                     width: 200px;
@@ -121,7 +121,7 @@
                     display: flex;
                     vertical-align: middle;
                     border-bottom: border.$small-border-line;
-                    width: 2000px;
+                    min-width: fit-content;
 
                     &__order-id {
                         width: 200px;

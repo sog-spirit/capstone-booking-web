@@ -1166,6 +1166,7 @@ small {
 }
 .product-inventory-page__container__list {
   margin-top: 1rem;
+  overflow-x: auto;
 }
 .product-inventory-page__container__list__header {
   display: flex;
@@ -1173,6 +1174,7 @@ small {
   border-bottom: 1px solid #ced0d4;
   border-top: 1px solid #ced0d4;
   font-weight: 700;
+  min-width: fit-content;
 }
 .product-inventory-page__container__list__header__product {
   width: 200px;
@@ -1193,6 +1195,7 @@ small {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
+  min-width: fit-content;
 }
 .product-inventory-page__container__list__content__item__product {
   width: 200px;
@@ -1376,12 +1379,16 @@ small {
 .employee-management-page__container__list__title {
   margin-bottom: 0.5rem;
 }
+.employee-management-page__container__list__view {
+  overflow-x: auto;
+}
 .employee-management-page__container__list__view__header {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
   border-top: 1px solid #ced0d4;
   font-weight: 700;
+  min-width: fit-content;
 }
 .employee-management-page__container__list__view__header__username {
   width: 200px;
@@ -1417,6 +1424,7 @@ small {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
+  min-width: fit-content;
 }
 .employee-management-page__container__list__view__content__item__username {
   width: 200px;
@@ -1583,7 +1591,7 @@ small {
   border-bottom: 1px solid #ced0d4;
   border-top: 1px solid #ced0d4;
   font-weight: 700;
-  width: 2000px;
+  min-width: fit-content;
 }
 .booking-order-management__container__list__header__order-id {
   width: 200px;
@@ -1639,7 +1647,7 @@ small {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
-  width: 2000px;
+  min-width: fit-content;
 }
 .booking-order-management__container__list__content__item__order-id {
   width: 200px;
@@ -1726,12 +1734,16 @@ small {
 .center-review__container__review-list {
   margin-top: 1rem;
 }
+.center-review__container__review-list__list {
+  overflow-x: auto;
+}
 .center-review__container__review-list__list__header {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
   border-top: 1px solid #ced0d4;
   font-weight: 700;
+  min-width: fit-content;
 }
 .center-review__container__review-list__list__header__id {
   width: 200px;
@@ -1757,6 +1769,7 @@ small {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
+  min-width: fit-content;
 }
 .center-review__container__review-list__list__content__item__id {
   width: 200px;
@@ -1812,6 +1825,7 @@ small {
 }
 .product-order__container__list {
   margin-top: 1rem;
+  overflow-x: auto;
 }
 .product-order__container__list__header {
   display: flex;
@@ -1819,6 +1833,7 @@ small {
   border-bottom: 1px solid #ced0d4;
   border-top: 1px solid #ced0d4;
   font-weight: 700;
+  min-width: fit-content;
 }
 .product-order__container__list__header__id {
   width: 200px;
@@ -1854,6 +1869,7 @@ small {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
+  min-width: fit-content;
 }
 .product-order__container__list__content__item__id {
   width: 200px;
@@ -2180,7 +2196,7 @@ small {
   border-bottom: 1px solid #ced0d4;
   border-top: 1px solid #ced0d4;
   font-weight: 700;
-  width: 2000px;
+  min-width: fit-content;
 }
 .user-booking-order-list__container__booking-order-list__list__header__id {
   width: 200px;
@@ -2226,7 +2242,7 @@ small {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
-  width: 2000px;
+  min-width: fit-content;
 }
 .user-booking-order-list__container__booking-order-list__list__content__item__id {
   width: 200px;
@@ -2313,12 +2329,16 @@ small {
 .user-center-review__container__review-list {
   margin-top: 1rem;
 }
+.user-center-review__container__review-list__list {
+  overflow-x: auto;
+}
 .user-center-review__container__review-list__list__header {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
   border-top: 1px solid #ced0d4;
   font-weight: 700;
+  min-width: fit-content;
 }
 .user-center-review__container__review-list__list__header__id {
   width: 200px;
@@ -2339,6 +2359,7 @@ small {
   display: flex;
   vertical-align: middle;
   border-bottom: 1px solid #ced0d4;
+  min-width: fit-content;
 }
 .user-center-review__container__review-list__list__content__item__id {
   width: 200px;
