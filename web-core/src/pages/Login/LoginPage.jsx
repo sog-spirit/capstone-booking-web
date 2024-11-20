@@ -11,6 +11,10 @@ import { LoginContext, TokenContext } from "../../App";
 import { handleInputChange } from "../../utils/input/InputUtils";
 
 export default function LoginPage() {
+    const {loginState, setLoginState} = useContext(LoginContext);
+    const {tokenState, setTokenState} = useContext(TokenContext);
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -19,9 +23,6 @@ export default function LoginPage() {
         username: '',
         password: '',
     });
-    const {loginState, setLoginState} = useContext(LoginContext);
-    const {tokenState, setTokenState} = useContext(TokenContext);
-    const navigate = useNavigate();
 
     async function submitData() {
         const headers = new Headers();

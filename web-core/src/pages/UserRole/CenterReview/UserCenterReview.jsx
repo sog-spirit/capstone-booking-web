@@ -48,10 +48,6 @@ export default function UserCenterReview() {
         loadCenterDropdownList();
     }, [addNewModalState, centerDropdownSearchInput, tokenState.accessToken]);
 
-    useEffect(() => {
-        loadUserReviewList();
-    }, [tokenState.accessToken]);
-
     async function loadCenterDropdownList() {
         let accessToken = await refreshAccessToken(setTokenState);
 
@@ -111,6 +107,10 @@ export default function UserCenterReview() {
             defaultSuccessToastNotification(MESSAGE_CONSTS.ADD_SUCCESS);
         }
     }
+
+    useEffect(() => {
+        loadUserReviewList();
+    }, [tokenState.accessToken]);
 
     async function loadUserReviewList() {
         let accessToken = await refreshAccessToken(setTokenState);

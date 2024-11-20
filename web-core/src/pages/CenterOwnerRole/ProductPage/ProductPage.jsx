@@ -43,10 +43,6 @@ export default function ProductCenterOwnerPage() {
     const [editImagePreviewUrl, setEditImagePreviewUrl] = useState(null);
     const editImageRef = useRef();
 
-    useEffect(() => {
-        loadProductList();
-    }, [tokenState.accessToken, addNewModalState, editModalState]);
-
     async function submitAddNewProduct() {
         let accessToken = await refreshAccessToken(setTokenState);
 
@@ -86,6 +82,18 @@ export default function ProductCenterOwnerPage() {
         setAddNewImagePreviewUrl(null);
         addNewImageRef.current.value = null;
     }
+
+    function handleAddNewImageChange(event) {
+        const photoFile = event.target.files[0];
+        if (photoFile) {
+            setAddNewImage(photoFile);
+            setAddNewImagePreviewUrl(URL.createObjectURL(photoFile));
+        }
+    }
+
+    useEffect(() => {
+        loadProductList();
+    }, [tokenState.accessToken, addNewModalState, editModalState]);
 
     async function loadProductList() {
         let accessToken = await refreshAccessToken(setTokenState);
@@ -157,14 +165,6 @@ export default function ProductCenterOwnerPage() {
         if (response.status === HTTP_STATUS.OK) {
             closeEditModal();
             defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
-        }
-    }
-
-    function handleAddNewImageChange(event) {
-        const photoFile = event.target.files[0];
-        if (photoFile) {
-            setAddNewImage(photoFile);
-            setAddNewImagePreviewUrl(URL.createObjectURL(photoFile));
         }
     }
 

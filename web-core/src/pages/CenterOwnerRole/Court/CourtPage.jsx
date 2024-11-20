@@ -35,10 +35,6 @@ export default function CourtCenterOwnerPage() {
         name: '',
     });
 
-    useEffect(() => {
-        loadCourtList();
-    }, [tokenState.accessToken]);
-
     async function submitAddNewData() {
         let accessToken = await refreshAccessToken(setTokenState);
 
@@ -66,6 +62,10 @@ export default function CourtCenterOwnerPage() {
             loadCourtList();
         }
     }
+
+    useEffect(() => {
+        loadCourtList();
+    }, [tokenState.accessToken]);
 
     async function loadCourtList() {
         let accessToken = await refreshAccessToken(setTokenState);

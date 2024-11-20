@@ -32,10 +32,6 @@ export default function EmployeeManagementPage() {
 
     const [employeeList, setEmployeeList] = useState([]);
 
-    useEffect(() => {
-        loadEmployeeList();
-    }, [tokenState.accessToken, addNewModalState]);
-
     async function submitAddNewEmployee() {
         let accessToken = await refreshAccessToken(setTokenState);
 
@@ -83,6 +79,10 @@ export default function EmployeeManagementPage() {
             password: '',
         }));
     }
+
+    useEffect(() => {
+        loadEmployeeList();
+    }, [tokenState.accessToken, addNewModalState]);
 
     async function loadEmployeeList() {
         let accessToken = await refreshAccessToken(setTokenState);

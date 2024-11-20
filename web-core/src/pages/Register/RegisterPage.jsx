@@ -10,6 +10,8 @@ import Header from "../../components/Header";
 import { handleInputChange } from "../../utils/input/InputUtils";
 
 export default function RegisterPage() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -31,8 +33,6 @@ export default function RegisterPage() {
     });
 
     const [registerRoleList, setRegisterRoleList] = useState([]);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         loadRegisterListRole();

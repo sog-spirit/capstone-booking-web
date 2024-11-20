@@ -13,12 +13,17 @@ import { useNavigate } from "react-router-dom";
 import { PAGE_URL } from "../../../utils/consts/PageURLConsts";
 
 export default function CenterCenterOnwerPage() {
+    const {loginState, setLoginState} = useContext(LoginContext);
+    const {tokenState, setTokenState} = useContext(TokenContext);
+
+    const navigate = useNavigate();
+
     const [addNewModalState, setAddNewModalState] = useState(false);
     const [addNewFormData, setAddNewFormData] = useState({
         name: '',
         address: '',
     });
-    const [addNewInputStatus, setAddNewInputState] = useState({
+    const [addNewInputStatus, setAddNewInputStatus] = useState({
         name: '',
         address: '',
     });
@@ -29,28 +34,16 @@ export default function CenterCenterOnwerPage() {
         name: '',
         address: '',
     });
-    const [editInputStatus, setEditInputState] = useState({
+    const [editInputStatus, setEditInputStatus] = useState({
         name: '',
         address: '',
     });
 
-    const {loginState, setLoginState} = useContext(LoginContext);
-    const {tokenState, setTokenState} = useContext(TokenContext);
-
     const [centerList, setCenterList] = useState([]);
+
     const [currentPageNumberState, setCurrentPageNumberState] = useState(1);
     const [totalPageState, setTotalPageState] = useState(1);
     const [numericIndicatorState, setNumericIndicatorState] = useState([]);
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        loadCenterList();
-    }, [tokenState.accessToken, tokenState.refreshToken, currentPageNumberState]);
-
-    useEffect(() => {
-        setNumericIndicatorState(paginate(currentPageNumberState, totalPageState));
-    }, [currentPageNumberState, totalPageState, numericIndicatorState.length]);
 
     async function submitAddNewData() {
         let accessToken = await refreshAccessToken(setTokenState);
@@ -72,30 +65,11 @@ export default function CenterCenterOnwerPage() {
                 name: '',
                 address: '',
             });
-            setAddNewInputState(prevState => ({
+            setAddNewInputStatus(prevState => ({
                 ...prevState,
                 name: '',
                 address: '',
             }));
-        }
-    }
-
-    async function loadCenterList() {
-        let accessToken = await refreshAccessToken(setTokenState);
-
-        const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
-
-        const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.LIST + `?pageNo=${currentPageNumberState - 1}&pageSize=${DEFAULT_PAGE_SIZE}`, {
-            method: HTTP_REQUEST_METHOD.GET,
-            headers: headers,
-        });
-
-        if (response.status === HTTP_STATUS.OK) {
-            let data = await response.json();
-            setTotalPageState(data.totalPage);
-            setCenterList(data.centerList);
         }
     }
 
@@ -132,7 +106,7 @@ export default function CenterCenterOnwerPage() {
                 name: '',
                 address: ''
             }));
-            setEditInputState(prevState => ({
+            setEditInputStatus(prevState => ({
                 ...prevState,
                 name: '',
                 address: '',
@@ -141,9 +115,36 @@ export default function CenterCenterOnwerPage() {
         }
     }
 
+    useEffect(() => {
+        loadCenterList();
+    }, [tokenState.accessToken, tokenState.refreshToken, currentPageNumberState]);
+
+    async function loadCenterList() {
+        let accessToken = await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+
+        const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.LIST + `?pageNo=${currentPageNumberState - 1}&pageSize=${DEFAULT_PAGE_SIZE}`, {
+            method: HTTP_REQUEST_METHOD.GET,
+            headers: headers,
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            let data = await response.json();
+            setTotalPageState(data.totalPage);
+            setCenterList(data.centerList);
+        }
+    }
+
     function navigateDetailPage(centerId) {
         navigate(PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_PAGE + `/${centerId}` + PAGE_URL.CENTER_OWNER.COURT_PAGE);
     }
+
+    useEffect(() => {
+        setNumericIndicatorState(paginate(currentPageNumberState, totalPageState));
+    }, [currentPageNumberState, totalPageState, numericIndicatorState.length]);
 
     return (
         <>

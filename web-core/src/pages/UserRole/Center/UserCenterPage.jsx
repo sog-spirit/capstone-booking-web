@@ -15,6 +15,7 @@ export default function UserCenterPage() {
     const {tokenState, setTokenState} = useContext(TokenContext);
 
     const [centerList, setCenterList] = useState([]);
+
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
     const [numericIndicatorList, setNumericIndicatorList] = useState([]);

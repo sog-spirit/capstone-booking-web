@@ -23,11 +23,11 @@ export async function refreshAccessToken(setTokenState) {
     if (refreshVerfifyResponse.status === HTTP_STATUS.OK) {
         return localStorage.getItem(LOGIN_STATE_CONSTS.ACCESS_TOKEN);
     } else if (refreshVerfifyResponse.status === HTTP_STATUS.UNAUTHORIZED) {
-        return getNewAccessToken(setTokenState);
+        return getNewToken(setTokenState);
     }
 }
 
-async function getNewAccessToken(setTokenState) {
+async function getNewToken(setTokenState) {
     const newAccessTokenRequetsBody = {
         refreshToken: localStorage.getItem(LOGIN_STATE_CONSTS.REFRESH_TOKEN),
     };
@@ -47,6 +47,7 @@ async function getNewAccessToken(setTokenState) {
         setTokenState(prevState => ({
             ...prevState,
             accessToken: data?.accessToken,
+            refreshToken: data?.refreshToken,
         }));
         return data?.accessToken;
     }

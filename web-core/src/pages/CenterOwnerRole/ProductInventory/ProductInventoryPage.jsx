@@ -11,13 +11,9 @@ import { handleInputChange } from "../../../utils/input/InputUtils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../utils/pagination/PaginationUtils";
+import { SORT_DIRECTION } from "../../../utils/consts/SortDirection";
 
 export default function ProductInventoryCenterOwnerPage() {
-    const SORT_DIRECTION = {
-        ASC: 'asc',
-        DESC: 'desc',
-    };
-
     const {tokenState, setTokenState} = useContext(TokenContext);
 
     const [productDropdownState, setProductDropdownState] = useState(false);
@@ -97,94 +93,8 @@ export default function ProductInventoryCenterOwnerPage() {
     }, []);
 
     useEffect(() => {
-        function handler(event) {
-            if (!centerDropdownRef.current.contains(event.target)) {
-                setCenterDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
-    }, []);
-
-    useEffect(() => {
         loadProductDropdownList();
     }, [addNewModalState, productDropdownSearchInput, tokenState.accessToken]);
-
-    useEffect(() => {
-        loadCenterDropdownList();
-    }, [addNewModalState, centerDropdownSearchInput, tokenState.accessToken]);
-
-    useEffect(() => {
-        loadProductInventoryList();
-    }, [tokenState.accessToken,
-        productCurrentFilterItem.id,
-        centerCurrentFilterItem.id,
-        productInventorySortOrder.id,
-        productInventorySortOrder.center,
-        productInventorySortOrder.product,
-        productInventorySortOrder.quantity,
-        currentPageNumber,
-        totalPage,
-        pageNumberButtonList.length,
-    ]);
-
-    useEffect(() => {
-        function handler(event) {
-            if (!filterDropdownRef.current.contains(event.target)) {
-                setFilterDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
-    }, []);
-
-    useEffect(() => {
-        function handler(event) {
-            if (!centerFilterDropdownListRef.current.contains(event.target)) {
-                setCenterFilterDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
-    }, []);
-
-    useEffect(() => {
-        function handler(event) {
-            if (!productFilterDropdownListRef.current.contains(event.target)) {
-                setProductFilterDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
-    }, []);
-
-    useEffect(() => {
-        loadCenterFilterDropdownList();
-    }, [centerFilterSearchQuery]);
-
-    useEffect(() => {
-        loadProductFilterDropdownList();
-    }, [productFilterSearchQuery]);
-
-    useEffect(() => {
-        setPageNumberButtonList(paginate(currentPageNumber, totalPage));
-    }, [currentPageNumber, totalPage, pageNumberButtonList.length]);
 
     async function loadProductDropdownList() {
         let accessToken = await refreshAccessToken(setTokenState);
@@ -213,6 +123,24 @@ export default function ProductInventoryCenterOwnerPage() {
         }));
         setProductDropdownState(false);
     }
+
+    useEffect(() => {
+        function handler(event) {
+            if (!centerDropdownRef.current.contains(event.target)) {
+                setCenterDropdownState(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handler);
+
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        }
+    }, []);
+
+    useEffect(() => {
+        loadCenterDropdownList();
+    }, [addNewModalState, centerDropdownSearchInput, tokenState.accessToken]);
 
     async function loadCenterDropdownList() {
         let accessToken = await refreshAccessToken(setTokenState);
@@ -275,6 +203,20 @@ export default function ProductInventoryCenterOwnerPage() {
         }
     }
 
+    useEffect(() => {
+        loadProductInventoryList();
+    }, [tokenState.accessToken,
+        productCurrentFilterItem.id,
+        centerCurrentFilterItem.id,
+        productInventorySortOrder.id,
+        productInventorySortOrder.center,
+        productInventorySortOrder.product,
+        productInventorySortOrder.quantity,
+        currentPageNumber,
+        totalPage,
+        pageNumberButtonList.length,
+    ]);
+
     async function loadProductInventoryList() {
         let accessToken = await refreshAccessToken(setTokenState);
 
@@ -317,6 +259,20 @@ export default function ProductInventoryCenterOwnerPage() {
         }
     }
 
+    useEffect(() => {
+        function handler(event) {
+            if (!filterDropdownRef.current.contains(event.target)) {
+                setFilterDropdownState(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handler);
+
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        }
+    }, []);
+
     function onProductFilterCheckboxChange(event) {
         if (event.target.value) {
             setCenterCurrentFilterItem({
@@ -339,6 +295,24 @@ export default function ProductInventoryCenterOwnerPage() {
         setFilterCheckboxState(prevState => ({...prevState, centerCheckbox: !prevState.centerCheckbox}));
     }
 
+    useEffect(() => {
+        function handler(event) {
+            if (!centerFilterDropdownListRef.current.contains(event.target)) {
+                setCenterFilterDropdownState(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handler);
+
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        }
+    }, []);
+
+    useEffect(() => {
+        loadCenterFilterDropdownList();
+    }, [centerFilterSearchQuery]);
+
     async function loadCenterFilterDropdownList() {
         let accessToken = await refreshAccessToken(setTokenState);
 
@@ -356,6 +330,33 @@ export default function ProductInventoryCenterOwnerPage() {
             setCenterFilterItemList(data);
         }
     }
+
+    function onSetCenterFilter(centerId) {
+        let centerItem = centerFilterItemList.find(item => item.id === centerId);
+        setCenterCurrentFilterItem({
+            id: centerItem.id,
+            name: centerItem.name,
+        });
+        setCenterFilterDropdownState(false);
+    }
+
+    useEffect(() => {
+        function handler(event) {
+            if (!productFilterDropdownListRef.current.contains(event.target)) {
+                setProductFilterDropdownState(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handler);
+
+        return () => {
+            document.removeEventListener("mousedown", handler);
+        }
+    }, []);
+
+    useEffect(() => {
+        loadProductFilterDropdownList();
+    }, [productFilterSearchQuery]);
 
     async function loadProductFilterDropdownList() {
         let accessToken = await refreshAccessToken(setTokenState);
@@ -382,15 +383,6 @@ export default function ProductInventoryCenterOwnerPage() {
             name: productItem.name,
         });
         setProductFilterDropdownState(false);
-    }
-
-    function onSetCenterFilter(centerId) {
-        let centerItem = centerFilterItemList.find(item => item.id === centerId);
-        setCenterCurrentFilterItem({
-            id: centerItem.id,
-            name: centerItem.name,
-        });
-        setCenterFilterDropdownState(false);
     }
 
     function onChangeIdSortOrder() {
@@ -476,6 +468,10 @@ export default function ProductInventoryCenterOwnerPage() {
             }
         });
     }
+
+    useEffect(() => {
+        setPageNumberButtonList(paginate(currentPageNumber, totalPage));
+    }, [currentPageNumber, totalPage, pageNumberButtonList.length]);
 
     return (
         <>
