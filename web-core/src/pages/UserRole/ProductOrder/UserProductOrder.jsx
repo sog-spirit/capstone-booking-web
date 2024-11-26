@@ -32,7 +32,11 @@ export default function UserProductOrder() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.LIST + `?centerId=${centerId}`, {
+        let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.USER + API_URL.PRODUCT_INVENTORY.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('centerId', centerId);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -126,7 +130,9 @@ export default function UserProductOrder() {
             cart: cartItemList,
         };
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT_ORDER.BASE, {
+        let url = API_URL.BASE + API_URL.PRODUCT_ORDER.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(bodyData),

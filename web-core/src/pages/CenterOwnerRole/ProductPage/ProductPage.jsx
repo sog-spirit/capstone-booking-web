@@ -54,7 +54,9 @@ export default function ProductCenterOwnerPage() {
         formData.append('price', addNewFormData.price);
         formData.append('photo', addNewImage);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE, {
+        let url = API_URL.BASE + API_URL.PRODUCT.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: formData,
@@ -102,7 +104,9 @@ export default function ProductCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.LIST, {
+        let url = API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.CENTER_OWNER + API_URL.PRODUCT.LIST;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -156,7 +160,9 @@ export default function ProductCenterOwnerPage() {
         formData.append('price', editFormData.price);
         formData.append('photo', editImage);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE, {
+        let url = API_URL.BASE + API_URL.PRODUCT.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.PUT,
             headers: headers,
             body: formData,

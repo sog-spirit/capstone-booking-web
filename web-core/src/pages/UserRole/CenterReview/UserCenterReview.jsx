@@ -45,16 +45,20 @@ export default function UserCenterReview() {
     }, []);
 
     useEffect(() => {
-        loadCenterDropdownList();
+        loadCenterFromUserOrderAsDropdownList();
     }, [addNewModalState, centerDropdownSearchInput, tokenState.accessToken]);
 
-    async function loadCenterDropdownList() {
+    async function loadCenterFromUserOrderAsDropdownList() {
         let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.LIST + API_URL.COURT_BOOKING.USER_ORDER + API_URL.COURT_BOOKING.CENTER_LIST + `?query=${centerDropdownSearchInput}`, {
+        let url = API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.USER + API_URL.COURT_BOOKING.LIST + API_URL.COURT_BOOKING.CENTER_LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('query', centerDropdownSearchInput);
+
+        const response = await fetch(url + `?${query}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -96,7 +100,9 @@ export default function UserCenterReview() {
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.CENTER_REVIEW.BASE, {
+        let url = API_URL.BASE + API_URL.CENTER_REVIEW.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(addNewFormData),
@@ -118,7 +124,9 @@ export default function UserCenterReview() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.CENTER_REVIEW.BASE + API_URL.CENTER_REVIEW.LIST + API_URL.CENTER_REVIEW.USER, {
+        let url = API_URL.BASE + API_URL.CENTER_REVIEW.BASE + API_URL.CENTER_REVIEW.USER + API_URL.CENTER_REVIEW.LIST;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -164,12 +172,12 @@ export default function UserCenterReview() {
                         </div>
                         <div className="user-center-review__container__review-list__list__content">
                             {userReviewList.map(item => (
-                            <div className="user-center-review__container__review-list__list__content__item">
+                            <div className="user-center-review__container__review-list__list__content__item" key={item.id}>
                                 <div className="user-center-review__container__review-list__list__content__item__id">
                                     {item.id}
                                 </div>
                                 <div className="user-center-review__container__review-list__list__content__item__center">
-                                    {item.centerName}
+                                    {item.center.name}
                                 </div>
                                 <div className="user-center-review__container__review-list__list__content__item__content">
                                     {item.content}

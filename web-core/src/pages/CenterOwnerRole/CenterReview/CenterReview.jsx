@@ -21,7 +21,9 @@ export default function CenterReview() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.CENTER_REVIEW.BASE + API_URL.CENTER_REVIEW.LIST + API_URL.CENTER_REVIEW.CENTER_OWNER, {
+        let url = API_URL.BASE + API_URL.CENTER_REVIEW.BASE + API_URL.CENTER_REVIEW.CENTER_OWNER + API_URL.CENTER_REVIEW.LIST;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -72,10 +74,10 @@ export default function CenterReview() {
                                     {item.id}
                                 </div>
                                 <div className="center-review__container__review-list__list__content__item__user">
-                                    {item.userUsername}
+                                    {item.user.username}
                                 </div>
                                 <div className="center-review__container__review-list__list__content__item__center">
-                                    {item.centerName}
+                                    {item.center.name}
                                 </div>
                                 <div className="center-review__container__review-list__list__content__item__content">
                                     {item.content}

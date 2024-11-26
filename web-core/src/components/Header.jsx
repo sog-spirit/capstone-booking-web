@@ -25,7 +25,9 @@ export default function Header() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.JWT.BASE + API_URL.JWT.LOG_OUT, {
+        let url = API_URL.BASE + API_URL.JWT.BASE + API_URL.JWT.LOG_OUT;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(bodyData),

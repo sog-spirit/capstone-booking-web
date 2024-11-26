@@ -40,16 +40,20 @@ export default function UserCourtPage() {
     const courtDropdownRef = useRef(null);
 
     useEffect(() => {
-        loadCourtList();
+        loadCenterCourtList();
     }, [tokenState.accessToken]);
 
-    async function loadCourtList() {
+    async function loadCenterCourtList() {
         let accessToken = await refreshAccessToken(setTokenState);
 
         const headerss = new Headers();
         headerss.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.COURT.BASE + `?centerId=${centerId}`, {
+        let url = API_URL.BASE + API_URL.COURT.BASE + API_URL.COURT.USER + API_URL.COURT.CENTER + API_URL.COURT.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('centerId', centerId);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headerss,
         });
@@ -86,7 +90,9 @@ export default function UserCourtPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.COURT_BOOKING.BASE, {
+        let url = API_URL.BASE + API_URL.COURT_BOOKING.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(newBookingFormData),
@@ -122,7 +128,12 @@ export default function UserCourtPage() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.COURT.BASE + API_URL.COURT.LIST + `?centerId=${centerId}&query=${courtDropdownSearchInput}`, {
+        let url = API_URL.BASE + API_URL.COURT.BASE + API_URL.COURT.USER + API_URL.COURT.DROPDOWN + API_URL.COURT.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('centerId', centerId);
+        searchParams.append('query', courtDropdownSearchInput);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });

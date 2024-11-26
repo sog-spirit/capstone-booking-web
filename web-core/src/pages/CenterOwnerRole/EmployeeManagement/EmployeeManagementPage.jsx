@@ -3,7 +3,7 @@ import Header from "../../../components/Header";
 import { TokenContext } from "../../../App";
 import { handleInputChange } from "../../../utils/input/InputUtils";
 import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
-import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
+import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
 import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
@@ -46,7 +46,9 @@ export default function EmployeeManagementPage() {
         formData.append('email', addNewFormData.email);
         formData.append('password', addNewFormData.password);
 
-        const response = await fetch(API_URL.BASE + API_URL.EMPLOYEE_MANAGEMENT.BASE, {
+        let url = API_URL.BASE + API_URL.EMPLOYEE_MANAGEMENT.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: formData,
@@ -89,15 +91,18 @@ export default function EmployeeManagementPage() {
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.EMPLOYEE_MANAGEMENT.BASE + API_URL.EMPLOYEE_MANAGEMENT.LIST, {
+        let url = API_URL.BASE + API_URL.EMPLOYEE_MANAGEMENT.BASE + API_URL.EMPLOYEE_MANAGEMENT.CENTER_OWNER + API_URL.EMPLOYEE_MANAGEMENT.LIST;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
 
         if (response.status === HTTP_STATUS.OK) {
             let data = await response.json();
-            setEmployeeList(data);
+            setEmployeeList(data.employeeList);
         }
     }
 
@@ -145,19 +150,19 @@ export default function EmployeeManagementPage() {
                             {employeeList.map(item => (
                                 <div className="employee-management-page__container__list__view__content__item" key={item.id}>
                                     <div className="employee-management-page__container__list__view__content__item__username">
-                                        {item.employeeUsername}
+                                        {item.employee.username}
                                     </div>
                                     <div className="employee-management-page__container__list__view__content__item__first-name">
-                                        {item.employeeFirstName}
+                                        {item.employee.firstName}
                                     </div>
                                     <div className="employee-management-page__container__list__view__content__item__last-name">
-                                        {item.employeeLastName}
+                                        {item.employee.lastName}
                                     </div>
                                     <div className="employee-management-page__container__list__view__content__item__phone">
-                                        {item.employeePhone}
+                                        {item.employee.phone}
                                     </div>
                                     <div className="employee-management-page__container__list__view__content__item__email">
-                                        {item.employeeEmail}
+                                        {item.employee.email}
                                     </div>
                                 </div>
                             ))}

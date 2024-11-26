@@ -42,7 +42,9 @@ export default function RegisterPage() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.USER.BASE + API_URL.USER.REGISTER, {
+        let url = API_URL.BASE + API_URL.USER.BASE + API_URL.USER.REGISTER;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(formData),
@@ -73,7 +75,9 @@ export default function RegisterPage() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.ROLE.BASE + API_URL.ROLE.REGISTER_ROLE_LIST, {
+        let url = API_URL.BASE + API_URL.ROLE.BASE + API_URL.ROLE.REGISTER_ROLE_LIST;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });

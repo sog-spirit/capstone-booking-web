@@ -12,16 +12,21 @@ export default function CourtBookingList(props) {
     const [courtBookingList, setCourtBookingList] = useState([]);
 
     useEffect(() => {
-        loadCourtBookingList();
+        loadCenterCourtBookingList();
     }, []);
 
-    async function loadCourtBookingList() {
+    async function loadCenterCourtBookingList() {
         let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.LIST + `?centerId=${centerId}&courtId=${courtId}`, {
+        let url = API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.USER + API_URL.COURT_BOOKING.CENTER + API_URL.COURT_BOOKING.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('centerId', centerId);
+        searchParams.append('courtId', courtId);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });

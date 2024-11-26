@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { TokenContext } from "../../../App";
 import Header from "../../../components/Header";
-import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
+import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
 import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
@@ -20,8 +20,11 @@ export default function UserBookingOrderList() {
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.LIST + API_URL.COURT_BOOKING.USER_ORDER, {
+        let url = API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.USER + API_URL.COURT_BOOKING.LIST;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -79,10 +82,10 @@ export default function UserBookingOrderList() {
                                     {item.id}
                                 </div>
                                 <div className="user-booking-order-list__container__booking-order-list__list__content__item__center">
-                                    {item.centerName}
+                                    {item.center.name}
                                 </div>
                                 <div className="user-booking-order-list__container__booking-order-list__list__content__item__court">
-                                    {item.courtName}
+                                    {item.court.name}
                                 </div>
                                 <div className="user-booking-order-list__container__booking-order-list__list__content__item__create-timestamp">
                                     {item.createTimestamp}
@@ -97,7 +100,7 @@ export default function UserBookingOrderList() {
                                     {item.usageTimeEnd}
                                 </div>
                                 <div className="user-booking-order-list__container__booking-order-list__list__content__item__status">
-                                    {item.statusName}
+                                    {item.status.name}
                                 </div>
                             </div>
                             ))}

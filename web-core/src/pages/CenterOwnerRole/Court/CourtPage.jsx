@@ -42,7 +42,9 @@ export default function CourtCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.COURT.BASE, {
+        let url = API_URL.BASE + API_URL.COURT.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(addNewFormData),
@@ -74,14 +76,18 @@ export default function CourtCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.COURT.BASE + `?centerId=${centerId}`, {
+        let url = API_URL.BASE + API_URL.COURT.BASE + API_URL.COURT.CENTER_OWNER + API_URL.COURT.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('centerId', centerId);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
 
         if (response.status === HTTP_STATUS.OK) {
             let data = await response.json();
-            setCourtListState(data);
+            setCourtListState(data.courtList);
         }
     }
 
@@ -102,7 +108,9 @@ export default function CourtCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.COURT.BASE, {
+        let url = API_URL.BASE + API_URL.COURT.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.PUT,
             headers: headers,
             body: JSON.stringify(editFormData), 

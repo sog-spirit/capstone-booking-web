@@ -22,7 +22,9 @@ export default function ProductOrder() {
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT_ORDER.BASE + API_URL.PRODUCT_ORDER.LIST + API_URL.PRODUCT_ORDER.CENTER_OWNER, {
+        let url = API_URL.BASE + API_URL.PRODUCT_ORDER.BASE + API_URL.PRODUCT_ORDER.CENTER_OWNER + API_URL.PRODUCT_ORDER.LIST;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -76,7 +78,7 @@ export default function ProductOrder() {
                                 {item.id}
                             </div>
                             <div className="product-order__container__list__content__item__user">
-                                {item.userUsername}
+                                {item.user.username}
                             </div>
                             <div className="product-order__container__list__content__item__create-timestamp">
                                 {item.createTimestamp}
@@ -85,10 +87,10 @@ export default function ProductOrder() {
                                 {item.total}
                             </div>
                             <div className="product-order__container__list__content__item__center">
-                                {item.centerName}
+                                {item.center.name}
                             </div>
                             <div className="product-order__container__list__content__item__status">
-                                {item.statusName}
+                                {item.status.name}
                             </div>
                         </div>
                         ))}

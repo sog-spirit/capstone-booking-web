@@ -34,7 +34,12 @@ export default function UserCenterPage() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.LIST + `?pageNo=${currentPageNumber - 1}&pageSize=${DEFAULT_PAGE_SIZE}`, {
+        let url = API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.USER + API_URL.CENTER.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('pageNo', currentPageNumber - 1);
+        searchParams.append('pageSize', DEFAULT_PAGE_SIZE);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });

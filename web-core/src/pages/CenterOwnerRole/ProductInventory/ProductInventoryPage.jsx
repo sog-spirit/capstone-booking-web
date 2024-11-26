@@ -103,7 +103,11 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.LIST + `?query=${productDropdownSearchInput}`, {
+        let url = API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.CENTER_OWNER + API_URL.PRODUCT.DROPDOWN + API_URL.PRODUCT.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('query', productDropdownSearchInput)
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -149,7 +153,11 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.LIST + `?query=${centerDropdownSearchInput}`, {
+        let url = API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.CENTER_OWNER + API_URL.CENTER.LIST + API_URL.CENTER.DROPDOWN;
+        let searchParams = new URLSearchParams();
+        searchParams.append('query', centerDropdownSearchInput);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -177,7 +185,9 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE, {
+        let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(addNewFormData),
@@ -218,13 +228,13 @@ export default function ProductInventoryCenterOwnerPage() {
     ]);
 
     async function loadProductInventoryList() {
-        let accessToken = await refreshAccessToken(setTokenState);
+        const accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.LIST;
+        let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.CENTER_OWNER + API_URL.PRODUCT_INVENTORY.LIST;
         let searchParams = new URLSearchParams();
         if (centerCurrentFilterItem.id) {
             searchParams.append('centerIdFilter', centerCurrentFilterItem.id);
@@ -320,7 +330,11 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.LIST + `?query=${centerFilterSearchQuery}`, {
+        let url = API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.CENTER_OWNER + API_URL.CENTER.LIST + API_URL.CENTER.DROPDOWN;
+        let searchParams = new URLSearchParams();
+        searchParams.append('query', centerFilterSearchQuery);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -365,7 +379,11 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.LIST + `?query=${productFilterSearchQuery}`, {
+        let url = API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.CENTER_OWNER + API_URL.PRODUCT.DROPDOWN + API_URL.PRODUCT.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('query', productFilterSearchQuery);
+
+        const response = await fetch(url + `${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
