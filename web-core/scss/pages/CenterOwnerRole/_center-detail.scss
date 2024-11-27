@@ -62,50 +62,18 @@
             }
 
             &__list {
-                &__item {
-                    border: border.$small-border-line;
-                    border-radius: border.$container-border-radius;
+                overflow-x: auto;
 
-                    &:not(:first-child) {
-                        margin-top: margin.$input-item-margin;
-                    }
+                &__detail {
+                    display: grid;
+                    border-top: border.$small-border-line;
+                    border-left: border.$small-border-line;
+                    min-width: fit-content;
 
-                    &__header {
-                        display:  flex;
-                        justify-content: space-between;
-                        padding-top: padding.$small-padding;
-                        padding-left: padding.$small-padding;
-                        padding-right: padding.$small-padding;
-
-                        &__label-group {
-                            &__name {
-                            }
-                        }
-        
-                        &__button-group {
-                            &__edit-button {
-                                background: button.$light-background-color;
-                                border-radius: button.$border-radius;
-                                height: fit-content;
-                                padding: padding.$small-padding;
-        
-                                &:hover {
-                                    cursor: pointer;
-                                    background: button.$light-background-hover-color;
-                                }
-                            }
-                        }
-                    }
-
-                    &__booking-list {
+                    &__item {
                         padding: padding.$small-padding;
-
-                        &__item {
-                            width: fit-content;
-                            background: color-theme.$light-theme-background-secondary-color;
-                            padding: padding.$small-padding;
-                            border-radius: border.$input-border-radius;
-                        }
+                        border-right: border.$small-border-line;
+                        border-bottom: border.$small-border-line;
                     }
                 }
             }

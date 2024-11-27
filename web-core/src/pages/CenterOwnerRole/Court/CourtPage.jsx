@@ -9,6 +9,7 @@ import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
 import { useParams } from "react-router-dom";
+import CourtBookingItem from "./CourtBookingItem";
 
 export default function CourtCenterOwnerPage() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -34,6 +35,12 @@ export default function CourtCenterOwnerPage() {
     const [editInputState, setEditInputState] = useState({
         name: '',
     });
+
+    const [centerWorkingTime, setCenterWorkingTime] = useState({
+        openingTime: '',
+        closingTime: '',
+    });
+    const [timeInterval, setTimeInterval] = useState([]);
 
     async function submitAddNewData() {
         let accessToken = await refreshAccessToken(setTokenState);
@@ -132,6 +139,60 @@ export default function CourtCenterOwnerPage() {
         }
     }
 
+    useEffect(() => {
+        loadCenterWorkingTime();
+    }, []);
+
+    async function loadCenterWorkingTime() {
+        let accessToken = await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+
+        let url = API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.CENTER_OWNER + API_URL.CENTER.WORKING_TIME;
+        let searchParams = new URLSearchParams();
+        searchParams.append('centerId', centerId);
+
+        const response = await fetch(url + `?${searchParams}`, {
+            method: HTTP_REQUEST_METHOD.GET,
+            headers: headers,
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            let data = await response.json();
+            
+            setCenterWorkingTime({
+                openingTime: data.openingTime,
+                closingTime: data.closingTime,
+            });
+
+            createTimeIntervalArray(data.openingTime, data.closingTime);
+        }
+    }
+
+    function createTimeIntervalArray(openingTime, closingTime, intervalMinute = 15) {
+        let timeMarks = [];
+        let [startHour, startMinute] = openingTime.split(':').map(Number);
+        let [endHour, endMinute] = closingTime.split(':').map(Number);
+
+        let currentDate = new Date();
+        currentDate.setHours(startHour, startMinute, 0, 0);
+
+        const endDate = new Date();
+        endDate.setHours(endHour, endMinute, 0, 0);
+
+        while (currentDate <= endDate) {
+            const hours = currentDate.getHours().toString().padStart(2, '0');
+            const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+            timeMarks.push(`${hours}:${minutes}`);
+
+            currentDate.setMinutes(currentDate.getMinutes() + intervalMinute);
+        }
+
+        setTimeInterval(timeMarks);
+    }
+
     return(
         <>
         <Header />
@@ -156,31 +217,26 @@ export default function CourtCenterOwnerPage() {
                     </div>
                 </div>
                 <div className="center-detail-page__container__court-list">
-                    <div className="center-detail-page__container__court-list__title">
-                        <h5>Court list</h5>
+                    <div className="center-detail-page__container__court-list__list__date">
+                        Date
                     </div>
                     <div className="center-detail-page__container__court-list__list">
-                        {courtListState.map(item => (
-                        <div className="center-detail-page__container__court-list__list__item" key={item.id}>
-                            <div className="center-detail-page__container__court-list__list__item__header">
-                                <div className="center-detail-page__container__court-list__list__item__header__label-group">
-                                    <div className="center-detail-page__container__court-list__list__item__header__label-group__name">
-                                        {item.name}
-                                    </div>
+                        <div className="center-detail-page__container__court-list__list__detail" style={{gridTemplateColumns: `repeat(${timeInterval.length + 1}, 100px)`}}>
+                            <div className="center-detail-page__container__court-list__list__detail__item"></div>
+                            {timeInterval.map(item => (
+                                <div className="center-detail-page__container__court-list__list__detail__item" key={item}>{item}</div>
+                            ))}
+                            {courtListState.map(item => (
+                                <>
+                                <div className="center-detail-page__container__court-list__list__detail__item" key={item.id}>
+                                    {item.name}
                                 </div>
-                                <div className="center-detail-page__container__court-list__list__item__header__button-group">
-                                    <div className="center-detail-page__container__court-list__list__item__header__button-group__edit-button" onClick={() => openEditModal(item.id)}>
-                                        Edit
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="center-detail-page__container__court-list__list__item__booking-list">
-                                <div className="center-detail-page__container__court-list__list__item__booking-list__item">
-                                    8:00-10:00
-                                </div>
-                            </div>
+                                <CourtBookingItem
+                                    courtId={item.id}
+                                />
+                                </>
+                            ))}
                         </div>
-                        ))}
                     </div>
                 </div>
             </div>

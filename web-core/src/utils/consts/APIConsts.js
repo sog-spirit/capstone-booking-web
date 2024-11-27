@@ -25,6 +25,7 @@ export const API_URL = {
         CENTER_OWNER: '/center-owner',
         USER: '/user',
         DROPDOWN: '/dropdown',
+        WORKING_TIME: '/working-time',
     },
     COURT: {
         BASE: '/court',
@@ -62,6 +63,7 @@ export const API_URL = {
         CENTER_OWNER: '/center-owner',
         CENTER_LIST: '/center-list',
         CENTER: '/center',
+        COURT: '/court',
     },
     CENTER_REVIEW: {
         BASE: '/center-review',
