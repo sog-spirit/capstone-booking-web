@@ -121,7 +121,11 @@ export default function CenterCenterOnwerPage() {
 
     useEffect(() => {
         loadCenterList();
-    }, [tokenState.accessToken, tokenState.refreshToken, currentPageNumberState]);
+    }, [tokenState.accessToken,
+        currentPageNumberState,
+        totalPageState,
+        numericIndicatorState.length,
+    ]);
 
     async function loadCenterList() {
         let accessToken = await refreshAccessToken(setTokenState);

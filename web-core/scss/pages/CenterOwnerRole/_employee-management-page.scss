@@ -23,34 +23,274 @@
 
         &__header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             margin-top: margin.$title-margin;
+            margin-bottom: margin.$title-margin;
+
+            &__title {
+                padding-bottom: padding.$small-padding;
+            }
 
             &__button-group {
                 display: flex;
+                justify-content: space-between;
 
-                &__refresh-button {
-                    background: button.$primary-background-color;
-                    border-radius: button.$border-radius;
-                    height: fit-content;
-                    padding: padding.$small-padding;
-                    margin-right: margin.$input-item-margin;
+                &__left {
+                    display: flex;
+                    flex-wrap: wrap;
+                    > * {
+                        padding-bottom: padding.$small-padding;
+                    }
 
-                    &:hover {
-                        cursor: pointer;
-                        background: button.$primary-background-hover-color;
+                    &__filter-button {
+                        &__label {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__menu {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+                            display: flex;
+                            flex-direction: column;
+
+                            &__item {
+                                &:not(:first-child) {
+                                    margin-top: margin.$input-item-margin;
+                                }
+                            }
+                        }
+                    }
+
+                    &__username-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__first-name-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__last-name-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__phone-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__email-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
                     }
                 }
 
-                &__add-new-button {
-                    background: button.$primary-background-color;
-                    border-radius: button.$border-radius;
-                    height: fit-content;
-                    padding: padding.$small-padding;
+                &__right {
+                    display: flex;
 
-                    &:hover {
-                        cursor: pointer;
-                        background: button.$primary-background-hover-color;
+                    &__refresh-button {
+                        background: button.$primary-background-color;
+                        border-radius: button.$border-radius;
+                        height: fit-content;
+                        padding: padding.$small-padding;
+                        margin-right: margin.$input-item-margin;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+    
+                    &__add-new-button {
+                        background: button.$primary-background-color;
+                        border-radius: button.$border-radius;
+                        height: fit-content;
+                        padding: padding.$small-padding;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
                     }
                 }
             }
@@ -76,36 +316,66 @@
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
+
+                        &:hover {
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
                     }
 
                     &__first-name {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
+
+                        &:hover {
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
                     }
 
                     &__last-name {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
+
+                        &:hover {
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
                     }
 
                     &__center {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
+
+                        &:hover {
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
                     }
 
                     &__phone {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
+
+                        &:hover {
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
                     }
 
                     &__email {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
+
+                        &:hover {
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
                     }
                 }
 
@@ -152,6 +422,59 @@
                             margin-bottom: margin.$input-item-margin;
                         }
                     }
+                }
+            }
+        }
+
+        &__pagination {
+            display: flex;
+            margin-top: margin.$input-item-margin;
+
+            &__previous {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-left-radius: button.$border-radius;
+                border-bottom-left-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
+                }
+            }
+
+            &__page-number-button-list {
+                display: flex;
+
+                &__item {
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+
+                    &--active {
+                        background: button.$primary-background-color;
+                        padding: padding.$small-padding;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+                }
+            }
+
+            &__next {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-right-radius: button.$border-radius;
+                border-bottom-right-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
                 }
             }
         }

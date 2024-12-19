@@ -7,7 +7,7 @@ import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
-import { handleInputChange } from "../../../utils/input/InputUtils";
+import { handleClickOutsideElement, handleInputChange, handleInputCheckboxChange, onChangeSortOrder } from "../../../utils/input/InputUtils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../utils/pagination/PaginationUtils";
@@ -45,8 +45,8 @@ export default function ProductInventoryCenterOwnerPage() {
     const [filterDropdownState, setFilterDropdownState] = useState(false);
     const filterDropdownRef = useRef(null);
     const [filterCheckboxState, setFilterCheckboxState] = useState({
-        centerCheckbox: false,
-        productCheckbox: false,
+        center: false,
+        product: false,
     });
 
     const [centerFilterDropdownState, setCenterFilterDropdownState] = useState(false);
@@ -79,17 +79,7 @@ export default function ProductInventoryCenterOwnerPage() {
     const [pageNumberButtonList, setPageNumberButtonList] = useState([]);
 
     useEffect(() => {
-        function handler(event) {
-            if (!productDropdownRef.current.contains(event.target)) {
-                setProductDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
+        handleClickOutsideElement(productDropdownRef, setProductDropdownState)
     }, []);
 
     useEffect(() => {
@@ -129,17 +119,7 @@ export default function ProductInventoryCenterOwnerPage() {
     }
 
     useEffect(() => {
-        function handler(event) {
-            if (!centerDropdownRef.current.contains(event.target)) {
-                setCenterDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
+        handleClickOutsideElement(centerDropdownRef, setCenterDropdownState)
     }, []);
 
     useEffect(() => {
@@ -236,10 +216,10 @@ export default function ProductInventoryCenterOwnerPage() {
 
         let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.CENTER_OWNER + API_URL.PRODUCT_INVENTORY.LIST;
         let searchParams = new URLSearchParams();
-        if (centerCurrentFilterItem.id) {
+        if (filterCheckboxState.center && centerCurrentFilterItem.id) {
             searchParams.append('centerIdFilter', centerCurrentFilterItem.id);
         }
-        if (productCurrentFilterItem.id) {
+        if (filterCheckboxState.product && productCurrentFilterItem.id) {
             searchParams.append('productIdFilter', productCurrentFilterItem.id);
         }
         if (productInventorySortOrder.id) {
@@ -270,53 +250,11 @@ export default function ProductInventoryCenterOwnerPage() {
     }
 
     useEffect(() => {
-        function handler(event) {
-            if (!filterDropdownRef.current.contains(event.target)) {
-                setFilterDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
+        handleClickOutsideElement(filterDropdownRef, setFilterDropdownState);
     }, []);
 
-    function onProductFilterCheckboxChange(event) {
-        if (event.target.value) {
-            setCenterCurrentFilterItem({
-                id: null,
-                name: '',
-            });
-            setProductFilterSearchQuery('');
-        }
-        setFilterCheckboxState(prevState => ({...prevState, productCheckbox: !prevState.productCheckbox}));
-    }
-
-    function onCenterFilterCheckboxChange(event) {
-        if (event.target.value) {
-            setCenterCurrentFilterItem({
-                id: null,
-                name: '',
-            });
-            setCenterFilterSearchQuery('');
-        }
-        setFilterCheckboxState(prevState => ({...prevState, centerCheckbox: !prevState.centerCheckbox}));
-    }
-
     useEffect(() => {
-        function handler(event) {
-            if (!centerFilterDropdownListRef.current.contains(event.target)) {
-                setCenterFilterDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
+        handleClickOutsideElement(centerFilterDropdownListRef, setCenterFilterDropdownState)
     }, []);
 
     useEffect(() => {
@@ -330,7 +268,7 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        let url = API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.CENTER_OWNER + API_URL.CENTER.LIST + API_URL.CENTER.DROPDOWN;
+        let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.CENTER_OWNER + API_URL.PRODUCT_INVENTORY.FILTER + API_URL.PRODUCT_INVENTORY.CENTER + API_URL.PRODUCT_INVENTORY.LIST;
         let searchParams = new URLSearchParams();
         searchParams.append('query', centerFilterSearchQuery);
 
@@ -346,26 +284,16 @@ export default function ProductInventoryCenterOwnerPage() {
     }
 
     function onSetCenterFilter(centerId) {
-        let centerItem = centerFilterItemList.find(item => item.id === centerId);
+        let item = centerFilterItemList.find(item => item.center.id === centerId);
         setCenterCurrentFilterItem({
-            id: centerItem.id,
-            name: centerItem.name,
+            id: item.center.id,
+            name: item.center.name,
         });
         setCenterFilterDropdownState(false);
     }
 
     useEffect(() => {
-        function handler(event) {
-            if (!productFilterDropdownListRef.current.contains(event.target)) {
-                setProductFilterDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
+        handleClickOutsideElement(productFilterDropdownListRef, setProductFilterDropdownState)
     }, []);
 
     useEffect(() => {
@@ -379,11 +307,11 @@ export default function ProductInventoryCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        let url = API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.CENTER_OWNER + API_URL.PRODUCT.DROPDOWN + API_URL.PRODUCT.LIST;
+        let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.CENTER_OWNER + API_URL.PRODUCT_INVENTORY.FILTER + API_URL.PRODUCT_INVENTORY.PRODUCT + API_URL.PRODUCT_INVENTORY.LIST;
         let searchParams = new URLSearchParams();
         searchParams.append('query', productFilterSearchQuery);
 
-        const response = await fetch(url + `${searchParams}`, {
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -395,96 +323,12 @@ export default function ProductInventoryCenterOwnerPage() {
     }
 
     function onSetProductFilter(productId) {
-        let productItem = productFilterItemList.find(item => item.id === productId);
+        let item = productFilterItemList.find(item => item.product.id === productId);
         setProductCurrentFilterItem({
-            id: productItem.id,
-            name: productItem.name,
+            id: item.product.id,
+            name: item.product.name,
         });
         setProductFilterDropdownState(false);
-    }
-
-    function onChangeIdSortOrder() {
-        setProductInventorySortOrder(prevState => {
-            if (prevState.id == null) {
-                return {
-                    ...prevState,
-                    id: SORT_DIRECTION.ASC,
-                };
-            } else if (prevState.id === SORT_DIRECTION.ASC) {
-                return {
-                    ...prevState,
-                    id: SORT_DIRECTION.DESC,
-                };
-            } else {
-                return {
-                    ...prevState,
-                    id: null,
-                };
-            }
-        });
-    }
-
-    function onChangeProductSortOrder() {
-        setProductInventorySortOrder(prevState => {
-            if (prevState.product == null) {
-                return {
-                    ...prevState,
-                    product: SORT_DIRECTION.ASC,
-                };
-            } else if (prevState.product === SORT_DIRECTION.ASC) {
-                return {
-                    ...prevState,
-                    product: SORT_DIRECTION.DESC,
-                };
-            } else {
-                return {
-                    ...prevState,
-                    product: null,
-                };
-            }
-        });
-    }
-
-    function onChangeCenterSortOrder() {
-        setProductInventorySortOrder(prevState => {
-            if (prevState.center == null) {
-                return {
-                    ...prevState,
-                    center: SORT_DIRECTION.ASC,
-                };
-            } else if (prevState.center === SORT_DIRECTION.ASC) {
-                return {
-                    ...prevState,
-                    center: SORT_DIRECTION.DESC,
-                };
-            } else {
-                return {
-                    ...prevState,
-                    center: null,
-                };
-            }
-        });
-    }
-
-    function onChangeQuantitySortOrder() {
-        setProductInventorySortOrder(prevState => {
-            if (prevState.quantity == null) {
-                return {
-                    ...prevState,
-                    quantity: SORT_DIRECTION.ASC,
-                };
-            } else if (prevState.quantity === SORT_DIRECTION.ASC) {
-                return {
-                    ...prevState,
-                    quantity: SORT_DIRECTION.DESC,
-                };
-            } else {
-                return {
-                    ...prevState,
-                    quantity: null,
-                };
-            }
-        });
     }
 
     useEffect(() => {
@@ -501,9 +345,6 @@ export default function ProductInventoryCenterOwnerPage() {
                         <div className="product-inventory-page__container__header__title__label">
                             <h4>Product inventory</h4>
                         </div>
-                        <div className="product-inventory-page__container__header__title__search-input">
-                            <input type="text" placeholder="Product inventory name" />
-                        </div>
                     </div>
                     <div className="product-inventory-page__container__header__button-group">
                         <div className="product-inventory-page__container__header__button-group__left">
@@ -511,35 +352,35 @@ export default function ProductInventoryCenterOwnerPage() {
                                 <div className="product-inventory-page__container__header__button-group__left__add-filters__label" onClick={() => setFilterDropdownState(true)}>Add filters</div>
                                 <div className="product-inventory-page__container__header__button-group__left__add-filters__menu" style={filterDropdownState ? {} : {display: 'none'}} ref={filterDropdownRef}>
                                     <label className="product-inventory-page__container__header__button-group__left__add-filters__menu__item">
-                                        <input type="checkbox" value={filterCheckboxState.centerCheckbox} onChange={event => onCenterFilterCheckboxChange(event)} /> Center
+                                        <input type="checkbox" name="center" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Center
                                     </label>
                                     <label className="product-inventory-page__container__header__button-group__left__add-filters__menu__item">
-                                        <input type="checkbox" value={filterCheckboxState.productCheckbox} onChange={event => onProductFilterCheckboxChange(event)} /> Product
+                                        <input type="checkbox" name="product" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Product
                                     </label>
                                 </div>
                             </div>
-                            <div className="product-inventory-page__container__header__button-group__left__center-filter" style={filterCheckboxState.centerCheckbox ? {} : {display: 'none'}}>
+                            <div className="product-inventory-page__container__header__button-group__left__center-filter" style={filterCheckboxState.center ? {} : {display: 'none'}}>
                                 <div className="product-inventory-page__container__header__button-group__left__center-filter__button" onClick={() => setCenterFilterDropdownState(true)}>
                                     Center filter{centerCurrentFilterItem.name ? `: ${centerCurrentFilterItem.name}` : ''}
                                 </div>
                                 <div className="product-inventory-page__container__header__button-group__left__center-filter__filter-option" style={centerFilterDropdownState ? {} : {display: 'none'}} ref={centerFilterDropdownListRef}>
                                     <input type="text" placeholder="Center filter" value={centerFilterSearchQuery} onChange={event => setCenterFilterSearchQuery(event.target.value)} />
                                     {centerFilterItemList.map(item => (
-                                    <div className="product-inventory-page__container__header__button-group__left__center-filter__filter-option__item" key={item.id} onClick={() => onSetCenterFilter(item.id)}>
-                                        {item.name}
+                                    <div className="product-inventory-page__container__header__button-group__left__center-filter__filter-option__item" key={item.center.id} onClick={() => onSetCenterFilter(item.center.id)}>
+                                        {item.center.name}
                                     </div>
                                     ))}
                                 </div>
                             </div>
-                            <div className="product-inventory-page__container__header__button-group__left__product-filter" style={filterCheckboxState.productCheckbox ? {} : {display: 'none'}}>
+                            <div className="product-inventory-page__container__header__button-group__left__product-filter" style={filterCheckboxState.product ? {} : {display: 'none'}}>
                                 <div className="product-inventory-page__container__header__button-group__left__product-filter__button" onClick={() => setProductFilterDropdownState(true)}>
                                     Product filter{productCurrentFilterItem.name ? `: ${productCurrentFilterItem.name}` : ''}
                                 </div>
                                 <div className="product-inventory-page__container__header__button-group__left__product-filter__filter-option" style={productFilterDropdownState ? {} : {display: 'none'}} ref={productFilterDropdownListRef}>
                                     <input type="text" placeholder="Product filter" value={productFilterSearchQuery} onChange={event => setProductFilterSearchQuery(event.target.value)} />
                                     {productFilterItemList.map(item => (
-                                    <div className="product-inventory-page__container__header__button-group__left__product-filter__filter-option__item" key={item.id} onClick={() => onSetProductFilter(item.id)}>
-                                        {item.name}
+                                    <div className="product-inventory-page__container__header__button-group__left__product-filter__filter-option__item" key={item.product.id} onClick={() => onSetProductFilter(item.product.id)}>
+                                        {item.product.name}
                                     </div>
                                     ))}
                                 </div>
@@ -557,16 +398,16 @@ export default function ProductInventoryCenterOwnerPage() {
                 </div>
                 <div className="product-inventory-page__container__list">
                     <div className="product-inventory-page__container__list__header">
-                        <div className="product-inventory-page__container__list__header__inventory-id" onClick={() => onChangeIdSortOrder()}>
+                        <div className="product-inventory-page__container__list__header__inventory-id" onClick={() => onChangeSortOrder('id', setProductInventorySortOrder)}>
                             Inventory ID {productInventorySortOrder.id ? (productInventorySortOrder.id === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
-                        <div className="product-inventory-page__container__list__header__product" onClick={() => onChangeProductSortOrder()}>
+                        <div className="product-inventory-page__container__list__header__product" onClick={() => onChangeSortOrder('product', setProductInventorySortOrder)}>
                             Product {productInventorySortOrder.product ? (productInventorySortOrder.product === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
-                        <div className="product-inventory-page__container__list__header__center" onClick={() => onChangeCenterSortOrder()}>
+                        <div className="product-inventory-page__container__list__header__center" onClick={() => onChangeSortOrder('center', setProductInventorySortOrder)}>
                             Center {productInventorySortOrder.center ? (productInventorySortOrder.center === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
-                        <div className="product-inventory-page__container__list__header__quantity" onClick={() => onChangeQuantitySortOrder()}>
+                        <div className="product-inventory-page__container__list__header__quantity" onClick={() => onChangeSortOrder('quantity', setProductInventorySortOrder)}>
                             Quantity {productInventorySortOrder.quantity ? (productInventorySortOrder.quantity === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
                     </div>

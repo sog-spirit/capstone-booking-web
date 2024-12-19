@@ -46,6 +46,9 @@ export const API_URL = {
         LIST: '/list',
         CENTER_OWNER: '/center-owner',
         USER: '/user',
+        PRODUCT: '/product',
+        CENTER: '/center',
+        FILTER: '/filter',
     },
     IMAGE: {
         BASE: '/image',
@@ -64,16 +67,30 @@ export const API_URL = {
         CENTER_LIST: '/center-list',
         CENTER: '/center',
         COURT: '/court',
+        FILTER: '/filter',
     },
     CENTER_REVIEW: {
         BASE: '/center-review',
         LIST: '/list',
         USER: '/user',
         CENTER_OWNER: '/center-owner',
+        FILTER: '/filter',
+        CENTER: '/center',
     },
     PRODUCT_ORDER: {
         BASE: '/product-order',
         LIST: '/list',
         CENTER_OWNER: '/center-owner',
+        FILTER: '/filter',
+        USER: '/user',
+        CENTER: '/center',
+    },
+    BOOKING_ORDER_STATUS: {
+        BASE: '/booking-order-status',
+        LIST: '/list',
+    },
+    PRODUCT_ORDER_STATUS: {
+        BASE: '/product-order-status',
+        LIST: '/list',
     },
 };

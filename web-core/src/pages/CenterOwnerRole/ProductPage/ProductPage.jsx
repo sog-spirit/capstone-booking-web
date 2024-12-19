@@ -8,6 +8,7 @@ import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
+import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../utils/pagination/PaginationUtils";
 
 export default function ProductCenterOwnerPage() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -42,6 +43,10 @@ export default function ProductCenterOwnerPage() {
     const [editImage, setEditImage] = useState(null);
     const [editImagePreviewUrl, setEditImagePreviewUrl] = useState(null);
     const editImageRef = useRef();
+
+    const [currentPageNumber, setCurrentPageNumber] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
+    const [pageNumberButtonList, setPageNumberButtonList] = useState([]);
 
     async function submitAddNewProduct() {
         let accessToken = await refreshAccessToken(setTokenState);
@@ -95,7 +100,13 @@ export default function ProductCenterOwnerPage() {
 
     useEffect(() => {
         loadProductList();
-    }, [tokenState.accessToken, addNewModalState, editModalState]);
+    }, [tokenState.accessToken,
+        addNewModalState,
+        editModalState,
+        currentPageNumber,
+        totalPage,
+        pageNumberButtonList.length,
+    ]);
 
     async function loadProductList() {
         let accessToken = await refreshAccessToken(setTokenState);
@@ -105,15 +116,19 @@ export default function ProductCenterOwnerPage() {
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         let url = API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.CENTER_OWNER + API_URL.PRODUCT.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('pageNo', currentPageNumber - 1);
+        searchParams.append('pageSize', DEFAULT_PAGE_SIZE);
 
-        const response = await fetch(url, {
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
 
         if (response.status === HTTP_STATUS.OK) {
-            let productList = await response.json();
-            setProductList(productList);
+            let data = await response.json();
+            setProductList(data.productList);
+            setTotalPage(data.totalPage);
         }
     }
 
@@ -186,6 +201,10 @@ export default function ProductCenterOwnerPage() {
         editImageRef.current.value = null;
     }
 
+    useEffect(() => {
+        setPageNumberButtonList(paginate(currentPageNumber, totalPage));
+    }, [currentPageNumber, totalPage, pageNumberButtonList.length]);
+
     return (
         <>
         <Header />
@@ -236,6 +255,24 @@ export default function ProductCenterOwnerPage() {
                             </div>
                         </div>
                         ))}
+                    </div>
+                </div>
+                <div className="product-order__container__pagination">
+                    <div className="product-order__container__pagination__previous" onClick={() => previousPage(currentPageNumber, setCurrentPageNumber)}>
+                        Previous
+                    </div>
+                    <div className="product-order__container__pagination__page-number-button-list">
+                        {pageNumberButtonList.map(item => Number.isInteger(item) ?
+                            (<div className={`product-order__container__pagination__page-number-button-list__item${item === currentPageNumber ? '--active' : ''}`} key={item} onClick={() => setCurrentPageNumber(item)}>
+                                {item}
+                            </div>)
+                        : (<div className="product-order__container__pagination__page-number-button-list__item" key={item}>
+                                {item}
+                        </div>)
+                        )}
+                    </div>
+                    <div className="product-order__container__pagination__next" onClick={() => nextPage(currentPageNumber, setCurrentPageNumber, totalPage)}>
+                        Next
                     </div>
                 </div>
             </div>

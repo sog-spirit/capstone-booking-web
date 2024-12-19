@@ -122,6 +122,59 @@
                 }
             }
         }
+
+        &__pagination {
+            display: flex;
+            margin-top: margin.$input-item-margin;
+
+            &__previous {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-left-radius: button.$border-radius;
+                border-bottom-left-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
+                }
+            }
+
+            &__page-number-button-list {
+                display: flex;
+
+                &__item {
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+
+                    &--active {
+                        background: button.$primary-background-color;
+                        padding: padding.$small-padding;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+                }
+            }
+
+            &__next {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-right-radius: button.$border-radius;
+                border-bottom-right-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
+                }
+            }
+        }
     }
 
     &__add-new-modal {

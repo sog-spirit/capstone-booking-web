@@ -6,7 +6,7 @@ import { refreshAccessToken } from "../../../utils/jwt/JwtUtils";
 import { HTTP_REQUEST_HEADER_NAME, HTTP_REQUEST_HEADER_VALUE, HTTP_REQUEST_METHOD } from "../../../utils/consts/HttpRequestConsts";
 import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
-import { handleInputChange } from "../../../utils/input/InputUtils";
+import { handleClickOutsideElement, handleInputChange } from "../../../utils/input/InputUtils";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
 import CourtBookingList from "./CourtBookingList";
@@ -105,17 +105,7 @@ export default function UserCourtPage() {
     }
 
     useEffect(() => {
-        function handler(event) {
-            if (!courtDropdownRef.current.contains(event.target)) {
-                setCourtDropdownState(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handler);
-
-        return () => {
-            document.removeEventListener("mousedown", handler);
-        }
+        handleClickOutsideElement(courtDropdownRef, setCourtDropdownState);
     }, []);
 
     useEffect(() => {
