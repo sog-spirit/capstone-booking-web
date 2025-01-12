@@ -1,0 +1,180 @@
+@use '../../components/header';
+@use '../../components/margin';
+@use '../../components/border';
+@use '../../components/padding';
+@use '../../components/button';
+@use '../../components/color-theme';
+@use '../../components/modal';
+@use '../../components/input';
+@use '../../components/z-index';
+@use '../../components/shadow';
+
+.center-owner-statistics {
+    padding-top: header.$header-height;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            margin-top: margin.$title-margin;
+            margin-bottom: margin.$title-margin;
+
+            &__title {
+                padding-bottom: padding.$small-padding;
+            }
+
+            &__button-group {
+                display: flex;
+                justify-content: space-between;
+                z-index: 1;
+
+                &__left {
+                    &__filter {
+                        display: flex;
+
+                        &__center-filter {
+                            &__button {
+                                background: button.$primary-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                padding: padding.$small-padding;
+                                margin-right: margin.$input-item-margin;
+                                width: fit-content;
+            
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+    
+                            &__filter-option {
+                                position: fixed;
+                                padding: padding.$small-padding;
+                                background: color-theme.$light-theme-background-color;
+                                box-shadow: shadow.$small-shadow;
+                                overflow-y: auto;
+                                max-height: 300px;
+    
+                                input {
+                                    @include input.input-style;
+                                }
+    
+                                &__item {
+                                    padding: padding.$small-padding;
+    
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$primary-background-hover-color;
+                                    }
+                                }
+                            }
+                        }
+    
+                        &__frequency-filter {
+                            &__button {
+                                background: button.$primary-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                padding: padding.$small-padding;
+                                margin-right: margin.$input-item-margin;
+                                width: fit-content;
+            
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+    
+                            &__filter-option {
+                                position: fixed;
+                                padding: padding.$small-padding;
+                                background: color-theme.$light-theme-background-color;
+                                box-shadow: shadow.$small-shadow;
+                                overflow-y: auto;
+                                max-height: 300px;
+    
+                                input {
+                                    @include input.input-style;
+                                }
+    
+                                &__item {
+                                    padding: padding.$small-padding;
+    
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$primary-background-hover-color;
+                                    }
+                                }
+                            }
+                        }
+
+                        &__range-filter {
+                            &__button {
+                                background: button.$primary-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                padding: padding.$small-padding;
+                                margin-right: margin.$input-item-margin;
+                                width: fit-content;
+            
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+    
+                            &__filter-option {
+                                position: fixed;
+                                padding: padding.$small-padding;
+                                background: color-theme.$light-theme-background-color;
+                                box-shadow: shadow.$small-shadow;
+                                overflow-y: auto;
+                                max-height: 300px;
+    
+                                input {
+                                    @include input.input-style;
+                                }
+    
+                                &__item {
+                                    padding: padding.$small-padding;
+    
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$primary-background-hover-color;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__right {
+                    &__refresh-button {
+                        background: button.$primary-background-color;
+                        border-radius: button.$border-radius;
+                        height: fit-content;
+                        padding: padding.$small-padding;
+                        margin-right: margin.$input-item-margin;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__graph {
+            margin-top: margin.$title-margin;
+        }
+    }
+}

@@ -1,0 +1,293 @@
+@use '../../components/header';
+@use '../../components/margin';
+@use '../../components/border';
+@use '../../components/padding';
+@use '../../components/button';
+@use '../../components/color-theme';
+@use '../../components/modal';
+@use '../../components/input';
+@use '../../components/shadow';
+
+.admin-content-management {
+    padding-top: header.$header-height;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+            display: flex;
+            flex-direction: column;
+            margin-top: margin.$title-margin;
+
+            &__button-group {
+                display: flex;
+                justify-content: space-between;
+                margin-top: margin.$title-margin;
+
+                &__left {
+                    display: flex;
+                    flex-wrap: wrap;
+                    > * {
+                        padding-bottom: padding.$small-padding;
+                    }
+                }
+
+                &__right {
+                    &__refresh-button {
+                        background: button.$primary-background-color;
+                        border-radius: button.$border-radius;
+                        height: fit-content;
+                        padding: padding.$small-padding;
+                        margin-right: margin.$input-item-margin;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__list {
+            margin-top: margin.$title-margin;
+            overflow-x: auto;
+
+            &__header {
+                display: flex;
+                vertical-align: middle;
+                border-bottom: border.$small-border-line;
+                border-top: border.$small-border-line;
+                font-weight: 700;
+                min-width: fit-content;
+
+                &__id {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__user {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__center {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__content {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+                }
+
+                &__rating {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+                }
+
+                &__create-timestamp {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__update-timestamp {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__status {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+                }
+
+                &__action {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+                }
+            }
+
+            &__content {
+                &__item {
+                    display: flex;
+                    vertical-align: middle;
+                    border-bottom: border.$small-border-line;
+                    min-width: fit-content;
+
+                    &__id {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__user {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__center {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__content {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__rating {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__create-timestamp {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__update-timestamp {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__status {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__action {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                        display: flex;
+
+                        &__approve {
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+                            width: fit-content;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+
+                        &__denied {
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+                            margin-left: margin.$input-item-margin;
+                            width: fit-content;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__pagination {
+            display: flex;
+            margin-top: margin.$input-item-margin;
+
+            &__previous {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-left-radius: button.$border-radius;
+                border-bottom-left-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
+                }
+            }
+
+            &__page-number-button-list {
+                display: flex;
+
+                &__item {
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+
+                    &--active {
+                        background: button.$primary-background-color;
+                        padding: padding.$small-padding;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+                }
+            }
+
+            &__next {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-right-radius: button.$border-radius;
+                border-bottom-right-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
+                }
+            }
+        }
+    }
+}

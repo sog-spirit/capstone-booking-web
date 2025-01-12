@@ -11,6 +11,7 @@ import { SORT_DIRECTION } from "../../../utils/consts/SortDirection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort, faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons";
 import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../utils/pagination/PaginationUtils";
+import { BOOKING_STATUS_CONSTS } from "../../../utils/consts/BookingStatusConsts";
 
 export default function BookingOrderManagement() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -109,11 +110,9 @@ export default function BookingOrderManagement() {
     });
 
     const [statusFilterDropdownState, setStatusFilterDropdownState] = useState(false);
-    const [statusFilterItemList, setStatusFilterItemList] = useState([]);
     const statusFilterDropdownListRef = useRef(null);
     const [statusCurrentFilterItem, setStatusCurrentFilterItem] = useState({
-        id: null,
-        name: '',
+        id: 0,
     });
 
     useEffect(() => {
@@ -370,37 +369,63 @@ export default function BookingOrderManagement() {
         });
     }
 
-    useEffect(() => {
-        loadBookingOrderStatusList();
-    }, []);
-
-    async function loadBookingOrderStatusList() {
-        let accessToken = await refreshAccessToken(setTokenState);
-
-        const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
-
-        let url = API_URL.BASE + API_URL.BOOKING_ORDER_STATUS.BASE + API_URL.BOOKING_ORDER_STATUS.LIST;
-
-        const response = await fetch(url, {
-            method: HTTP_REQUEST_METHOD.GET,
-            headers: headers,
-        });
-
-        if (response.status === HTTP_STATUS.OK) {
-            let data = await response.json();
-            setStatusFilterItemList(data);
-        }
-    }
-
-    function onStatusFilterItemSelect(id) {
-        let item = statusFilterItemList.find(item => item.id === id);
+    function onStatusFilterItemSelect(index) {
         setStatusCurrentFilterItem({
-            id: item.id,
-            name: item.name,
+            id: index,
         });
     }
+
+    async function checkoutCourtBooking(id) {
+            let accessToken = await refreshAccessToken(setTokenState);
+                    
+            const headers = new Headers();
+            headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+            headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+    
+            const formData = {
+                id: id,
+            };
+    
+            let url = API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.CENTER_OWNER + API_URL.COURT_BOOKING.CHECKOUT;
+    
+            const response = await fetch(url, {
+                method: HTTP_REQUEST_METHOD.PUT,
+                headers: headers,
+                body: JSON.stringify(formData),
+            });
+    
+            if (response.status === HTTP_STATUS.OK) {
+                defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+                setCourtBookingDetailModalState(false);
+                loadCourtBookingList();
+            }
+        }
+    
+        async function cancelCourtBooking(id) {
+            let accessToken = await refreshAccessToken(setTokenState);
+                    
+            const headers = new Headers();
+            headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+            headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+    
+            const formData = {
+                id: id,
+            };
+    
+            let url = API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.CENTER_OWNER + API_URL.COURT_BOOKING.CANCEL;
+    
+            const response = await fetch(url, {
+                method: HTTP_REQUEST_METHOD.DELETE,
+                headers: headers,
+                body: JSON.stringify(formData),
+            });
+    
+            if (response.status === HTTP_STATUS.OK) {
+                defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+                setCourtBookingDetailModalState(false);
+                loadCourtBookingList();
+            }
+        }
 
     return (
         <>
@@ -474,8 +499,8 @@ export default function BookingOrderManagement() {
                                 <div className="booking-order-management__container__header__button-group__left__center-filter__filter-option" style={centerFilterDropdownState ? {} : {display: 'none'}} ref={centerFilterDropdownListRef}>
                                     <input type="text" placeholder="Center" value={centerFilterSearchQuery} onChange={event => setCenterFilterSearchQuery(event.target.value)} />
                                     {centerFilterItemList.map(item => (
-                                        <div className="booking-order-management__container__header__button-group__left__center-filter__filter-option__item" key={item.center.id} onClick={() => onCenterFilterItemSelect(item.center.id)}>
-                                            {item.center.name}
+                                        <div className="booking-order-management__container__header__button-group__left__center-filter__filter-option__item" key={item.court.center.id} onClick={() => onCenterFilterItemSelect(item.center.id)}>
+                                            {item.court.center.name}
                                         </div>
                                     ))}
                                 </div>
@@ -553,12 +578,12 @@ export default function BookingOrderManagement() {
                             </div>
                             <div className="booking-order-management__container__header__button-group__left__status-filter" style={filterDropdownCheckboxState.status ? {} : {display: 'none'}}>
                                 <div className="booking-order-management__container__header__button-group__left__status-filter__button" onClick={() => setStatusFilterDropdownState(true)}>
-                                    Status filter{statusCurrentFilterItem.name ? `: ${statusCurrentFilterItem.name}` : ``}
+                                    Status filter{statusCurrentFilterItem.id ? `: ${BOOKING_STATUS_CONSTS.INDEX[statusCurrentFilterItem.id]}` : ``}
                                 </div>
                                 <div className="booking-order-management__container__header__button-group__left__status-filter__filter-option" style={statusFilterDropdownState ? {} : {display: 'none'}} ref={statusFilterDropdownListRef}>
-                                    {statusFilterItemList.map(item => (
-                                        <div className="booking-order-management__container__header__button-group__left__status-filter__filter-option__item" key={item.id} onClick={() => onStatusFilterItemSelect(item.id)}>
-                                            {item.name}
+                                    {BOOKING_STATUS_CONSTS.INDEX.map((item, index) => (
+                                        <div className="booking-order-management__container__header__button-group__left__status-filter__filter-option__item" key={index} onClick={() => onStatusFilterItemSelect(index)}>
+                                            {item}
                                         </div>
                                     ))}
                                 </div>
@@ -600,6 +625,9 @@ export default function BookingOrderManagement() {
                         <div className="booking-order-management__container__list__header__status" onClick={() => onChangeSortOrder('status', setCourtBookingListSortOrder)}>
                             Status {courtBookingListSortOrder.status ? (courtBookingListSortOrder.status === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
+                        <div className="booking-order-management__container__list__header__action">
+                            Action
+                        </div>
                     </div>
                     <div className="booking-order-management__container__list__content">
                         {courtBookingList.map(item => (
@@ -611,7 +639,7 @@ export default function BookingOrderManagement() {
                                 {formatTimestamp(item.createTimestamp)}
                             </div>
                             <div className="booking-order-management__container__list__content__item__center">
-                                {item.center.name}
+                                {item.court.center.name}
                             </div>
                             <div className="booking-order-management__container__list__content__item__court">
                                 {item.court.name}
@@ -629,7 +657,19 @@ export default function BookingOrderManagement() {
                                 {trimTime(item.usageTimeEnd)}
                             </div>
                             <div className="booking-order-management__container__list__content__item__status">
-                                {item.status.name}
+                                {BOOKING_STATUS_CONSTS.INDEX[item.status]}
+                            </div>
+                            <div className="booking-order-management__container__list__content__item__action">
+                                {item.status === BOOKING_STATUS_CONSTS.PENDING && (
+                                    <>
+                                    <div className="booking-order-management__container__list__content__item__action__checkout-button" onClick={() => checkoutCourtBooking(item.id)}>
+                                        Checkout
+                                    </div>
+                                    <div className="booking-order-management__container__list__content__item__action__cancel-button" onClick={() => cancelCourtBooking(item.id)}>
+                                        Cancel
+                                    </div>
+                                    </>
+                                )}
                             </div>
                         </div>
                         ))}

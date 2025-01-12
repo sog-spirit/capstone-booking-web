@@ -4,6 +4,10 @@ export const API_URL = {
         BASE: '/user',
         REGISTER: '/register',
         LOGIN: '/login',
+        INFO: '/info',
+        PASSWORD: '/password',
+        ADMIN: '/admin',
+        LIST: '/list',
     },
     JWT: {
         BASE: '/jwt',
@@ -26,6 +30,9 @@ export const API_URL = {
         USER: '/user',
         DROPDOWN: '/dropdown',
         WORKING_TIME: '/working-time',
+        INFO: '/info',
+        CLOSED: '/closed',
+        STATISTICS: '/statistics',
     },
     COURT: {
         BASE: '/court',
@@ -53,6 +60,11 @@ export const API_URL = {
     IMAGE: {
         BASE: '/image',
         PRODUCT: '/product',
+        CENTER: '/center',
+        INFO: '/info',
+        LIST: '/list',
+        THUMBNAIL_INFO: '/thumbnail-info',
+        SHOWCASE_INFO: '/showcase-info',
     },
     EMPLOYEE_MANAGEMENT: {
         BASE: '/employee-management',
@@ -68,6 +80,13 @@ export const API_URL = {
         CENTER: '/center',
         COURT: '/court',
         FILTER: '/filter',
+        DATE: '/date',
+        DETAIL: '/detail',
+        ID: '/id',
+        CANCEL: '/cancel',
+        CHECKOUT: '/checkout',
+        STATISTICS: '/statistics',
+        DAILY: '/daily',
     },
     CENTER_REVIEW: {
         BASE: '/center-review',
@@ -76,6 +95,9 @@ export const API_URL = {
         CENTER_OWNER: '/center-owner',
         FILTER: '/filter',
         CENTER: '/center',
+        ADMIN: '/admin',
+        APPROVE: '/approve',
+        DENIED: '/denied',
     },
     PRODUCT_ORDER: {
         BASE: '/product-order',
@@ -92,5 +114,15 @@ export const API_URL = {
     PRODUCT_ORDER_STATUS: {
         BASE: '/product-order-status',
         LIST: '/list',
+    },
+    COURT_BOOKING_PRODUCT_ORDER: {
+        BASE: '/court-booking-product-order',
+        PRODUCT_INVENTORY: '/product-inventory',
+        USER: '/user',
+        LIST: '/list',
+        CENTER_OWNER: '/center-owner',
+        COURT_BOOKING: '/court-booking',
+        CANCEL: '/cancel',
+        CHECKOUT: '/checkout',
     },
 };

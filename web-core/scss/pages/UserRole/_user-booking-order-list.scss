@@ -376,15 +376,15 @@
                 &__right {
                     &__refresh-button {
                         background: button.$primary-background-color;
-                            border-radius: button.$border-radius;
-                            height: fit-content;
-                            padding: padding.$small-padding;
-                            margin-right: margin.$input-item-margin;
-        
-                            &:hover {
-                                cursor: pointer;
-                                background: button.$primary-background-hover-color;
-                            }
+                        border-radius: button.$border-radius;
+                        height: fit-content;
+                        padding: padding.$small-padding;
+                        margin-right: margin.$input-item-margin;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
                     }
                 }
             }
@@ -490,6 +490,12 @@
                             text-decoration: underline;
                         }
                     }
+
+                    &__action {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
                 }
 
                 &__content {
@@ -545,6 +551,24 @@
                             width: 200px;
                             margin-top: margin.$input-item-margin;
                             margin-bottom: margin.$input-item-margin;
+                        }
+
+                        &__action {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+
+                            &__cancel-button {
+                                background: button.$light-background-color;
+                                padding: padding.$small-padding;
+                                border-radius: button.$border-radius;
+                                width: fit-content;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$light-background-hover-color;
+                                }
+                            }
                         }
                     }
                 }

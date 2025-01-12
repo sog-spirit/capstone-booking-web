@@ -21,6 +21,10 @@ import UserCenterReview from './pages/UserRole/CenterReview/UserCenterReview';
 import CenterReview from './pages/CenterOwnerRole/CenterReview/CenterReview';
 import UserProductOrder from './pages/UserRole/ProductOrder/UserProductOrder';
 import ProductOrder from './pages/CenterOwnerRole/ProductOrder/ProductOrder';
+import CenterOwnerStatistics from './pages/CenterOwnerRole/Statistics/CenterOwnerStatistics';
+import AdminAccountManagement from './pages/AdminRole/AccountManagement/AccountManagement';
+import AdminContentManagement from './pages/AdminRole/ContentManagement/ContentManagement';
+import AdminReportManagement from './pages/AdminRole/ReportManagement/ReportManagement';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -103,12 +107,17 @@ export default function App() {
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.BOOKING_ORDER_MANAGEMENT} element={<BookingOrderManagement />} />
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.CENTER_REVIEW} element={<CenterReview />} />
                 <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.PRODUCT_ORDER} element={<ProductOrder />} />
+                <Route path={PAGE_URL.CENTER_OWNER.BASE + PAGE_URL.CENTER_OWNER.STATISTICS} element={<CenterOwnerStatistics />} />
 
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE} element={<UserCenterPage />} />
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE + '/:centerId' + PAGE_URL.USER.COURT_PAGE} element={<UserCourtPage />} />
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.BOOKING_ORDER_LIST} element={<UserBookingOrderList />} />
                 <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_REVIEW} element={<UserCenterReview />} />
-                <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.CENTER_PAGE + '/:centerId' + PAGE_URL.USER.PRODUCT_ORDER} element={<UserProductOrder />} />
+                <Route path={PAGE_URL.USER.BASE + PAGE_URL.USER.COURT_BOOKING + '/:courtBookingId' + PAGE_URL.USER.PRODUCT_ORDER} element={<UserProductOrder />} />
+
+                <Route path={PAGE_URL.ADMIN.BASE + PAGE_URL.ADMIN.ACCOUNT_MANAGEMENT} element={<AdminAccountManagement />} />
+                <Route path={PAGE_URL.ADMIN.BASE + PAGE_URL.ADMIN.CONTENT_MANAGEMENT} element={<AdminContentManagement />} />
+                <Route path={PAGE_URL.ADMIN.BASE + PAGE_URL.ADMIN.REPORT_MANAGEMENT} element={<AdminReportManagement />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>

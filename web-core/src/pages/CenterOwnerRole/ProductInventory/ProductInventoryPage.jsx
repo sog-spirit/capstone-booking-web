@@ -78,6 +78,12 @@ export default function ProductInventoryCenterOwnerPage() {
     const [totalPage, setTotalPage] = useState(1);
     const [pageNumberButtonList, setPageNumberButtonList] = useState([]);
 
+    const [editFormData, setEditFormData] = useState({
+        id: 0,
+        quantity: 0,
+    });
+    const [editModalState, setEditModalState] = useState(false);
+
     useEffect(() => {
         handleClickOutsideElement(productDropdownRef, setProductDropdownState)
     }, []);
@@ -123,8 +129,10 @@ export default function ProductInventoryCenterOwnerPage() {
     }, []);
 
     useEffect(() => {
-        loadCenterDropdownList();
-    }, [addNewModalState, centerDropdownSearchInput, tokenState.accessToken]);
+        if (addNewFormData.productId) {
+            loadCenterDropdownList();
+        }
+    }, [addNewModalState, centerDropdownSearchInput, tokenState.accessToken, addNewFormData.productId]);
 
     async function loadCenterDropdownList() {
         let accessToken = await refreshAccessToken(setTokenState);
@@ -136,6 +144,7 @@ export default function ProductInventoryCenterOwnerPage() {
         let url = API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.CENTER_OWNER + API_URL.CENTER.LIST + API_URL.CENTER.DROPDOWN;
         let searchParams = new URLSearchParams();
         searchParams.append('query', centerDropdownSearchInput);
+        searchParams.append('productId', addNewFormData.productId);
 
         const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
@@ -188,6 +197,7 @@ export default function ProductInventoryCenterOwnerPage() {
                 center: '',
                 quantity: '',
             }));
+            loadProductInventoryList();
             defaultSuccessToastNotification(MESSAGE_CONSTS.ADD_SUCCESS);
             setAddNewModalState(false);
         }
@@ -335,6 +345,69 @@ export default function ProductInventoryCenterOwnerPage() {
         setPageNumberButtonList(paginate(currentPageNumber, totalPage));
     }, [currentPageNumber, totalPage, pageNumberButtonList.length]);
 
+    function openEditModal(id) {
+        let item = productInvetoryList.find(item => item.id === id);
+        setEditFormData({
+            id: item.id,
+            quantity: item.quantity,
+        });
+        setEditModalState(true);
+    }
+
+    function closeEditModal() {
+        setEditFormData({
+            id: 0,
+            quantity: 0,
+        });
+        setEditModalState(false);
+    }
+
+    async function submitEditData() {
+        let accessToken = await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+
+        let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE;
+
+        const response = await fetch(url, {
+            method: HTTP_REQUEST_METHOD.PUT,
+            headers: headers,
+            body: JSON.stringify(editFormData),
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+            closeEditModal();
+            loadProductInventoryList();
+        }
+    }
+
+    async function submitDeleteData(productInventoryId) {
+        let accessToken = await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+
+        let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE;
+        const formData = {
+            id: productInventoryId,
+        };
+
+        const response = await fetch(url, {
+            method: HTTP_REQUEST_METHOD.DELETE,
+            headers: headers,
+            body: JSON.stringify(formData),
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+            loadProductInventoryList();
+        }
+    }
+
     return (
         <>
         <Header />
@@ -387,7 +460,7 @@ export default function ProductInventoryCenterOwnerPage() {
                             </div>
                         </div>
                         <div className="product-inventory-page__container__header__button-group__right">
-                            <div className="product-inventory-page__container__header__button-group__right__refresh-button">
+                            <div className="product-inventory-page__container__header__button-group__right__refresh-button" onClick={() => loadProductInventoryList()}>
                                 Refresh
                             </div>
                             <div className="product-inventory-page__container__header__button-group__right__add-new-button" onClick={() => setAddNewModalState(true)}>
@@ -410,6 +483,9 @@ export default function ProductInventoryCenterOwnerPage() {
                         <div className="product-inventory-page__container__list__header__quantity" onClick={() => onChangeSortOrder('quantity', setProductInventorySortOrder)}>
                             Quantity {productInventorySortOrder.quantity ? (productInventorySortOrder.quantity === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
+                        <div className="product-inventory-page__container__list__header__action">
+                            Action
+                        </div>
                     </div>
                     <div className="product-inventory-page__container__list__content">
                         {productInvetoryList.map(item => (
@@ -425,6 +501,14 @@ export default function ProductInventoryCenterOwnerPage() {
                             </div>
                             <div className="product-inventory-page__container__list__content__item__quantity">
                                 {item.quantity}
+                            </div>
+                            <div className="product-inventory-page__container__list__content__item__action">
+                                <div className="product-inventory-page__container__list__content__item__action__edit-button" onClick={() => openEditModal(item.id)}>
+                                    Edit
+                                </div>
+                                <div className="product-inventory-page__container__list__content__item__action__delete-button" onClick={() => submitDeleteData(item.id)}>
+                                    Delete
+                                </div>
                             </div>
                         </div>
                         ))}
@@ -499,6 +583,31 @@ export default function ProductInventoryCenterOwnerPage() {
                     <div className="product-inventory-page__add-new-modal__form__footer">
                         <div className="product-inventory-page__add-new-modal__form__footer__add-button" onClick={() => submitAddNewData()}>
                             Add
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="product-inventory-page__edit-modal" style={editModalState ? {} : {display: 'none'}}>
+                <div className="product-inventory-page__edit-modal__form">
+                    <div className="product-inventory-page__edit-modal__form__header">
+                        <div className="product-inventory-page__edit-modal__form__header__title">
+                            <h5>Edit modal</h5>
+                        </div>
+                        <div className="product-inventory-page__edit-modal__form__header__close-button" onClick={() => closeEditModal()}>
+                            Close
+                        </div>
+                    </div>
+                    <div className="product-inventory-page__edit-modal__form__content">
+                        <div className="product-inventory-page__edit-modal__form__content__quantity">
+                            <div className="product-inventory-page__edit-modal__form__content__quantity__label">
+                                Quantity
+                            </div>
+                            <input type="text" placeholder="Quantity" name="quantity" value={editFormData.quantity} onChange={event => handleInputChange(event, setEditFormData)} />
+                        </div>
+                    </div>
+                    <div className="product-inventory-page__edit-modal__form__footer">
+                        <div className="product-inventory-page__edit-modal__form__footer__save-button" onClick={() => submitEditData()}>
+                            Save
                         </div>
                     </div>
                 </div>

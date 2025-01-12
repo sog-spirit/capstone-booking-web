@@ -9,6 +9,7 @@ export const HTTP_REQUEST_METHOD = {
     GET: 'GET',
     POST: 'POST',
     PUT: 'PUT',
+    DELETE: 'DELETE',
 };
 
 export const HTTP_REQUEST_HEADER_NAME = {

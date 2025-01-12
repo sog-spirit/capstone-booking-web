@@ -11,6 +11,7 @@
 @use './pages/register-page';
 @use './pages/login-page';
 @use './pages/error-page';
+@use './pages/home-page';
 
 @use './pages/CenterOwnerRole/center-detail';
 @use './pages/CenterOwnerRole/center-management';
@@ -20,9 +21,14 @@
 @use './pages/CenterOwnerRole/booking-order-management';
 @use './pages/CenterOwnerRole/center-review';
 @use './pages/CenterOwnerRole/product-order-management';
+@use './pages/CenterOwnerRole/center-owner-statistics';
 
 @use './pages/UserRole/user-center-page';
 @use './pages/UserRole/user-court-page';
 @use './pages/UserRole/user-booking-order-list';
 @use './pages/UserRole/user-center-review-page';
 @use './pages/UserRole/user-product-order';
+
+@use './pages/AdminRole/admin-account-management';
+@use './pages/AdminRole/admin-content-management';
+@use './pages/AdminRole/admin-report-management';

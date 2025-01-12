@@ -10,8 +10,11 @@ import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
 import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../utils/pagination/PaginationUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSort, faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons";
+import { faSort, faSortDown, faSortUp, faThumbsDown, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { SORT_DIRECTION } from "../../../utils/consts/SortDirection";
+import { formatTimestamp } from "../../../utils/formats/TimeFormats";
+import { CENTER_REVIEW_CONSTS } from "../../../utils/consts/CenterReviewConsts";
+import { CENTER_REVIEW_RATING_CONSTS } from "../../../utils/consts/CenterReviewRatingConsts";
 
 export default function UserCenterReview() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -26,6 +29,7 @@ export default function UserCenterReview() {
     const [addNewFormData, setAddNewFormData] = useState({
         content: '',
         centerId: 0,
+        rating: 0,
     });
     const [addNewInputState, setAddNewInputStatus] = useState({
         content: '',
@@ -37,6 +41,8 @@ export default function UserCenterReview() {
     const [userCenterReviewSortOrder, setUserCenterReviewSortOrder] = useState({
         id: null,
         center: null,
+        createTimestamp: null,
+        updateTimestamp: null,
     });
 
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -61,6 +67,13 @@ export default function UserCenterReview() {
     const [centerCurrentFilterItem, setCenterCurrentFilterItem] = useState({
         id: null,
         name: '',
+    });
+
+    const [editReviewModalState, setEditReviewModalState] = useState(false);
+    const [editReviewFormData, setEditReviewFormData] = useState({
+        id: 0,
+        rating: 0,
+        content: '',
     });
 
     useEffect(() => {
@@ -93,11 +106,11 @@ export default function UserCenterReview() {
     }
 
     function selectCenterDropdownItem(centerId) {
-        let center = centerDropdownList.find(item => item.centerId === centerId);
-        setCenterDropdownTextValue(center.centerName);
+        let center = centerDropdownList.find(item => item.id === centerId);
+        setCenterDropdownTextValue(center.name);
         setAddNewFormData(prevState => ({
             ...prevState,
-            centerId: center.centerId,
+            centerId: center.id,
         }));
         setCenterDropdownState(false);
     }
@@ -145,6 +158,10 @@ export default function UserCenterReview() {
         pageNumberButtonList.length,
         userCenterReviewSortOrder.id,
         userCenterReviewSortOrder.center,
+        userCenterReviewSortOrder.createTimestamp,
+        userCenterReviewSortOrder.updateTimestamp,
+        addNewModalState,
+        editReviewModalState,
     ]);
 
     async function loadUserReviewList() {
@@ -160,6 +177,12 @@ export default function UserCenterReview() {
         }
         if (userCenterReviewSortOrder.center) {
             searchParams.append('centerSortOrder', userCenterReviewSortOrder.center);
+        }
+        if (userCenterReviewSortOrder.createTimestamp) {
+            searchParams.append('createTimestampSortOrder', userCenterReviewSortOrder.createTimestamp);
+        }
+        if (userCenterReviewSortOrder.updateTimestamp) {
+            searchParams.append('updateTimestampSortOrder', userCenterReviewSortOrder.updateTimestamp);
         }
 
         if (filterDropdownCheckboxState.id && idFilterSearchQuery) {
@@ -234,6 +257,77 @@ export default function UserCenterReview() {
         });
     }
 
+    function openEditModal(id) {
+        setEditReviewModalState(true);
+        let item = userReviewList.find(item => item.id === id);
+        setEditReviewFormData({
+            id: id,
+            rating: item.rating,
+            content: item.content,
+        });
+    }
+
+    function closeEditModal() {
+        setEditReviewModalState(false);
+        setEditReviewFormData({
+            id: 0,
+            rating: 0,
+            content: '',
+        });
+    }
+
+    function onClickRecommend(setFormData) {
+        const rating = editReviewFormData.rating === CENTER_REVIEW_RATING_CONSTS.RECOMMEND ? 0 : CENTER_REVIEW_RATING_CONSTS.RECOMMEND;
+        setFormData(prevState => ({...prevState, rating: rating}));
+    }
+
+    function onClickNotRecommend(setFormData) {
+        const rating = editReviewFormData.rating === CENTER_REVIEW_RATING_CONSTS.NOT_RECOMMEND ? 0 : CENTER_REVIEW_RATING_CONSTS.NOT_RECOMMEND;
+        setFormData(prevState => ({...prevState, rating: rating}));
+    }
+
+    async function saveEditReview() {
+        let accessToken = await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+
+        let url = API_URL.BASE + API_URL.CENTER_REVIEW.BASE;
+
+        const response = await fetch(url, {
+            method: HTTP_REQUEST_METHOD.PUT,
+            headers: headers,
+            body: JSON.stringify(editReviewFormData),
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            closeEditModal();
+            defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+        }
+    }
+
+    async function deleteEditReview() {
+        let accessToken = await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+
+        let url = API_URL.BASE + API_URL.CENTER_REVIEW.BASE;
+
+        const response = await fetch(url, {
+            method: HTTP_REQUEST_METHOD.DELETE,
+            headers: headers,
+            body: JSON.stringify(editReviewFormData),
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            closeEditModal();
+            defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+        }
+    }
+
     return (
         <>
         <Header />
@@ -304,6 +398,21 @@ export default function UserCenterReview() {
                             <div className="user-center-review__container__review-list__list__header__content">
                                 Content
                             </div>
+                            <div className="user-center-review__container__review-list__list__header__rating">
+                                Rating
+                            </div>
+                            <div className="user-center-review__container__review-list__list__header__create-timestamp" onClick={() => onChangeSortOrder('createTimestamp', setUserCenterReviewSortOrder)}>
+                                Create timestamp {userCenterReviewSortOrder.createTimestamp ? (userCenterReviewSortOrder.createTimestamp === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
+                            </div>
+                            <div className="user-center-review__container__review-list__list__header__update-timestamp" onClick={() => onChangeSortOrder('updateTimestamp', setUserCenterReviewSortOrder)}>
+                                Update timestamp {userCenterReviewSortOrder.updateTimestamp ? (userCenterReviewSortOrder.updateTimestamp === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
+                            </div>
+                            <div className="user-center-review__container__review-list__list__header__status">
+                                Status
+                            </div>
+                            <div className="user-center-review__container__review-list__list__header__action">
+                                Action
+                            </div>
                         </div>
                         <div className="user-center-review__container__review-list__list__content">
                             {userReviewList.map(item => (
@@ -316,6 +425,25 @@ export default function UserCenterReview() {
                                 </div>
                                 <div className="user-center-review__container__review-list__list__content__item__content">
                                     {item.content}
+                                </div>
+                                <div className="user-center-review__container__review-list__list__content__item__rating">
+                                    {CENTER_REVIEW_RATING_CONSTS.INDEX[item.rating]}
+                                </div>
+                                <div className="user-center-review__container__review-list__list__content__item__create-timestamp">
+                                    {formatTimestamp(item.createTimestamp)}
+                                </div>
+                                <div className="user-center-review__container__review-list__list__content__item__update-timestamp">
+                                    {formatTimestamp(item.updateTimestamp)}
+                                </div>
+                                <div className="user-center-review__container__review-list__list__content__item__status">
+                                    {CENTER_REVIEW_CONSTS.INDEX[item.status]}
+                                </div>
+                                <div className="user-center-review__container__review-list__list__content__item__action">
+                                    {item.status !== CENTER_REVIEW_CONSTS.CANCELLED  && (
+                                        <div className="user-center-review__container__review-list__list__content__item__action__edit" onClick={() => openEditModal(item.id)}>
+                                            Edit
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             ))}
@@ -352,8 +480,23 @@ export default function UserCenterReview() {
                         </div>
                     </div>
                     <div className="user-center-review__add-new-modal__form__content">
+                        <div className="user-center-review__add-new-modal__form__content__rating">
+                            <div className="user-center-review__add-new-modal__form__content__rating__label">
+                                Rating
+                            </div>
+                            <div className="user-center-review__edit-modal__form__content__rating__button">
+                                <div className={`user-center-review__edit-modal__form__content__rating__button__recommend ${addNewFormData.rating === CENTER_REVIEW_RATING_CONSTS.RECOMMEND ? 'clicked' : ''}`} onClick={() => onClickRecommend(setAddNewFormData)}>
+                                    <FontAwesomeIcon icon={faThumbsUp} /> Recommended
+                                </div>
+                                <div className={`user-center-review__edit-modal__form__content__rating__button__not-recommend ${addNewFormData.rating === CENTER_REVIEW_RATING_CONSTS.NOT_RECOMMEND ? 'clicked' : ''}`} onClick={() => onClickNotRecommend(setAddNewFormData)}>
+                                    <FontAwesomeIcon icon={faThumbsDown} /> Not recommended
+                                </div>
+                            </div>
+                        </div>
                         <div className="user-center-review__add-new-modal__form__content__center">
-                            <div className="user-center-review__add-new-modal__form__content__center__label">Center</div>
+                            <div className="user-center-review__add-new-modal__form__content__center__label">
+                                Center
+                            </div>
                             <div className="user-center-review__add-new-modal__form__content__center__select">
                                 <div className="user-center-review__add-new-modal__form__content__center__select__select-button" onClick={() => setCenterDropdownState(true)}>
                                     {centerDropdownTextValue ? centerDropdownTextValue : 'Select a center'}
@@ -361,8 +504,8 @@ export default function UserCenterReview() {
                                 <div className={`user-center-review__add-new-modal__form__content__center__select__select-option ${addNewInputState.centerId ? 'input-error' : ''}`} style={centerDropdownState ? {} : {display: 'none'}} ref={centerDropdownRef}>
                                     <input type="text" placeholder="Center" onChange={event => setCenterDropdownSearchInput(event.target.value)} />
                                     {centerDropdownList.map(item => (
-                                    <div className="user-center-review__add-new-modal__form__content__center__select__select-option__item" key={item.centerId} onClick={() => selectCenterDropdownItem(item.centerId)}>
-                                        {item.centerName}
+                                    <div className="user-center-review__add-new-modal__form__content__center__select__select-option__item" key={item.id} onClick={() => selectCenterDropdownItem(item.id)}>
+                                        {item.name}
                                     </div>
                                     ))}
                                 </div>
@@ -378,6 +521,49 @@ export default function UserCenterReview() {
                     <div className="user-center-review__add-new-modal__form__footer">
                         <div className="user-center-review__add-new-modal__form__footer__add-button" onClick={() => submitAddNewData()}>
                             Add
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="user-center-review__edit-modal" style={editReviewModalState ? {} : {display: 'none'}}>
+                <div className="user-center-review__edit-modal__form">
+                    <div className="user-center-review__edit-modal__form__header">
+                        <div className="user-center-review__edit-modal__form__header__title">
+                            <h5>Reviews id {editReviewFormData.id} edit</h5>
+                        </div>
+                        <div className="user-center-review__edit-modal__form__header__close-button" onClick={() => closeEditModal()}>
+                            Close
+                        </div>
+                    </div>
+                    <div className="user-center-review__edit-modal__form__content">
+                        <div className="user-center-review__edit-modal__form__content__rating">
+                            <div className="user-center-review__edit-modal__form__content__rating__label">
+                                Rating
+                            </div>
+                            <div className="user-center-review__edit-modal__form__content__rating__button">
+                                <div className={`user-center-review__edit-modal__form__content__rating__button__recommend ${editReviewFormData.rating === CENTER_REVIEW_RATING_CONSTS.RECOMMEND ? 'clicked' : ''}`} onClick={() => onClickRecommend(setEditReviewFormData)}>
+                                    <FontAwesomeIcon icon={faThumbsUp} /> Recommended
+                                </div>
+                                <div className={`user-center-review__edit-modal__form__content__rating__button__not-recommend ${editReviewFormData.rating === CENTER_REVIEW_RATING_CONSTS.NOT_RECOMMEND ? 'clicked' : ''}`} onClick={() => onClickNotRecommend(setEditReviewFormData)}>
+                                    <FontAwesomeIcon icon={faThumbsDown} /> Not recommended
+                                </div>
+                            </div>
+                        </div>
+                        <div className="user-center-review__edit-modal__form__content__content">
+                            <div className="user-center-review__edit-modal__form__content__content__label">
+                                Content
+                            </div>
+                            <textarea className="user-center-review__edit-modal__form__content__content__textarea" value={editReviewFormData.content} name="content" onChange={event => handleInputChange(event, setEditReviewFormData)}>
+                                
+                            </textarea>
+                        </div>
+                    </div>
+                    <div className="user-center-review__edit-modal__form__footer">
+                        <div className="user-center-review__edit-modal__form__footer__delete-button" onClick={() => deleteEditReview()}>
+                            Delete
+                        </div>
+                        <div className="user-center-review__edit-modal__form__footer__save-button" onClick={() => saveEditReview()}>
+                            Save
                         </div>
                     </div>
                 </div>

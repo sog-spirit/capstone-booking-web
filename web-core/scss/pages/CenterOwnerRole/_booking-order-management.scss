@@ -550,6 +550,12 @@
                         text-decoration: underline;
                     }
                 }
+
+                &__action {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+                }
             }
 
             &__content {
@@ -617,6 +623,38 @@
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__action {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                        display: flex;
+
+                        &__cancel-button {
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+                            margin-left: margin.$input-item-margin;
+                            width: fit-content;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+
+                        &__checkout-button {
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+                            width: fit-content;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
                     }
                 }
             }

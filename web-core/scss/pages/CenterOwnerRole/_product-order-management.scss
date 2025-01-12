@@ -106,6 +106,82 @@
                         }
                     }
 
+                    &__court-booking-id-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__product-inventory-id-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
                     &__user-filter {
                         &__button {
                             background: button.$primary-background-color;
@@ -182,7 +258,7 @@
                         }
                     }
 
-                    &__total-filter {
+                    &__quantity-filter {
                         &__button {
                             background: button.$primary-background-color;
                             border-radius: button.$border-radius;
@@ -220,7 +296,7 @@
                         }
                     }
 
-                    &__center-filter {
+                    &__fee-filter {
                         &__button {
                             background: button.$primary-background-color;
                             border-radius: button.$border-radius;
@@ -337,6 +413,28 @@
                     }
                 }
 
+                &__court-booking-id {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__product-inventory-id {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
                 &__user {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
@@ -359,7 +457,7 @@
                     }
                 }
 
-                &__total {
+                &__quantity {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
@@ -370,7 +468,7 @@
                     }
                 }
 
-                &__center {
+                &__fee {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
@@ -391,6 +489,12 @@
                         text-decoration: underline;
                     }
                 }
+
+                &__action {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+                }
             }
 
             &__content {
@@ -401,6 +505,18 @@
                     min-width: fit-content;
 
                     &__id {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__court-booking-id {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__product-inventory-id {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
@@ -418,13 +534,13 @@
                         margin-bottom: margin.$input-item-margin;
                     }
     
-                    &__total {
+                    &__quantity {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
                     }
     
-                    &__center {
+                    &__fee {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
@@ -434,6 +550,38 @@
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__action {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                        display: flex;
+
+                        &__cancel-button {
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+
+                        &__checkout-button {
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+                            width: fit-content;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
                     }
                 }
             }

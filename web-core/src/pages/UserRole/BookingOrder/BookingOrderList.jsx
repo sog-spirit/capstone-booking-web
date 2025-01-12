@@ -11,6 +11,9 @@ import { faSort, faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { handleClickOutsideElement, handleInputChange, handleInputCheckboxChange, onChangeSortOrder } from "../../../utils/input/InputUtils";
 import { formatDate, formatTimestamp, trimTime } from "../../../utils/formats/TimeFormats";
+import { BOOKING_STATUS_CONSTS } from "../../../utils/consts/BookingStatusConsts";
+import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
+import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
 
 export default function UserBookingOrderList() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -202,7 +205,7 @@ export default function UserBookingOrderList() {
 
         if (response.status === HTTP_STATUS.OK) {
             let data = await response.json();
-            setUserBookingOrderList(data.courtBookingList);
+            setUserBookingOrderList([...data.courtBookingList]);
             setTotalPage(data.totalPage);
         }
     }
@@ -250,10 +253,10 @@ export default function UserBookingOrderList() {
     }
 
     function onCenterFilterItemSelect(id) {
-        let item = centerFilterItemList.find(item => item.center.id === id);
+        let item = centerFilterItemList.find(item => item.court.center.id === id);
         setCenterCurrentFilterItem({
-            id: item.center.id,
-            name: item.center.name,
+            id: item.court.center.id,
+            name: item.court.center.name,
         });
     }
 
@@ -335,12 +338,35 @@ export default function UserBookingOrderList() {
         }
     }
 
-    function onStatusFilterItemSelect(id) {
-        let item = statusFilterItemList.find(item => item.id === id);
+    function onStatusFilterItemSelect(index) {
         setStatusCurrentFilterItem({
-            id: item.id,
-            name: item.name,
+            value: index,
         });
+    }
+
+    async function cancelCourtBookingOrder(id) {
+        let accessToken = await refreshAccessToken(setTokenState);
+        
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+
+        const formData = {
+            id: id,
+        };
+
+        let url = API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.USER + API_URL.COURT_BOOKING.CANCEL;
+
+        const response = await fetch(url, {
+            method: HTTP_REQUEST_METHOD.DELETE,
+            headers: headers,
+            body: JSON.stringify(formData),
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+            loadUserBookingOrderList();
+        }
     }
 
     return (
@@ -401,8 +427,8 @@ export default function UserBookingOrderList() {
                                     <div className="user-booking-order-list__container__header__button-group__left__center-filter__filter-option" style={centerFilterDropdownState ? {} : {display: 'none'}} ref={centerFilterDropdownListRef}>
                                         <input type="text" placeholder="Center" onChange={event => setCenterFilterSearchQuery(event.target.value)} />
                                         {centerFilterItemList.map(item => (
-                                            <div className="user-booking-order-list__container__header__button-group__left__center-filter__filter-option__item" key={item.center.id} onClick={() => onCenterFilterItemSelect(item.center.id)}>
-                                                {item.center.name}
+                                            <div className="user-booking-order-list__container__header__button-group__left__center-filter__filter-option__item" key={item.court.center.id} onClick={() => onCenterFilterItemSelect(item.court.center.id)}>
+                                                {item.court.center.name}
                                             </div>
                                         ))}
                                     </div>
@@ -487,9 +513,9 @@ export default function UserBookingOrderList() {
                                         Status{statusCurrentFilterItem.name ? `: ${statusCurrentFilterItem.name}` : ``}
                                     </div>
                                     <div className="user-booking-order-list__container__header__button-group__left__status-filter__filter-option" style={statusFilterDropdownState ? {} : {display: 'none'}} ref={statusFilterDropdownListRef}>
-                                        {statusFilterItemList.map(item => (
-                                            <div className="user-booking-order-list__container__header__button-group__left__status-filter__filter-option__item" key={item.id} onClick={() => onStatusFilterItemSelect(item.id)}>
-                                                {item.name}
+                                        {BOOKING_STATUS_CONSTS.INDEX.map((item, index) => (
+                                            <div className="user-booking-order-list__container__header__button-group__left__status-filter__filter-option__item" key={item} onClick={() => onStatusFilterItemSelect(index)}>
+                                                {item}
                                             </div>
                                         ))}
                                     </div>
@@ -530,6 +556,9 @@ export default function UserBookingOrderList() {
                             <div className="user-booking-order-list__container__booking-order-list__list__header__status" onClick={() =>onChangeSortOrder('status', setUserBookingOrderListSortOrder)}>
                                 Status {userBookingOrderListSortOrder.status ? (userBookingOrderListSortOrder.status === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                             </div>
+                            <div className="user-booking-order-list__container__booking-order-list__list__header__action">
+                                Action
+                            </div>
                         </div>
                         <div className="user-booking-order-list__container__booking-order-list__list__content">
                             {userBookingOrderList.map(item => (
@@ -538,7 +567,7 @@ export default function UserBookingOrderList() {
                                     {item.id}
                                 </div>
                                 <div className="user-booking-order-list__container__booking-order-list__list__content__item__center">
-                                    {item.center.name}
+                                    {item.court.center.name}
                                 </div>
                                 <div className="user-booking-order-list__container__booking-order-list__list__content__item__court">
                                     {item.court.name}
@@ -556,7 +585,14 @@ export default function UserBookingOrderList() {
                                     {trimTime(item.usageTimeEnd)}
                                 </div>
                                 <div className="user-booking-order-list__container__booking-order-list__list__content__item__status">
-                                    {item.status.name}
+                                    {BOOKING_STATUS_CONSTS.INDEX[item.status]}
+                                </div>
+                                <div className="user-booking-order-list__container__booking-order-list__list__content__item__action">
+                                    {item.status === BOOKING_STATUS_CONSTS.PENDING && (
+                                        <div className="user-booking-order-list__container__booking-order-list__list__content__item__action__cancel-button" onClick={() => cancelCourtBookingOrder(item.id)}>
+                                            Cancel
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             ))}

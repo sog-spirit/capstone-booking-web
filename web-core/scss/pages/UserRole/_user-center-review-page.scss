@@ -219,6 +219,46 @@
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
                     }
+
+                    &__rating {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__create-timestamp {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+
+                        &:hover {
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
+                    }
+
+                    &__update-timestamp {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+
+                        &:hover {
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
+                    }
+
+                    &__status {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__action {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
                 }
 
                 &__content {
@@ -245,6 +285,49 @@
                             width: 200px;
                             margin-top: margin.$input-item-margin;
                             margin-bottom: margin.$input-item-margin;
+                        }
+
+                        &__rating {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__create-timestamp {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__update-timestamp {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+    
+                        &__status {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+                        }
+
+                        &__action {
+                            width: 200px;
+                            margin-top: margin.$input-item-margin;
+                            margin-bottom: margin.$input-item-margin;
+
+                            &__edit {
+                                background: button.$light-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                padding: padding.$small-padding;
+                                width: fit-content;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$light-background-hover-color;
+                                }
+                            }
                         }
                     }
                 }
@@ -407,6 +490,137 @@
                 justify-content: end;
 
                 &__add-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &__edit-modal {
+        position: fixed;
+        z-index: z-index.$modal-index;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        background: modal.$background-color;
+
+        &__form {
+            top: 50%;
+            left: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 80%;
+            background: color-theme.$light-theme-background-color;
+            border-radius: border.$container-border-radius;
+            overflow-y: auto;
+
+            &__header {
+                display: flex;
+                justify-content: space-between;
+                padding: padding.$small-padding;
+                border-top-left-radius: border.$container-border-radius;
+                border-top-right-radius: border.$container-border-radius;
+
+                &__close-button {
+                    background: button.$light-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+            }
+
+            &__content {
+                padding: padding.$small-padding;
+
+                textarea {
+                    @include input.textarea-style;
+                }
+
+                &__rating {
+                    margin-bottom: margin.$input-item-margin;
+
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__button {
+                        display: flex;
+    
+                        &__recommend {
+                            background: button.$light-background-color;
+                            border-radius: button.$border-radius;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$label-input-margin;
+    
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__recommend.clicked {
+                            background: button.$primary-background-color;
+                        }
+    
+                        &__not-recommend {
+                            background: button.$light-background-color;
+                            border-radius: button.$border-radius;
+                            padding: padding.$small-padding;
+    
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__not-recommend.clicked {
+                            background: button.$primary-background-color;
+                        }
+                    }
+                }
+
+                &__content {
+                    margin-bottom: margin.$input-item-margin;
+
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+                }
+            }
+
+            &__footer {
+                padding: padding.$small-padding;
+                display: flex;
+                justify-content: end;
+
+                &__delete-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    padding: padding.$small-padding;
+                    margin-right: margin.$label-input-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+
+                &__save-button {
                     background: button.$primary-background-color;
                     border-radius: button.$border-radius;
                     padding: padding.$small-padding;

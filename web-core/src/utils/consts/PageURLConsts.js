@@ -12,6 +12,7 @@ export const PAGE_URL = {
         BOOKING_ORDER_MANAGEMENT: '/booking-order-management',
         CENTER_REVIEW: '/center-review',
         PRODUCT_ORDER: '/product-order',
+        STATISTICS: '/statistics',
     },
 
     USER: {
@@ -21,5 +22,13 @@ export const PAGE_URL = {
         BOOKING_ORDER_LIST: '/booking-order-list',
         CENTER_REVIEW: '/center-review',
         PRODUCT_ORDER: '/product-order',
+        COURT_BOOKING: '/court-booking',
+    },
+
+    ADMIN: {
+        BASE: '/admin',
+        ACCOUNT_MANAGEMENT: '/account-management',
+        CONTENT_MANAGEMENT: '/content-management',
+        REPORT_MANAGEMENT: '/report-management',
     },
 };

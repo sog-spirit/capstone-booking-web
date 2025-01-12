@@ -118,7 +118,7 @@ export default function ProductCenterOwnerPage() {
         let url = API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.CENTER_OWNER + API_URL.PRODUCT.LIST;
         let searchParams = new URLSearchParams();
         searchParams.append('pageNo', currentPageNumber - 1);
-        searchParams.append('pageSize', DEFAULT_PAGE_SIZE);
+        searchParams.append('pageSize', 15);
 
         const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
@@ -249,6 +249,9 @@ export default function ProductCenterOwnerPage() {
                                 </div>
                             </div>
                             <div className="product-page__container__product-list__list__item__button-group">
+                                <div className="product-page__container__product-list__list__item__button-group__remove-button">
+                                    Remove
+                                </div>
                                 <div className="product-page__container__product-list__list__item__button-group__edit-button" onClick={() => openEditModal(item.id)}>
                                     Edit
                                 </div>

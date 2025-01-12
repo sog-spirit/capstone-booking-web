@@ -1,0 +1,279 @@
+@use '../components/header';
+@use '../components/margin';
+@use '../components/border';
+@use '../components/color-theme';
+@use '../components/button';
+@use '../components/padding';
+@use '../components/input';
+@use '../components/shadow';
+
+.home-page {
+    padding-top: header.$header-height;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__welcome {
+            margin-top: margin.$input-item-margin;
+
+            &__introduction {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &__content {
+                    width: 400px;
+                    padding: padding.$small-padding;
+
+                    &__title {
+                        text-align: center;
+                    }
+
+                    &__paragraph {
+                        text-align: center;
+                    }
+                }
+
+                &__image {
+                    width: 400px;
+                    padding: padding.$small-padding;
+
+                    img {
+                        height: 300px;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+
+                }
+            }
+
+            &__button-group {
+                margin-top: margin.$input-item-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &__login {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: button.$padding;
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    margin-right: margin.$button-margin;
+                    width: 400px;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+
+                &__register {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: button.$padding;
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    margin-right: margin.$button-margin;
+                    width: 400px;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+            }
+        }
+
+        &__button-group {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: margin.$title-margin;
+
+            &__center {
+                width: 300px;
+                height: 200px;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: color-theme.$light-theme-primary-color;
+
+                &__icon, &__title {
+                    font-size: 1.5rem;
+                }
+
+                &__icon {
+                    margin-right: margin.$input-item-margin;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$nav-hover-color;
+                }
+            }
+
+            &__center-review {
+                width: 300px;
+                height: 200px;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: color-theme.$light-theme-primary-color;
+
+                &__icon, &__title {
+                    font-size: 1.5rem;
+                }
+
+                &__icon {
+                    margin-right: margin.$input-item-margin;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$nav-hover-color;
+                }
+            }
+
+            &__booking-order-list {
+                width: 300px;
+                height: 200px;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: color-theme.$light-theme-primary-color;
+
+                &__icon, &__title {
+                    font-size: 1.5rem;
+                }
+
+                &__icon {
+                    margin-right: margin.$input-item-margin;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$nav-hover-color;
+                }
+            }
+
+            &__booking-order {
+                width: 300px;
+                height: 200px;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: color-theme.$light-theme-primary-color;
+
+                &__icon, &__title {
+                    font-size: 1.5rem;
+                }
+
+                &__icon {
+                    margin-right: margin.$input-item-margin;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$nav-hover-color;
+                }
+            }
+
+            &__product-inventory {
+                width: 300px;
+                height: 200px;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: color-theme.$light-theme-primary-color;
+
+                &__icon, &__title {
+                    font-size: 1.5rem;
+                }
+
+                &__icon {
+                    margin-right: margin.$input-item-margin;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$nav-hover-color;
+                }
+            }
+
+            &__product-order {
+                width: 300px;
+                height: 200px;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                margin-top: margin.$input-item-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: color-theme.$light-theme-primary-color;
+
+                &__icon, &__title {
+                    font-size: 1.5rem;
+                }
+
+                &__icon {
+                    margin-right: margin.$input-item-margin;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$nav-hover-color;
+                }
+            }
+
+            &__product {
+                width: 300px;
+                height: 200px;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                margin-top: margin.$input-item-margin;
+                margin-right: margin.$input-item-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: color-theme.$light-theme-primary-color;
+
+                &__icon, &__title {
+                    font-size: 1.5rem;
+                }
+
+                &__icon {
+                    margin-right: margin.$input-item-margin;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$nav-hover-color;
+                }
+            }
+        }
+    }
+}

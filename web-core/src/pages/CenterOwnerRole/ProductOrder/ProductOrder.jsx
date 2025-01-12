@@ -11,6 +11,10 @@ import { faSort, faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons"
 import { SORT_DIRECTION } from "../../../utils/consts/SortDirection";
 import { handleClickOutsideElement, handleInputChange, handleInputCheckboxChange, onChangeSortOrder } from "../../../utils/input/InputUtils";
 import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../utils/pagination/PaginationUtils";
+import { BOOKING_STATUS_CONSTS } from "../../../utils/consts/BookingStatusConsts";
+import { COURT_BOOKING_PRODUCT_ORDER_CONSTS } from "../../../utils/consts/CourtBookingProductOrderConsts";
+import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
+import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
 
 export default function ProductOrder() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -21,19 +25,23 @@ export default function ProductOrder() {
     const filterDropdownRef = useRef(null);
     const [filterCheckboxState, setFilterCheckboxState] = useState({
         id: false,
+        courtBookingId: false,
+        productInventoryId: false,
         user: false,
         createTimestamp: false,
-        total: false,
-        center: false,
+        quantity: false,
+        fee: false,
         status: false,
     });
 
     const [productOrderListSortOrder, setProductOrderListSortOrder] = useState({
         id: null,
+        courtBookingId: null,
+        productInventoryId: null,
         user: null,
         createTimestamp: null,
-        total: null,
-        center: null,
+        quantity: null,
+        fee: null,
         status: null,
     });
 
@@ -44,6 +52,14 @@ export default function ProductOrder() {
     const [idFilterDropdownState, setIdFilterDropdownState] = useState(false);
     const idFilterDropdownListRef = useRef(null);
     const [idFilterSearchQuery, setIdFilterSearchQuery] = useState('');
+
+    const [courtBookingIdFilterDropdownState, setCourtBookingIdFilterDropdownState] = useState(false);
+    const courtBookingIdFilterDropdownListRef = useRef(null);
+    const [courtBookingIdFilterSearchQuery, setCourtBookingIdFilterSearchQuery] = useState('');
+
+    const [productInventoryIdFilterDropdownState, setProductInventoryIdFilterDropdownState] = useState(false);
+    const productInventoryIdFilterDropdownListRef = useRef(null);
+    const [productInventoryIdFilterSearchQuery, setProductInventoryIdFilterSearchQuery] = useState('');
 
     const [userFilterDropdownState, setUserFilterDropdownState] = useState(false);
     const [userFilterItemList, setUserFilterItemList] = useState([]);
@@ -63,20 +79,18 @@ export default function ProductOrder() {
         timeTo: '',
     });
 
-    const [totalFilterDropdownState, setTotalFilterDropdownState] = useState(false);
-    const totalFilterDropdownListRef = useRef(null);
-    const [totalFilterSearchQuery, setTotalFilterSearchQuery] = useState({
+    const [quantityFilterDropdownState, setQuantityFilterDropdownState] = useState(false);
+    const quantityFilterDropdownListRef = useRef(null);
+    const [quantityFilterSearchQuery, setQuantityFilterSearchQuery] = useState({
         from: '',
         to: '',
     });
 
-    const [centerFilterDropdownState, setCenterFilterDropdownState] = useState(false);
-    const [centerFilterItemList, setCenterFilterItemList] = useState([]);
-    const centerFilterDropdownListRef = useRef(null);
-    const [centerFilterSearchQuery, setCenterFilterSearchQuery] = useState('');
-    const [centerCurrentFilterItem, setCenterCurrentFilterItem] = useState({
-        id: null,
-        name: '',
+    const [feeFilterDropdownState, setFeeFilterDropdownState] = useState(false);
+    const feeFilterDropdownListRef = useRef(null);
+    const [feeFilterSearchQuery, setFeeFilterSearchQuery] = useState({
+        from: '',
+        to: '',
     });
 
     const [statusFilterDropdownState, setStatusFilterDropdownState] = useState(false);
@@ -94,10 +108,12 @@ export default function ProductOrder() {
         totalPage,
         pageNumberButtonList.length,
         productOrderListSortOrder.id,
+        productOrderListSortOrder.courtBookingId,
+        productOrderListSortOrder.productInventoryId,
         productOrderListSortOrder.user,
         productOrderListSortOrder.createTimestamp,
-        productOrderListSortOrder.total,
-        productOrderListSortOrder.center,
+        productOrderListSortOrder.quantity,
+        productOrderListSortOrder.fee,
         productOrderListSortOrder.status
     ]);
 
@@ -108,10 +124,16 @@ export default function ProductOrder() {
         headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        let url = API_URL.BASE + API_URL.PRODUCT_ORDER.BASE + API_URL.PRODUCT_ORDER.CENTER_OWNER + API_URL.PRODUCT_ORDER.LIST;
+        let url = API_URL.BASE + API_URL.COURT_BOOKING_PRODUCT_ORDER.BASE + API_URL.COURT_BOOKING_PRODUCT_ORDER.CENTER_OWNER + API_URL.COURT_BOOKING_PRODUCT_ORDER.LIST;
         let searchParams = new URLSearchParams();
         if (productOrderListSortOrder.id) {
             searchParams.append('idSortOrder', productOrderListSortOrder.id);
+        }
+        if (productOrderListSortOrder.courtBookingId) {
+            searchParams.append('courtBookingIdSortOrder', productOrderListSortOrder.courtBookingId);
+        }
+        if (productOrderListSortOrder.productInventoryId) {
+            searchParams.append('productInventoryIdSortOrder', productOrderListSortOrder.productInventoryId);
         }
         if (productOrderListSortOrder.user) {
             searchParams.append('userSortOrder', productOrderListSortOrder.user);
@@ -119,11 +141,11 @@ export default function ProductOrder() {
         if (productOrderListSortOrder.createTimestamp) {
             searchParams.append('createTimestampSortOrder', productOrderListSortOrder.createTimestamp);
         }
-        if (productOrderListSortOrder.total) {
-            searchParams.append('totalSortOrder', productOrderListSortOrder.total);
+        if (productOrderListSortOrder.quantity) {
+            searchParams.append('quantitySortOrder', productOrderListSortOrder.quantity);
         }
-        if (productOrderListSortOrder.center) {
-            searchParams.append('centerSortOrder', productOrderListSortOrder.center);
+        if (productOrderListSortOrder.fee) {
+            searchParams.append('feeSortOrder', productOrderListSortOrder.fee);
         }
         if (productOrderListSortOrder.status) {
             searchParams.append('statusSortOrder', productOrderListSortOrder.status);
@@ -131,6 +153,12 @@ export default function ProductOrder() {
 
         if (filterCheckboxState.id && idFilterSearchQuery) {
             searchParams.append('id', idFilterSearchQuery);
+        }
+        if (filterCheckboxState.courtBookingId && courtBookingIdFilterSearchQuery) {
+            searchParams.append('courtBookingId', courtBookingIdFilterSearchQuery);
+        }
+        if (filterCheckboxState.productInventoryId && productInventoryIdFilterSearchQuery) {
+            searchParams.append('productInventoryId', productInventoryIdFilterSearchQuery);
         }
         if (filterCheckboxState.user && userCurrentFilterItem.id) {
             searchParams.append('userId', userCurrentFilterItem.id);
@@ -141,14 +169,17 @@ export default function ProductOrder() {
         if (filterCheckboxState.createTimestamp && createTimestampFilterSearchQuery.dateTo && createTimestampFilterSearchQuery.timeTo) {
             searchParams.append('createTimestampTo', `${createTimestampFilterSearchQuery.dateTo}T${createTimestampFilterSearchQuery.timeTo}`);
         }
-        if (filterCheckboxState.total && totalFilterSearchQuery.from) {
-            searchParams.append('totalFrom', totalFilterSearchQuery.from)
+        if (filterCheckboxState.quantity && quantityFilterSearchQuery.from) {
+            searchParams.append('quantityFrom', quantityFilterSearchQuery.from)
         }
-        if (filterCheckboxState.total && totalFilterSearchQuery.to) {
-            searchParams.append('totalTo', totalFilterSearchQuery.to)
+        if (filterCheckboxState.quantity && quantityFilterSearchQuery.to) {
+            searchParams.append('quantityTo', quantityFilterSearchQuery.to)
         }
-        if (filterCheckboxState.center && centerCurrentFilterItem.id) {
-            searchParams.append('centerId', centerCurrentFilterItem.id);
+        if (filterCheckboxState.fee && feeFilterSearchQuery.from) {
+            searchParams.append('feeFrom', feeFilterSearchQuery.from)
+        }
+        if (filterCheckboxState.fee && feeFilterSearchQuery.to) {
+            searchParams.append('feeTo', feeFilterSearchQuery.to)
         }
         if (filterCheckboxState.status && statusCurrentFilterItem.id) {
             searchParams.append('statusId', statusCurrentFilterItem.id);
@@ -224,46 +255,12 @@ export default function ProductOrder() {
     }, []);
 
     useEffect(() => {
-        handleClickOutsideElement(totalFilterDropdownListRef, setTotalFilterDropdownState);
+        handleClickOutsideElement(courtBookingIdFilterDropdownListRef, setCourtBookingIdFilterDropdownState);
     }, []);
 
     useEffect(() => {
-        handleClickOutsideElement(centerFilterDropdownListRef, setCenterFilterDropdownState);
+        handleClickOutsideElement(productInventoryIdFilterDropdownListRef, setProductInventoryIdFilterDropdownState);
     }, []);
-
-    useEffect(() => {
-        loadCenterFilterDropdownList();
-    }, [centerFilterSearchQuery]);
-
-    async function loadCenterFilterDropdownList() {
-        let accessToken = await refreshAccessToken(setTokenState);
-
-        const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
-
-        let url = API_URL.BASE + API_URL.PRODUCT_ORDER.BASE + API_URL.PRODUCT_ORDER.CENTER_OWNER + API_URL.PRODUCT_ORDER.CENTER + API_URL.PRODUCT_ORDER.FILTER + API_URL.PRODUCT_ORDER.LIST;
-        let searchParams = new URLSearchParams();
-        searchParams.append('query', centerFilterSearchQuery);
-
-        const response = await fetch(url + `?${searchParams}`, {
-            method: HTTP_REQUEST_METHOD.GET,
-            headers: headers,
-        });
-
-        if (response.status === HTTP_STATUS.OK) {
-            let data = await response.json();
-            setCenterFilterItemList(data);
-        }
-    }
-
-    function onCenterFilterItemSelect(id) {
-        let item = centerFilterItemList.find(item => item.center.id === id);
-        setCenterCurrentFilterItem({
-            id: item.center.id,
-            name: item.center.name,
-        });
-    }
 
     useEffect(() => {
         handleClickOutsideElement(statusFilterDropdownListRef, setStatusFilterDropdownState);
@@ -293,12 +290,60 @@ export default function ProductOrder() {
         }
     }
 
-    function onStatusFilterItemSelect(id) {
-        let item = statusFilterItemList.map(item => item.id === id);
+    function onStatusFilterItemSelect(index) {
         setStatusCurrentFilterItem({
-            id: item.id,
-            name: item.name,
+            id: index,
         });
+    }
+
+    async function cancelProductOrder(id) {
+        let accessToken = await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+
+        const formData = {
+            id: id,
+        };
+
+        let url = API_URL.BASE + API_URL.COURT_BOOKING_PRODUCT_ORDER.BASE + API_URL.COURT_BOOKING_PRODUCT_ORDER.CENTER_OWNER + API_URL.COURT_BOOKING_PRODUCT_ORDER.CANCEL;
+
+        const response = await fetch(url, {
+            method: HTTP_REQUEST_METHOD.DELETE,
+            headers: headers,
+            body: JSON.stringify(formData),
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+            loadProductOrderList();
+        }
+    }
+
+    async function checkoutProductOrder(id) {
+        let accessToken = await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+
+        const formData = {
+            id: id,
+        };
+
+        let url = API_URL.BASE + API_URL.COURT_BOOKING_PRODUCT_ORDER.BASE + API_URL.COURT_BOOKING_PRODUCT_ORDER.CENTER_OWNER + API_URL.COURT_BOOKING_PRODUCT_ORDER.CHECKOUT;
+
+        const response = await fetch(url, {
+            method: HTTP_REQUEST_METHOD.PUT,
+            headers: headers,
+            body: JSON.stringify(formData),
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
+            loadProductOrderList();
+        }
     }
 
     return (
@@ -321,16 +366,22 @@ export default function ProductOrder() {
                                         <input type="checkbox" name="id" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Id
                                     </label>
                                     <label className="product-order__container__header__button-group__left__add-filters__menu__item">
+                                        <input type="checkbox" name="courtBookingId" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Court booking id
+                                    </label>
+                                    <label className="product-order__container__header__button-group__left__add-filters__menu__item">
+                                        <input type="checkbox" name="productInventoryId" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Product inventory id
+                                    </label>
+                                    <label className="product-order__container__header__button-group__left__add-filters__menu__item">
                                         <input type="checkbox" name="user" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> User
                                     </label>
                                     <label className="product-order__container__header__button-group__left__add-filters__menu__item">
                                         <input type="checkbox" name="createTimestamp" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Create timestamp
                                     </label>
                                     <label className="product-order__container__header__button-group__left__add-filters__menu__item">
-                                        <input type="checkbox" name="total" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Total
+                                        <input type="checkbox" name="quantity" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Total
                                     </label>
                                     <label className="product-order__container__header__button-group__left__add-filters__menu__item">
-                                        <input type="checkbox" name="center" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Center
+                                        <input type="checkbox" name="fee" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Center
                                     </label>
                                     <label className="product-order__container__header__button-group__left__add-filters__menu__item">
                                         <input type="checkbox" name="status" onChange={event => handleInputCheckboxChange(event, setFilterCheckboxState)} /> Status
@@ -343,6 +394,22 @@ export default function ProductOrder() {
                                 </div>
                                 <div className="product-order__container__header__button-group__left__id-filter__filter-option" style={idFilterDropdownState ? {} : {display: 'none'}} ref={idFilterDropdownListRef}>
                                     <input type="text" placeholder="Id" onChange={event => setIdFilterSearchQuery(event.target.value)} />
+                                </div>
+                            </div>
+                            <div className="product-order__container__header__button-group__left__court-booking-id-filter" style={filterCheckboxState.courtBookingId ? {} : {display: 'none'}}>
+                                <div className="product-order__container__header__button-group__left__court-booking-id-filter__button" onClick={() => setCourtBookingIdFilterDropdownState(true)}>
+                                    Court booking id{courtBookingIdFilterSearchQuery ? `: ${courtBookingIdFilterSearchQuery}` : ``}
+                                </div>
+                                <div className="product-order__container__header__button-group__left__court-booking-id-filter__filter-option" style={courtBookingIdFilterDropdownState ? {} : {display: 'none'}} ref={courtBookingIdFilterDropdownListRef}>
+                                    <input type="text" placeholder="Court booking id" onChange={event => setCourtBookingIdFilterSearchQuery(event.target.value)} />
+                                </div>
+                            </div>
+                            <div className="product-order__container__header__button-group__left__id-filter" style={filterCheckboxState.productInventoryId ? {} : {display: 'none'}}>
+                                <div className="product-order__container__header__button-group__left__id-filter__button" onClick={() => setProductInventoryIdFilterDropdownState(true)}>
+                                    Product inventory id{productInventoryIdFilterSearchQuery ? `: ${productInventoryIdFilterSearchQuery}` : ``}
+                                </div>
+                                <div className="product-order__container__header__button-group__left__id-filter__filter-option" style={productInventoryIdFilterDropdownState ? {} : {display: 'none'}} ref={productInventoryIdFilterDropdownListRef}>
+                                    <input type="text" placeholder="Id" onChange={event => setProductInventoryIdFilterSearchQuery(event.target.value)} />
                                 </div>
                             </div>
                             <div className="product-order__container__header__button-group__left__user-filter" style={filterCheckboxState.user ? {} : {display: 'none'}}>
@@ -371,28 +438,26 @@ export default function ProductOrder() {
                                     <input type="time" name="timeTo" onChange={event => handleInputChange(event, setCreateTimestampFilterSearchQuery)} />
                                 </div>
                             </div>
-                            <div className="product-order__container__header__button-group__left__total-filter" style={filterCheckboxState.total ? {} : {display: 'none'}}>
-                                <div className="product-order__container__header__button-group__left__total-filter__button" onClick={() => setTotalFilterDropdownState(true)}>
-                                    Total
+                            <div className="product-order__container__header__button-group__left__quantity-filter" style={filterCheckboxState.quantity ? {} : {display: 'none'}}>
+                                <div className="product-order__container__header__button-group__left__quantity-filter__button" onClick={() => setQuantityFilterDropdownState(true)}>
+                                    Quantity
                                 </div>
-                                <div className="product-order__container__header__button-group__left__total-filter__filter-option" style={totalFilterDropdownState ? {} : {display: 'none'}} ref={totalFilterDropdownListRef}>
+                                <div className="product-order__container__header__button-group__left__quantity-filter__filter-option" style={quantityFilterDropdownState ? {} : {display: 'none'}} ref={quantityFilterDropdownListRef}>
                                     From:
-                                    <input type="text" name="from" onChange={event => handleInputChange(event, setTotalFilterSearchQuery)} />
+                                    <input type="text" name="from" onChange={event => handleInputChange(event, setQuantityFilterSearchQuery)} />
                                     To:
-                                    <input type="text" name="to" onChange={event => handleInputChange(event, setTotalFilterSearchQuery)} />
+                                    <input type="text" name="to" onChange={event => handleInputChange(event, setQuantityFilterSearchQuery)} />
                                 </div>
                             </div>
-                            <div className="product-order__container__header__button-group__left__center-filter" style={filterCheckboxState.center ? {} : {display: 'none'}}>
-                                <div className="product-order__container__header__button-group__left__center-filter__button" onClick={() => setCenterFilterDropdownState(true)}>
-                                    Center{centerCurrentFilterItem.name ? `: ${centerCurrentFilterItem.name}` : ``}
+                            <div className="product-order__container__header__button-group__left__fee-filter" style={filterCheckboxState.fee ? {} : {display: 'none'}}>
+                                <div className="product-order__container__header__button-group__left__fee-filter__button" onClick={() => setFeeFilterDropdownState(true)}>
+                                    Fee
                                 </div>
-                                <div className="product-order__container__header__button-group__left__center-filter__filter-option" style={centerFilterDropdownState ? {} : {display: 'none'}} ref={centerFilterDropdownListRef}>
-                                    <input type="text" placeholder="Center" onChange={event => setCenterFilterSearchQuery(event.target.value)} />
-                                    {centerFilterItemList.map(item => (
-                                        <div className="product-order__container__header__button-group__left__center-filter__filter-option__item" key={item.center.id} onClick={() => onCenterFilterItemSelect(item.center.id)}>
-                                            {item.center.name}
-                                        </div>
-                                    ))}
+                                <div className="product-order__container__header__button-group__left__fee-filter__filter-option" style={feeFilterDropdownState ? {} : {display: 'none'}} ref={feeFilterDropdownListRef}>
+                                    From:
+                                    <input type="text" name="from" onChange={event => handleInputChange(event, setFeeFilterSearchQuery)} />
+                                    To:
+                                    <input type="text" name="to" onChange={event => handleInputChange(event, setFeeFilterSearchQuery)} />
                                 </div>
                             </div>
                             <div className="product-order__container__header__button-group__left__status-filter" style={filterCheckboxState.status ? {} : {display: 'none'}}>
@@ -400,9 +465,9 @@ export default function ProductOrder() {
                                     Status{statusCurrentFilterItem.name ? `: ${statusCurrentFilterItem.name}` : ``}
                                 </div>
                                 <div className="product-order__container__header__button-group__left__status-filter__filter-option" style={statusFilterDropdownState ? {} : {display: 'none'}} ref={statusFilterDropdownListRef}>
-                                    {statusFilterItemList.map(item => (
-                                        <div className="product-order__container__header__button-group__left__status-filter__filter-option__item" key={item.id} onClick={() => onStatusFilterItemSelect(item.id)}>
-                                            {item.name}
+                                    {BOOKING_STATUS_CONSTS.INDEX.map((item, index) => (
+                                        <div className="product-order__container__header__button-group__left__status-filter__filter-option__item" key={index} onClick={() => onStatusFilterItemSelect(index)}>
+                                            {item}
                                         </div>
                                     ))}
                                 </div>
@@ -420,20 +485,29 @@ export default function ProductOrder() {
                         <div className="product-order__container__list__header__id" onClick={() => onChangeSortOrder('id', setProductOrderListSortOrder)}>
                             Id {productOrderListSortOrder.id ? (productOrderListSortOrder.id === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
+                        <div className="product-order__container__list__header__court-booking-id" onClick={() => onChangeSortOrder('courtBookingId', setProductOrderListSortOrder)}>
+                            Court booking id {productOrderListSortOrder.courtBookingId ? (productOrderListSortOrder.courtBookingId === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
+                        </div>
+                        <div className="product-order__container__list__header__product-inventory-id" onClick={() => onChangeSortOrder('productInventoryId', setProductOrderListSortOrder)}>
+                            Product inventory id {productOrderListSortOrder.productInventoryId ? (productOrderListSortOrder.productInventoryId === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
+                        </div>
                         <div className="product-order__container__list__header__user" onClick={() => onChangeSortOrder('user', setProductOrderListSortOrder)}>
                             User {productOrderListSortOrder.user ? (productOrderListSortOrder.user === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
                         <div className="product-order__container__list__header__create-timestamp" onClick={() => onChangeSortOrder('createTimestamp', setProductOrderListSortOrder)}>
                             Create timestamp {productOrderListSortOrder.createTimestamp ? (productOrderListSortOrder.createTimestamp === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
-                        <div className="product-order__container__list__header__total" onClick={() => onChangeSortOrder('total', setProductOrderListSortOrder)}>
-                            Total {productOrderListSortOrder.total ? (productOrderListSortOrder.total === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
+                        <div className="product-order__container__list__header__quantity" onClick={() => onChangeSortOrder('quantity', setProductOrderListSortOrder)}>
+                            Quantity {productOrderListSortOrder.quantity ? (productOrderListSortOrder.quantity === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
-                        <div className="product-order__container__list__header__center" onClick={() => onChangeSortOrder('center', setProductOrderListSortOrder)}>
-                            Center {productOrderListSortOrder.center ? (productOrderListSortOrder.center === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
+                        <div className="product-order__container__list__header__fee" onClick={() => onChangeSortOrder('fee', setProductOrderListSortOrder)}>
+                            Fee {productOrderListSortOrder.fee ? (productOrderListSortOrder.fee === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
                         </div>
                         <div className="product-order__container__list__header__status" onClick={() => onChangeSortOrder('status', setProductOrderListSortOrder)}>
                             Status {productOrderListSortOrder.status ? (productOrderListSortOrder.status === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
+                        </div>
+                        <div className="product-order__container__list__header__action">
+                            Action
                         </div>
                     </div>
                     <div className="product-order__container__list__content">
@@ -442,20 +516,38 @@ export default function ProductOrder() {
                             <div className="product-order__container__list__content__item__id">
                                 {item.id}
                             </div>
+                            <div className="product-order__container__list__content__item__court-booking-id">
+                                {item.courtBooking.id}
+                            </div>
+                            <div className="product-order__container__list__content__item__product-inventory-id">
+                                {item.productInventory.id}
+                            </div>
                             <div className="product-order__container__list__content__item__user">
                                 {item.user.username}
                             </div>
                             <div className="product-order__container__list__content__item__create-timestamp">
                                 {formatTimestamp(item.createTimestamp)}
                             </div>
-                            <div className="product-order__container__list__content__item__total">
-                                {item.total}
+                            <div className="product-order__container__list__content__item__quantity">
+                                {item.quantity}
                             </div>
-                            <div className="product-order__container__list__content__item__center">
-                                {item.center.name}
+                            <div className="product-order__container__list__content__item__fee">
+                                {item.fee}
                             </div>
                             <div className="product-order__container__list__content__item__status">
-                                {item.status.name}
+                                {COURT_BOOKING_PRODUCT_ORDER_CONSTS.INDEX[item.status]}
+                            </div>
+                            <div className="product-order__container__list__content__item__action">
+                                {item.status === COURT_BOOKING_PRODUCT_ORDER_CONSTS.PENDING && (
+                                    <>
+                                    <div className="product-order__container__list__content__item__action__cancel-button" onClick={() => cancelProductOrder(item.id)}>
+                                        Cancel
+                                    </div>
+                                    <div className="product-order__container__list__content__item__action__checkout-button" onClick={() => checkoutProductOrder(item.id)}>
+                                        Checkout
+                                    </div>
+                                    </>
+                                )}
                             </div>
                         </div>
                         ))}

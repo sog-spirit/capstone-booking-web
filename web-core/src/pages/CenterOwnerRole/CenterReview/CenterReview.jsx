@@ -10,6 +10,9 @@ import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../ut
 import { SORT_DIRECTION } from "../../../utils/consts/SortDirection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort, faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons";
+import { formatTimestamp } from "../../../utils/formats/TimeFormats";
+import { CENTER_REVIEW_CONSTS } from "../../../utils/consts/CenterReviewConsts";
+import { CENTER_REVIEW_RATING_CONSTS } from "../../../utils/consts/CenterReviewRatingConsts";
 
 export default function CenterReview() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -28,6 +31,8 @@ export default function CenterReview() {
         id: null,
         user: null,
         center: null,
+        createTimestamp: null,
+        updateTimestamp: null,
     });
 
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -65,6 +70,8 @@ export default function CenterReview() {
         centerReviewListSortOrder.id,
         centerReviewListSortOrder.user,
         centerReviewListSortOrder.center,
+        centerReviewListSortOrder.createTimestamp,
+        centerReviewListSortOrder.updateTimestamp,
     ]);
 
     async function loadReviewList() {
@@ -83,6 +90,12 @@ export default function CenterReview() {
         }
         if (centerReviewListSortOrder.center) {
             searchParams.append('centerSortOrder', centerReviewListSortOrder.center);
+        }
+        if (centerReviewListSortOrder.createTimestamp) {
+            searchParams.append('createTimestampSortOrder', centerReviewListSortOrder.createTimestamp);
+        }
+        if (centerReviewListSortOrder.updateTimestamp) {
+            searchParams.append('updateTimestampSortOrder', centerReviewListSortOrder.updateTimestamp);
         }
 
         if (filterDropdownCheckboxState.id && idFilterSearchQuery) {
@@ -284,6 +297,18 @@ export default function CenterReview() {
                             <div className="center-review__container__review-list__list__header__content">
                                 Content
                             </div>
+                            <div className="center-review__container__review-list__list__header__rating">
+                                Rating
+                            </div>
+                            <div className="center-review__container__review-list__list__header__create-timestamp" onClick={() => onChangeSortOrder('createTimestamp', setCenterReviewListSortOrder)}>
+                                Create timestamp {centerReviewListSortOrder.createTimestamp ? (centerReviewListSortOrder.createTimestamp === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
+                            </div>
+                            <div className="center-review__container__review-list__list__header__update-timestamp" onClick={() => onChangeSortOrder('updateTimestamp', setCenterReviewListSortOrder)}>
+                                Update timestamp {centerReviewListSortOrder.updateTimestamp ? (centerReviewListSortOrder.updateTimestamp === SORT_DIRECTION.ASC ? <FontAwesomeIcon icon={faSortDown} /> : <FontAwesomeIcon icon={faSortUp} />) : <FontAwesomeIcon icon={faSort} />}
+                            </div>
+                            <div className="center-review__container__review-list__list__header__status">
+                                Status
+                            </div>
                         </div>
                         <div className="center-review__container__review-list__list__content">
                             {reviewList.map(item => (
@@ -299,6 +324,18 @@ export default function CenterReview() {
                                 </div>
                                 <div className="center-review__container__review-list__list__content__item__content">
                                     {item.content}
+                                </div>
+                                <div className="center-review__container__review-list__list__content__item__rating">
+                                    {CENTER_REVIEW_RATING_CONSTS.INDEX[item.rating]}
+                                </div>
+                                <div className="center-review__container__review-list__list__content__item__create-timestamp">
+                                    {formatTimestamp(item.createTimestamp)}
+                                </div>
+                                <div className="center-review__container__review-list__list__content__item__update-timestamp">
+                                    {formatTimestamp(item.updateTimestamp)}
+                                </div>
+                                <div className="center-review__container__review-list__list__content__item__status">
+                                    {CENTER_REVIEW_CONSTS.INDEX[item.status]}
                                 </div>
                             </div>
                             ))}
