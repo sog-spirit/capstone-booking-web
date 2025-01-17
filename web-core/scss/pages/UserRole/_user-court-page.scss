@@ -236,16 +236,13 @@
                                         border-radius: border.$container-border-radius;
                                         padding: padding.$small-padding;
                                         display: flex;
+                                        flex-direction: column;
                                         margin-bottom: margin.$input-item-margin;
 
                                         &__label {
-                                            img {
-                                                border-top-left-radius: border.$container-border-radius;
-                                                border-bottom-left-radius: border.$container-border-radius;
-                                                height: 150px;
-                                                width: 150px;
-                                                object-fit: cover;
-                                            }
+                                            font-weight: 700;
+                                            margin-left: margin.$label-input-margin;
+                                            margin-bottom: margin.$title-margin;
                                         }
 
                                         &__info {
@@ -280,6 +277,46 @@
                                                     &:hover {
                                                         cursor: pointer;
                                                         background: button.$primary-background-hover-color;
+                                                    }
+                                                }
+                                            }
+
+                                            &__product-order-detail-list {
+                                                &__label {
+                                                    font-weight: 700;
+                                                    margin-top: margin.$title-margin;
+                                                    margin-bottom: margin.$title-margin;
+                                                }
+
+                                                &__list {
+                                                    display: flex;
+                                                    flex-wrap: wrap;
+                                                    
+                                                    &__item {
+                                                        border: border.$small-border-line;
+                                                        border-radius: border.$container-border-radius;
+                                                        padding: padding.$small-padding;
+                                                        margin-right: margin.$input-item-margin;
+                                                        margin-bottom: margin.$input-item-margin;
+
+                                                        &__image {
+                                                            border-top-left-radius: border.$container-border-radius;
+                                                            border-top-right-radius: border.$container-border-radius;
+
+                                                            img {
+                                                                border-top-left-radius: border.$container-border-radius;
+                                                                border-top-right-radius: border.$container-border-radius;
+                                                                height: 150px;
+                                                                width: 150px;
+                                                                object-fit: cover;
+                                                            }
+                                                        }
+
+                                                        &__name {
+                                                            text-align: center;
+                                                            font-weight: 700;
+                                                            padding: padding.$small-padding;
+                                                        }
                                                     }
                                                 }
                                             }

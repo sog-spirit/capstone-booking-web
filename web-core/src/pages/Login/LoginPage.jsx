@@ -90,7 +90,7 @@ export default function LoginPage() {
                         <div className="login-page__form-container__form__text-group__forgot-password">
                             Forgot password?
                         </div>
-                        <div className="login-page__form-container__form__text-group__register-account">
+                        <div className="login-page__form-container__form__text-group__register-account" onClick={() => navigate(PAGE_URL.REGISTER)}>
                             Create new account
                         </div>
                     </div>

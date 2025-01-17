@@ -24,6 +24,23 @@
         &__header {
             margin-top: margin.$title-margin;
             margin-bottom: margin.$title-margin;
+            z-index: 3;
+
+            &__title {
+                display: flex;
+
+                &__label {
+                    margin-right: margin.$input-item-margin;
+                }
+
+                input {
+                    @include input.input-style;
+                }
+
+                &__search {
+                    width: 400px;
+                }
+            }
 
             &__button-group {
                 display: flex;
@@ -208,28 +225,36 @@
             }
 
             &__list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
                 &__item {
                     border: border.$small-border-line;
                     border-radius: border.$container-border-radius;
                     display: flex;
+                    flex-direction: column;
                     justify-content: space-between;
-
-                    &:not(:first-child) {
-                        margin-top: margin.$input-item-margin;
-                    }
+                    margin-right: margin.$input-item-margin;
+                    margin-top: margin.$input-item-margin;
+                    width: 260px;
 
                     &__info {
                         display: flex;
+                        flex-direction: column;
+                        position: relative;
 
                         &__img {
                             border-top-left-radius: border.$container-border-radius;
-                            border-bottom-left-radius: border.$container-border-radius;
+                            border-top-right-radius: border.$container-border-radius;
+                            height: 200px;
+                            width: 250px;
     
                             img {
                                 border-top-left-radius: border.$container-border-radius;
-                                border-bottom-left-radius: border.$container-border-radius;
-                                height: 150px;
-                                width: 150px;
+                                border-top-right-radius: border.$container-border-radius;
+                                height: 200px;
+                                width: 250px;
                                 object-fit: cover;
                             }
                         }
@@ -244,6 +269,20 @@
     
                             &__address {
                                 margin-bottom: margin.$label-input-margin;
+                            }
+
+                            &__reviews {
+                                position: absolute;
+                                top: 10px;
+                                right: 10px;
+                                background: white;
+                                padding: 0.25rem;
+                                border-radius: border.$container-border-radius;
+                                box-shadow: shadow.$small-shadow;
+                            }
+
+                            &__price {
+                                font-size: 2rem;
                             }
                         }
                     }

@@ -27,7 +27,17 @@ $header-height: 40px;
 
         &__left-group {
             display: flex;
+            align-items: center;
             height: 100%;
+
+            &__icon {
+                font-size: 2rem;
+                margin-right: margin.$input-item-margin;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
 
             &__dropdown-group {
                 &__button {
@@ -90,6 +100,7 @@ $header-height: 40px;
                 background: button.$primary-background-color;
                 border-radius: button.$border-radius;
                 margin-right: margin.$button-margin;
+                color: white;
 
                 &:hover {
                     cursor: pointer;
@@ -116,12 +127,13 @@ $header-height: 40px;
                     align-items: center;
                     padding: button.$padding;
                     margin-right: margin.$button-margin;
-                    background: button.$light-background-color;
+                    background: button.$primary-background-color;
+                    color: white;
                     border-radius: button.$border-radius;
     
                     &:hover {
                         cursor: pointer;
-                        background: button.$light-background-hover-color;
+                        background: button.$primary-background-hover-color;
                     }
                 }
 

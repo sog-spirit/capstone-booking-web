@@ -571,6 +571,7 @@
 
                 &__booking-legends {
                     display: flex;
+                    margin-top: margin.$input-item-margin;
 
                     &__available {
                         display: flex;
@@ -642,6 +643,7 @@
                     display: flex;
                     justify-content: center;
                     flex-wrap: wrap;
+                    margin-top: margin.$input-item-margin;
 
                     &__item {
                         width: 70px;

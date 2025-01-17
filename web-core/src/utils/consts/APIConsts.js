@@ -33,6 +33,7 @@ export const API_URL = {
         INFO: '/info',
         CLOSED: '/closed',
         STATISTICS: '/statistics',
+        ADMIN: '/admin',
     },
     COURT: {
         BASE: '/court',
@@ -87,6 +88,8 @@ export const API_URL = {
         CHECKOUT: '/checkout',
         STATISTICS: '/statistics',
         DAILY: '/daily',
+        TODAY: '/today',
+        ADMIN: '/admin',
     },
     CENTER_REVIEW: {
         BASE: '/center-review',
@@ -124,5 +127,9 @@ export const API_URL = {
         COURT_BOOKING: '/court-booking',
         CANCEL: '/cancel',
         CHECKOUT: '/checkout',
+        STATISTICS: '/statistics',
+        PRODUCT_ORDER: '/product-order',
+        TODAY: '/today',
+        ADMIN: '/admin',
     },
 };

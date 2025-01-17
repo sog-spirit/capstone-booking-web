@@ -11,6 +11,7 @@
     height: 100vh;
     display: flex;
     align-items: center;
+    background-image: url('/football-dribble.avif');
 
     &__form-container {
         height: 80%;
@@ -23,6 +24,7 @@
             width: 30%;
             border: border.$small-border-line;
             border-radius: border.$container-border-radius;
+            background: color-theme.$light-theme-background-color;
 
             input, select {
                 @include input.input-style;
@@ -106,6 +108,7 @@
                 margin: padding.$small-padding;
                 margin-top: margin.$title-margin;
                 background: color-theme.$light-theme-primary-color;
+                color: white;
 
                 &:hover {
                     cursor: pointer;
@@ -116,6 +119,12 @@
             &__login-alt {
                 padding: padding.$small-padding;
                 border-radius: border.$container-border-radius;
+                color: color-theme.$light-theme-primary-color;
+
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
             }
         }
     }

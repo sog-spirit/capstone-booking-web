@@ -13,6 +13,7 @@ import { PAGE_URL } from "../../../utils/consts/PageURLConsts";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { COURT_BOOKING_PRODUCT_ORDER_CONSTS } from "../../../utils/consts/CourtBookingProductOrderConsts";
+import CourtBookingProductOrderDetail from "./CourtBookingProductOrderDetail";
 
 export default function CourtBookingList(props) {
     const {courtId, date, newBookingModalState} = props;
@@ -156,6 +157,11 @@ export default function CourtBookingList(props) {
         }
     }
 
+    function checkoutCourtBookingOrder(id) {
+        const returnUrl = `court-booking-payment/${id}`;
+        navigate(`/payment?returnUrl=${returnUrl}&amount=${courtBookingDetail.courtFee}`);
+    }
+
     async function cancelCourtBookingProductOrder(id) {
         let accessToken = await refreshAccessToken(setTokenState);
         
@@ -179,6 +185,12 @@ export default function CourtBookingList(props) {
             defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
             loadCenterCourtBookingList(courtBookingDetail.courtBookingId);
         }
+    }
+
+    function checkoutCourtBookingProductOrder(id) {
+        let item = productOrderList.find(item => item.id === id);
+        const returnUrl = `product-order-payment/${id}`;
+        navigate(`/payment?returnUrl=${returnUrl}&amount=${item.fee}`);
     }
 
     return (
@@ -215,7 +227,7 @@ export default function CourtBookingList(props) {
                     <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__buttons">
                         {BOOKING_STATUS_CONSTS.INDEX[courtBookingDetail.status] === BOOKING_STATUS_CONSTS.NAME.IS_BOOKING && (
                             <>
-                            <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__buttons__checkout">
+                            <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__buttons__checkout" onClick={() => checkoutCourtBookingOrder(courtBookingDetail.courtBookingId)}>
                                 Checkout
                             </div>
                             <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__buttons__cancel" onClick={() => cancelCourtBookingOrder(courtBookingDetail.courtBookingId)}>
@@ -237,22 +249,22 @@ export default function CourtBookingList(props) {
                         {productOrderList.map(item => (
                             <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item">
                                 <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__label">
-                                    <img src={API_URL.BASE + API_URL.IMAGE.BASE + API_URL.IMAGE.PRODUCT + `?productId=${item.productInventoryProductId}`} />
+                                    <h5>Product order id {item.id}</h5>
                                 </div>
                                 <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info">
                                     <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__create-timestamp">
                                         Create timestamp: {formatTimestamp(item.createTimestamp)}
                                     </div>
-                                    <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__quantity">
-                                        Quantity: {item.quantity}
-                                    </div>
                                     <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__fee">
-                                        Fee: {item.fee}
+                                        Total fee: {item.fee}₫
+                                    </div>
+                                    <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__status">
+                                        Status: {COURT_BOOKING_PRODUCT_ORDER_CONSTS.INDEX[item.status]}
                                     </div>
                                     <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__button-group">
                                         {item.status === COURT_BOOKING_PRODUCT_ORDER_CONSTS.PENDING && (
                                             <>
-                                            <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__button-group__checkout">
+                                            <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__button-group__checkout" onClick={() => checkoutCourtBookingProductOrder(item.id)}>
                                                 Checkout
                                             </div>
                                             <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__button-group__cancel" onClick={() => cancelCourtBookingProductOrder(item.id)}>
@@ -260,6 +272,12 @@ export default function CourtBookingList(props) {
                                             </div>
                                             </>
                                         )}
+                                    </div>
+                                    <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__product-order-detail-list">
+                                        <div className="user-court-page__container__court-list__list__detail__court-booking-info-modal__form__content__product-order-list__item__info__product-order-detail-list__label">
+                                            Product order list
+                                        </div>
+                                        <CourtBookingProductOrderDetail productOrderId={item.id} />
                                     </div>
                                 </div>
                             </div>

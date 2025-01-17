@@ -10,7 +10,8 @@ import { PAGE_URL } from "../utils/consts/PageURLConsts";
 import { USER_ROLE } from "../utils/consts/UserRoleConsts";
 import { refreshAccessToken } from "../utils/jwt/JwtUtils";
 import { handleClickOutsideElement, handleInputChange } from "../utils/input/InputUtils";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import { faL, faSoccerBall } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Header() {
     const [dropdownState, setDropdownState] = useState({
@@ -216,6 +217,9 @@ export default function Header() {
         <div className="header">
             <div className="header__container">
                 <div className="header__container__left-group">
+                    <div className="header__container__left-group__icon" onClick={() => navigate(PAGE_URL.HOME)}>
+                        <FontAwesomeIcon icon={faSoccerBall} />
+                    </div>
                     {loginState.userRole === USER_ROLE.USER && <>
                     <div className="header__container__left-group__dropdown-group"
                     onMouseEnter={() => setDropdownState(prevState => ({...prevState, dropdown1: true}))}
@@ -256,6 +260,9 @@ export default function Header() {
                             <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateAdminReportManagement()}>
                                 Report management
                             </div>
+                            <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigate(PAGE_URL.ADMIN.BASE + PAGE_URL.ADMIN.STATISTICS)}>
+                                Statistics
+                            </div>
                         </div>
                     </div>
                     </>
@@ -278,9 +285,6 @@ export default function Header() {
                             <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerCenterReviewPage()}>
                                 Center review
                             </div>
-                            <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerEmployeeManagementPage()}>
-                                Employee management
-                            </div>
                             <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerProductInventoryPage()}>
                                 Product inventory
                             </div>
@@ -292,22 +296,6 @@ export default function Header() {
                             </div>
                             <div className="header__container__left-group__dropdown-group__list__item" onClick={() => navigateCenterOwnerStatisticsPage()}>
                                 Statistics
-                            </div>
-                        </div>
-                    </div>
-                    </>
-                    }
-                    {loginState.userRole === USER_ROLE.EMPLOYEE && <>
-                    <div className="header__container__left-group__dropdown-group"
-                    onMouseEnter={() => setDropdownState(prevState => ({...prevState, dropdown1: true}))}
-                    onMouseLeave={() => setDropdownState(prevState => ({...prevState, dropdown1: false}))}>
-                        <div className={`header__container__left-group__dropdown-group__button${navButtonFocusIndexState === 1 ? '--active' : ''}`}
-                            onClick={() => setNavButtonFocusIndexState(1)}>
-                            Employee
-                        </div>
-                        <div className={`header__container__left-group__dropdown-group__list${dropdownState.dropdown1 ? '--active' : ''}`}>
-                            <div className="header__container__left-group__dropdown-group__list__item">
-                                Dropdown item #1
                             </div>
                         </div>
                     </div>
@@ -340,7 +328,7 @@ export default function Header() {
                     :
                     (<>
                     <div className="header__container__right-group__login-button" onClick={() => navigate(PAGE_URL.LOGIN)}>
-                        Log in
+                        Login
                     </div>
                     <div className="header__container__right-group__register-button" onClick={() => navigate(PAGE_URL.REGISTER)}>
                         Register

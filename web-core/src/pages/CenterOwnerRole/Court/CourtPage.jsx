@@ -75,6 +75,7 @@ export default function CourtCenterOwnerPage() {
 
         let url = API_URL.BASE + API_URL.COURT.BASE;
 
+        console.log(addNewFormData);
         const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
@@ -231,7 +232,7 @@ export default function CourtCenterOwnerPage() {
         }
     }
 
-    function createTimeIntervalArray(openingTime, closingTime, intervalMinute = 15) {
+    function createTimeIntervalArray(openingTime, closingTime, intervalMinute = 60) {
         let timeMarks = [];
         let [startHour, startMinute] = openingTime.split(':').map(Number);
         let [endHour, endMinute] = closingTime.split(':').map(Number);
@@ -245,9 +246,10 @@ export default function CourtCenterOwnerPage() {
         while (currentDate <= endDate) {
             const hours = currentDate.getHours().toString().padStart(2, '0');
             const minutes = currentDate.getMinutes().toString().padStart(2, '0');
-            timeMarks.push(`${hours}:${minutes}`);
-
             currentDate.setMinutes(currentDate.getMinutes() + intervalMinute);
+            const nextHours = currentDate.getHours().toString().padStart(2, '0');
+            const nextMinutes = currentDate.getMinutes().toString().padStart(2, '0');
+            timeMarks.push(`${hours}:${minutes}-${nextHours}:${nextMinutes}`);
         }
 
         setTimeInterval(timeMarks);
@@ -401,7 +403,7 @@ export default function CourtCenterOwnerPage() {
         const slotMinutes = courtTimeInterval.map(timeToMinutes).sort((a, b) => a - b);
 
         for (let i = 1; i < slotMinutes.length; i++) {
-            if (slotMinutes[i] - slotMinutes[i - 1] !== 15) {
+            if (slotMinutes[i] - slotMinutes[i - 1] !== 60) {
                 return false;
             }
         }
@@ -418,7 +420,7 @@ export default function CourtCenterOwnerPage() {
         setNewBookingFormData(prevState => ({
             ...prevState,
             usageTimeStart: selectedSlots[0]?.time.split('-')[0],
-            usageTimeEnd: selectedSlots[selectedSlots.length - 1]?.time.split('-')[0] ? addTime(selectedSlots[selectedSlots.length - 1]?.time.split('-')[0], 0, 15) : selectedSlots[selectedSlots.length - 1]?.time.split('-')[0],
+            usageTimeEnd: selectedSlots[selectedSlots.length - 1]?.time.split('-')[0] ? addTime(selectedSlots[selectedSlots.length - 1]?.time.split('-')[0], 0, 60) : selectedSlots[selectedSlots.length - 1]?.time.split('-')[0],
         }));
     }
 
@@ -486,7 +488,7 @@ export default function CourtCenterOwnerPage() {
                             <h5>{day}</h5>
                         </div>
                         <div className="center-detail-page__container__court-list__list">
-                            <div className="center-detail-page__container__court-list__list__detail" style={{gridTemplateColumns: `repeat(${timeInterval.length + 1}, 100px)`}}>
+                            <div className="center-detail-page__container__court-list__list__detail" style={{gridTemplateColumns: `repeat(${timeInterval.length + 1}, 120px)`}}>
                                 <div className="center-detail-page__container__court-list__list__detail__item"></div>
                                 {timeInterval.map(time => (
                                     <div className="center-detail-page__container__court-list__list__detail__item" key={time}>{time}</div>

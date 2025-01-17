@@ -25,6 +25,11 @@ import CenterOwnerStatistics from './pages/CenterOwnerRole/Statistics/CenterOwne
 import AdminAccountManagement from './pages/AdminRole/AccountManagement/AccountManagement';
 import AdminContentManagement from './pages/AdminRole/ContentManagement/ContentManagement';
 import AdminReportManagement from './pages/AdminRole/ReportManagement/ReportManagement';
+import AdminStatistics from './pages/AdminRole/Statistics/Statistics';
+import CourtBookingPayment from './pages/UserRole/Payment/CourtBookingPayment';
+import CreatePayment from './pages/UserRole/Payment/CreatePayment';
+import ProductOrderPayment from './pages/UserRole/Payment/ProductOrderPayment';
+// import Notification from './pages/Notification';
 
 export const LoginContext = createContext(null);
 export const TokenContext = createContext(null);
@@ -118,6 +123,13 @@ export default function App() {
                 <Route path={PAGE_URL.ADMIN.BASE + PAGE_URL.ADMIN.ACCOUNT_MANAGEMENT} element={<AdminAccountManagement />} />
                 <Route path={PAGE_URL.ADMIN.BASE + PAGE_URL.ADMIN.CONTENT_MANAGEMENT} element={<AdminContentManagement />} />
                 <Route path={PAGE_URL.ADMIN.BASE + PAGE_URL.ADMIN.REPORT_MANAGEMENT} element={<AdminReportManagement />} />
+                <Route path={PAGE_URL.ADMIN.BASE + PAGE_URL.ADMIN.STATISTICS} element={<AdminStatistics />} />
+
+                <Route path='/payment' element={<CreatePayment />} />
+                <Route path='/court-booking-payment/:courtBookingId' element={<CourtBookingPayment />} />
+                <Route path='/product-order-payment/:productOrderId' element={<ProductOrderPayment />} />
+
+                <Route path='/notification' element={<Notification />} />
             </Routes>
             <ToastContainer />
         </BrowserRouter>

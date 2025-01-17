@@ -30,5 +30,6 @@ export const PAGE_URL = {
         ACCOUNT_MANAGEMENT: '/account-management',
         CONTENT_MANAGEMENT: '/content-management',
         REPORT_MANAGEMENT: '/report-management',
+        STATISTICS: '/statistics',
     },
 };

@@ -12,7 +12,7 @@ import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
 import CourtBookingList from "./CourtBookingList";
 import { formatDate, trimTime } from "../../../utils/formats/TimeFormats";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { BOOKING_STATUS_CONSTS, getBookingStatusColor } from "../../../utils/consts/BookingStatusConsts";
 import { addTime } from "../../../utils/time/TimeUtils";
 
@@ -198,7 +198,7 @@ export default function UserCourtPage() {
         }
     }
 
-    function createTimeIntervalArray(openingTime, closingTime, intervalMinute = 15) {
+    function createTimeIntervalArray(openingTime, closingTime, intervalMinute = 60) {
         let timeMarks = [];
         let [startHour, startMinute] = openingTime.split(':').map(Number);
         let [endHour, endMinute] = closingTime.split(':').map(Number);
@@ -292,7 +292,7 @@ export default function UserCourtPage() {
         const slotMinutes = courtTimeInterval.map(timeToMinutes).sort((a, b) => a - b);
 
         for (let i = 1; i < slotMinutes.length; i++) {
-            if (slotMinutes[i] - slotMinutes[i - 1] !== 15) {
+            if (slotMinutes[i] - slotMinutes[i - 1] !== 60) {
                 return false;
             }
         }
@@ -309,14 +309,14 @@ export default function UserCourtPage() {
         setNewBookingFormData(prevState => ({
             ...prevState,
             usageTimeStart: selectedSlots[0]?.time.split('-')[0],
-            usageTimeEnd: selectedSlots[selectedSlots.length - 1]?.time.split('-')[0] ? addTime(selectedSlots[selectedSlots.length - 1]?.time.split('-')[0], 0, 15) : selectedSlots[selectedSlots.length - 1]?.time.split('-')[0],
+            usageTimeEnd: selectedSlots[selectedSlots.length - 1]?.time.split('-')[0] ? addTime(selectedSlots[selectedSlots.length - 1]?.time.split('-')[0], 0, 60) : selectedSlots[selectedSlots.length - 1]?.time.split('-')[0],
         }));
     }
 
     function calculateCourtFee() {
         if (isContinuous()) {
             const selectedSlots = courtTimeInterval.filter(item => item.status === BOOKING_STATUS_CONSTS.NAME.SELECT);
-            return selectedSlots.length * (centerInfo.courtFee / 4);
+            return selectedSlots.length * centerInfo.courtFee;
         } else {
             return '0';
         }
@@ -330,12 +330,12 @@ export default function UserCourtPage() {
                 <div className="user-court-page__container__header">
                     <div className="user-court-page__container__header__title">
                         <div className="user-court-page__container__header__title__label">
-                            <h4>{centerInfo.name} detail</h4>
+                            <h4>{centerInfo.name} court booking list</h4>
                         </div>
                     </div>
                     <div className="user-court-page__container__header__button-group">
                         <div className="user-court-page__container__header__button-group__booking-button" onClick={() => setNewBookingModalState(true)}>
-                            New booking
+                            <FontAwesomeIcon icon={faPlus} /> New booking 
                         </div>
                     </div>
                 </div>

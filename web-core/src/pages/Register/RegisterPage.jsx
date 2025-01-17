@@ -137,7 +137,7 @@ export default function RegisterPage() {
                         <input type="password" placeholder="Password" className={`register-page__form-container__form__password__input ${inputStatus.password ? 'input-error' : ''}`} name="password" onChange={event => handleInputChange(event, setFormData)} />
                         <div className="register-page__form-container__form__password__error-message input-error-message">{inputStatus.password ? inputStatus.password : ''}</div>
                     </div>
-                    <div className="register-page__form-container__form__login-alt">
+                    <div className="register-page__form-container__form__login-alt" onClick={() => navigate(PAGE_URL.LOGIN)}>
                         Already have an account? Sign in
                     </div>
                     <div className="register-page__form-container__form__register-button" onClick={submitData}>

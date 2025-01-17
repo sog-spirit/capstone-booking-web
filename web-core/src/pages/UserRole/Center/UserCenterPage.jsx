@@ -75,7 +75,7 @@ export default function UserCenterPage() {
         let url = API_URL.BASE + API_URL.CENTER.BASE + API_URL.CENTER.USER + API_URL.CENTER.LIST;
         let searchParams = new URLSearchParams();
         searchParams.append('pageNo', currentPageNumber - 1);
-        searchParams.append('pageSize', DEFAULT_PAGE_SIZE);
+        searchParams.append('pageSize', 10);
 
         if (filterDropdownCheckboxState.name && nameFilterSearchQuery) {
             searchParams.append('name', nameFilterSearchQuery);
@@ -162,6 +162,7 @@ export default function UserCenterPage() {
         let url = API_URL.BASE + API_URL.CENTER_REVIEW.BASE + API_URL.CENTER_REVIEW.USER + API_URL.CENTER_REVIEW.CENTER + API_URL.CENTER_REVIEW.LIST;
         let searchParams = new URLSearchParams();
         searchParams.append('centerId', centerId);
+        console.log(centerId);
 
         const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
@@ -249,25 +250,25 @@ export default function UserCenterPage() {
                     <div className="user-center-page__container__center-list__list">
                         {centerList.map(item => (
                         <div className="user-center-page__container__center-list__list__item">
-                            <div className="center-management-page__container__center-list__list__item__info">
-                                <div className="center-management-page__container__center-list__list__item__info__img" key={item.id}>
+                            <div className="user-center-page__container__center-list__list__item__info">
+                                <div className="user-center-page__container__center-list__list__item__info__img" key={item.id}>
                                     <CenterThumbnail centerId={item?.id} />
                                 </div>
-                                <div className="center-management-page__container__center-list__list__item__info__detail">
-                                    <div className="center-management-page__container__center-list__list__item__info__detail__name">
+                                <div className="user-center-page__container__center-list__list__item__info__detail">
+                                    <div className="user-center-page__container__center-list__list__item__info__detail__name">
                                         <h5>{item.name}</h5>
                                     </div>
-                                    <div className="center-management-page__container__center-list__list__item__info__detail__address">
+                                    <div className="user-center-page__container__center-list__list__item__info__detail__address">
                                         <FontAwesomeIcon icon={faLocationDot} /> {item.address}
                                     </div>
-                                    <div className="center-management-page__container__center-list__list__item__info__detail__price">
-                                        <FontAwesomeIcon icon={faMoneyBill} /> {item?.courtFee}₫
-                                    </div>
-                                    <div className="center-management-page__container__center-list__list__item__info__detail__working-time">
+                                    <div className="user-center-page__container__center-list__list__item__info__detail__working-time">
                                         <FontAwesomeIcon icon={faClock} /> {trimTime(item?.openingTime)}-{trimTime(item?.closingTime)}
                                     </div>
-                                    <div className="center-management-page__container__center-list__list__item__info__detail__reviews">
+                                    <div className="user-center-page__container__center-list__list__item__info__detail__reviews">
                                         Reviews: {formatPercentage(item.recommendCount, item.reviewCount)} {`(${item.reviewCount})`}
+                                    </div>
+                                    <div className="user-center-page__container__center-list__list__item__info__detail__price">
+                                        {item?.courtFee}₫/h
                                     </div>
                                 </div>
                             </div>
@@ -288,10 +289,10 @@ export default function UserCenterPage() {
                         </div>
                         <div className="user-center-page__container__center-list__pagination__numeric-indicator">
                             {numericIndicatorList.map(item => Number.isInteger(item) ?
-                                (<div className={`center-management-page__container__center-list__pagination__numeric-indicator__item${item === currentPageNumber ? '--active' : ''}`} key={item} onClick={() => setCurrentPageNumber(item)}>
+                                (<div className={`user-center-page__container__center-list__pagination__numeric-indicator__item${item === currentPageNumber ? '--active' : ''}`} key={item} onClick={() => setCurrentPageNumber(item)}>
                                     {item}
                                 </div>)
-                            : (<div className={`center-management-page__container__center-list__pagination__numeric-indicator__item`} key={item}>
+                            : (<div className={`user-center-page__container__center-list__pagination__numeric-indicator__item`} key={item}>
                                     {item}
                                 </div>)
                             )}
