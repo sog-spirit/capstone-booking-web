@@ -1,0 +1,831 @@
+@use '../../components/header';
+@use '../../components/margin';
+@use '../../components/border';
+@use '../../components/padding';
+@use '../../components/button';
+@use '../../components/color-theme';
+@use '../../components/modal';
+@use '../../components/input';
+@use '../../components/z-index';
+@use '../../components/shadow';
+
+.admin-statistics {
+    padding-top: header.$header-height;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            margin-top: margin.$title-margin;
+            margin-bottom: margin.$title-margin;
+
+            &__title {
+                padding-bottom: padding.$small-padding;
+            }
+
+            &__today-stats {
+                display: flex;
+
+                &__total-booking {
+                    margin-right: margin.$title-margin;
+
+                    &__info {
+                        display: flex;
+
+                        &__count {
+                            font-size: 3rem;
+                            margin-right: margin.$label-input-margin;
+                        }
+
+                        &__value-container {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            &__value {
+                                background: color-theme.$light-theme-background-secondary-color;
+                                padding: padding.$small-padding;
+                                border-radius: border.$container-border-radius;
+                            }
+                        }
+                    }
+                }
+
+                &__total-product-order {
+                    &__info {
+                        display: flex;
+
+                        &__count {
+                            font-size: 3rem;
+                            margin-right: margin.$label-input-margin;
+                        }
+
+                        &__value-container {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            &__value {
+                                background: color-theme.$light-theme-background-secondary-color;
+                                padding: padding.$small-padding;
+                                border-radius: border.$container-border-radius;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__button-group {
+                display: flex;
+                justify-content: space-between;
+                z-index: 1;
+
+                &__left {
+                    &__filter {
+                        display: flex;
+
+                        &__center-filter {
+                            &__button {
+                                background: button.$primary-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                padding: padding.$small-padding;
+                                margin-right: margin.$input-item-margin;
+                                width: fit-content;
+            
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+    
+                            &__filter-option {
+                                position: fixed;
+                                padding: padding.$small-padding;
+                                background: color-theme.$light-theme-background-color;
+                                box-shadow: shadow.$small-shadow;
+                                overflow-y: auto;
+                                max-height: 300px;
+    
+                                input {
+                                    @include input.input-style;
+                                }
+    
+                                &__item {
+                                    padding: padding.$small-padding;
+    
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$primary-background-hover-color;
+                                    }
+                                }
+                            }
+                        }
+    
+                        &__frequency-filter {
+                            &__button {
+                                background: button.$primary-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                padding: padding.$small-padding;
+                                margin-right: margin.$input-item-margin;
+                                width: fit-content;
+            
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+    
+                            &__filter-option {
+                                position: fixed;
+                                padding: padding.$small-padding;
+                                background: color-theme.$light-theme-background-color;
+                                box-shadow: shadow.$small-shadow;
+                                overflow-y: auto;
+                                max-height: 300px;
+    
+                                input {
+                                    @include input.input-style;
+                                }
+    
+                                &__item {
+                                    padding: padding.$small-padding;
+    
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$primary-background-hover-color;
+                                    }
+                                }
+                            }
+                        }
+
+                        &__range-filter {
+                            &__button {
+                                background: button.$primary-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                padding: padding.$small-padding;
+                                margin-right: margin.$input-item-margin;
+                                width: fit-content;
+            
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+    
+                            &__filter-option {
+                                position: fixed;
+                                padding: padding.$small-padding;
+                                background: color-theme.$light-theme-background-color;
+                                box-shadow: shadow.$small-shadow;
+                                overflow-y: auto;
+                                max-height: 300px;
+    
+                                input {
+                                    @include input.input-style;
+                                }
+    
+                                &__item {
+                                    padding: padding.$small-padding;
+    
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$primary-background-hover-color;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__right {
+                    &__refresh-button {
+                        background: button.$primary-background-color;
+                        border-radius: button.$border-radius;
+                        height: fit-content;
+                        padding: padding.$small-padding;
+                        margin-right: margin.$input-item-margin;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__graphs {
+            margin-top: margin.$title-margin;
+            display: flex;
+            flex-wrap: wrap;
+
+            &__court-booking {
+                flex-grow: 1;
+                flex-basis: calc(50% - margin.$title-margin);
+                margin-right: margin.$title-margin;
+                margin-bottom: margin.$title-margin;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                padding: 1rem;
+
+                &__header {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: margin.$title-margin;
+
+                    &__filters {
+                        position: relative;
+
+                        &__label {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__menu {
+                            position: absolute;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            display: flex;
+                            flex-direction: column;
+                            z-index: 2;
+                            width: 200px;
+                            inset: 0px 0px auto auto;
+                            transform: translate(0px, 40px);
+                            margin: 0px;
+
+                            &__clear-all {
+                                display: flex;
+                                justify-content: end;
+
+                                &__button {
+                                    margin-bottom: margin.$input-item-margin;
+                                    color: button.$primary-background-color;
+                                    border-radius: button.$border-radius;
+                                    padding: padding.$small-padding;
+    
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$light-background-hover-color;
+                                    }
+                                }
+                            }
+
+                            &__center {
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: margin.$input-item-margin;
+                                position: relative;
+
+                                &__label {
+                                    display: flex;
+                                    align-items: center;
+                                }
+
+                                &__input {
+                                    &__button {
+                                        border-radius: button.$border-radius;
+                                        padding: padding.$small-padding;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            background: button.$light-background-hover-color;
+                                        }
+                                    }
+            
+                                    &__option {
+                                        position: absolute;
+                                        padding: padding.$small-padding;
+                                        background: color-theme.$light-theme-background-color;
+                                        box-shadow: shadow.$small-shadow;
+                                        inset: 0px 0px auto auto;
+                                        transform: translate(0px, 40px);
+                                        margin: 0px;
+                                        max-height: 300px;
+                                        overflow-y: auto;
+                                        z-index: 1;
+            
+                                        input {
+                                            @include input.input-style;
+                                        }
+            
+                                        &__item {
+                                            padding: padding.$small-padding;
+            
+                                            &:hover {
+                                                cursor: pointer;
+                                                background: button.$primary-background-hover-color;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &__range {
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: margin.$input-item-margin;
+                                position: relative;
+
+                                &__label {
+                                    display: flex;
+                                    align-items: center;
+                                }
+
+                                &__input {
+                                    &__button {
+                                        border-radius: button.$border-radius;
+                                        padding: padding.$small-padding;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            background: button.$light-background-hover-color;
+                                        }
+                                    }
+            
+                                    &__option {
+                                        position: absolute;
+                                        padding: padding.$small-padding;
+                                        background: color-theme.$light-theme-background-color;
+                                        box-shadow: shadow.$small-shadow;
+                                        inset: 0px 0px auto auto;
+                                        transform: translate(0px, 40px);
+                                        margin: 0px;
+            
+                                        input {
+                                            @include input.input-style;
+                                        }
+
+                                        &__type {
+                                            display: flex;
+                                            flex-direction: column;
+
+                                            &__label {
+
+                                            }
+
+                                            &__value {
+                                                &__item {
+                                                    display: flex;
+                                                    width: fit-content;
+                                                    margin-top: margin.$input-item-margin;
+
+                                                    input {
+                                                        margin-right: margin.$label-input-margin;
+                                                    }
+                                                }
+                                            }
+                                        }
+            
+                                        &__item {
+                                            padding: padding.$small-padding;
+            
+                                            &:hover {
+                                                cursor: pointer;
+                                                background: button.$primary-background-hover-color;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &__button {
+                                background: button.$primary-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                width: fit-content;
+                                padding: padding.$small-padding;
+                                margin-right: margin.$input-item-margin;
+            
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__graph {
+
+                }
+            }
+
+            &__product-order {
+                flex-grow: 1;
+                flex-basis: calc(50% - margin.$title-margin);
+                margin-right: margin.$title-margin;
+                margin-bottom: margin.$title-margin;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                padding: 1rem;
+
+                &__header {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: margin.$title-margin;
+
+                    &__filters {
+                        position: relative;
+
+                        &__label {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__menu {
+                            position: absolute;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            display: flex;
+                            flex-direction: column;
+                            z-index: 2;
+                            width: 200px;
+                            inset: 0px 0px auto auto;
+                            transform: translate(0px, 40px);
+                            margin: 0px;
+
+                            &__clear-all {
+                                display: flex;
+                                justify-content: end;
+
+                                &__button {
+                                    margin-bottom: margin.$input-item-margin;
+                                    color: button.$primary-background-color;
+                                    border-radius: button.$border-radius;
+                                    padding: padding.$small-padding;
+    
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$light-background-hover-color;
+                                    }
+                                }
+                            }
+
+                            &__center {
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: margin.$input-item-margin;
+                                position: relative;
+
+                                &__label {
+                                    display: flex;
+                                    align-items: center;
+                                }
+
+                                &__input {
+                                    &__button {
+                                        border-radius: button.$border-radius;
+                                        padding: padding.$small-padding;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            background: button.$light-background-hover-color;
+                                        }
+                                    }
+            
+                                    &__option {
+                                        position: absolute;
+                                        padding: padding.$small-padding;
+                                        background: color-theme.$light-theme-background-color;
+                                        box-shadow: shadow.$small-shadow;
+                                        inset: 0px 0px auto auto;
+                                        transform: translate(0px, 40px);
+                                        margin: 0px;
+                                        max-height: 300px;
+                                        overflow-y: auto;
+                                        z-index: 1;
+            
+                                        input {
+                                            @include input.input-style;
+                                        }
+            
+                                        &__item {
+                                            padding: padding.$small-padding;
+            
+                                            &:hover {
+                                                cursor: pointer;
+                                                background: button.$primary-background-hover-color;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &__range {
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: margin.$input-item-margin;
+                                position: relative;
+
+                                &__label {
+                                    display: flex;
+                                    align-items: center;
+                                }
+
+                                &__input {
+                                    &__button {
+                                        border-radius: button.$border-radius;
+                                        padding: padding.$small-padding;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            background: button.$light-background-hover-color;
+                                        }
+                                    }
+            
+                                    &__option {
+                                        position: absolute;
+                                        padding: padding.$small-padding;
+                                        background: color-theme.$light-theme-background-color;
+                                        box-shadow: shadow.$small-shadow;
+                                        inset: 0px 0px auto auto;
+                                        transform: translate(0px, 40px);
+                                        margin: 0px;
+            
+                                        input {
+                                            @include input.input-style;
+                                        }
+
+                                        &__type {
+                                            display: flex;
+                                            flex-direction: column;
+
+                                            &__label {
+
+                                            }
+
+                                            &__value {
+                                                &__item {
+                                                    display: flex;
+                                                    width: fit-content;
+                                                    margin-top: margin.$input-item-margin;
+
+                                                    input {
+                                                        margin-right: margin.$label-input-margin;
+                                                    }
+                                                }
+                                            }
+                                        }
+            
+                                        &__item {
+                                            padding: padding.$small-padding;
+            
+                                            &:hover {
+                                                cursor: pointer;
+                                                background: button.$primary-background-hover-color;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &__button {
+                                background: button.$primary-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                width: fit-content;
+                                padding: padding.$small-padding;
+                                margin-right: margin.$input-item-margin;
+            
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__graph {
+
+                }
+            }
+
+            &__revenue {
+                flex-grow: 1;
+                flex-basis: calc(50% - margin.$title-margin);
+                margin-right: margin.$title-margin;
+                margin-bottom: margin.$title-margin;
+                border: border.$small-border-line;
+                border-radius: border.$container-border-radius;
+                padding: 1rem;
+
+                &__header {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: margin.$title-margin;
+
+                    &__filters {
+                        position: relative;
+
+                        &__label {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__menu {
+                            position: absolute;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            display: flex;
+                            flex-direction: column;
+                            z-index: 2;
+                            width: 200px;
+                            inset: 0px 0px auto auto;
+                            transform: translate(0px, 40px);
+                            margin: 0px;
+
+                            &__clear-all {
+                                display: flex;
+                                justify-content: end;
+
+                                &__button {
+                                    margin-bottom: margin.$input-item-margin;
+                                    color: button.$primary-background-color;
+                                    border-radius: button.$border-radius;
+                                    padding: padding.$small-padding;
+    
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$light-background-hover-color;
+                                    }
+                                }
+                            }
+
+                            &__center {
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: margin.$input-item-margin;
+                                position: relative;
+
+                                &__label {
+                                    display: flex;
+                                    align-items: center;
+                                }
+
+                                &__input {
+                                    &__button {
+                                        border-radius: button.$border-radius;
+                                        padding: padding.$small-padding;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            background: button.$light-background-hover-color;
+                                        }
+                                    }
+            
+                                    &__option {
+                                        position: absolute;
+                                        padding: padding.$small-padding;
+                                        background: color-theme.$light-theme-background-color;
+                                        box-shadow: shadow.$small-shadow;
+                                        inset: 0px 0px auto auto;
+                                        transform: translate(0px, 40px);
+                                        margin: 0px;
+                                        max-height: 300px;
+                                        overflow-y: auto;
+                                        z-index: 1;
+            
+                                        input {
+                                            @include input.input-style;
+                                        }
+            
+                                        &__item {
+                                            padding: padding.$small-padding;
+            
+                                            &:hover {
+                                                cursor: pointer;
+                                                background: button.$primary-background-hover-color;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &__range {
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: margin.$input-item-margin;
+                                position: relative;
+
+                                &__label {
+                                    display: flex;
+                                    align-items: center;
+                                }
+
+                                &__input {
+                                    &__button {
+                                        border-radius: button.$border-radius;
+                                        padding: padding.$small-padding;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            background: button.$light-background-hover-color;
+                                        }
+                                    }
+            
+                                    &__option {
+                                        position: absolute;
+                                        padding: padding.$small-padding;
+                                        background: color-theme.$light-theme-background-color;
+                                        box-shadow: shadow.$small-shadow;
+                                        inset: 0px 0px auto auto;
+                                        transform: translate(0px, 40px);
+                                        margin: 0px;
+            
+                                        input {
+                                            @include input.input-style;
+                                        }
+
+                                        &__type {
+                                            display: flex;
+                                            flex-direction: column;
+
+                                            &__label {
+
+                                            }
+
+                                            &__value {
+                                                &__item {
+                                                    display: flex;
+                                                    width: fit-content;
+                                                    margin-top: margin.$input-item-margin;
+
+                                                    input {
+                                                        margin-right: margin.$label-input-margin;
+                                                    }
+                                                }
+                                            }
+                                        }
+            
+                                        &__item {
+                                            padding: padding.$small-padding;
+            
+                                            &:hover {
+                                                cursor: pointer;
+                                                background: button.$primary-background-hover-color;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &__button {
+                                background: button.$primary-background-color;
+                                border-radius: button.$border-radius;
+                                height: fit-content;
+                                width: fit-content;
+                                padding: padding.$small-padding;
+                                margin-right: margin.$input-item-margin;
+            
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__graph {
+
+                }
+            }
+        }
+    }
+}

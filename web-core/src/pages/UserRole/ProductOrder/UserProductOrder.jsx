@@ -8,9 +8,11 @@ import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
 import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd, faPlus, faShoppingCart, faSubtract, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserProductOrder() {
-    const {centerId} = useParams();
+    const {courtBookingId} = useParams();
 
     const {tokenState, setTokenState} = useContext(TokenContext);
 
@@ -21,18 +23,49 @@ export default function UserProductOrder() {
 
     const [cartModalState, setCartModalState] = useState(false);
 
+    const [centerIdState, setCenterIdState] = useState(0);
+
+    async function loadCenterId() {
+        let accessToken = await refreshAccessToken(setTokenState);
+
+        const headers = new Headers();
+        headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
+
+        let url = API_URL.BASE + API_URL.COURT_BOOKING.BASE + API_URL.COURT_BOOKING.USER + API_URL.COURT_BOOKING.CENTER + API_URL.COURT_BOOKING.ID;
+        let searchParams = new URLSearchParams();
+        searchParams.append('courtBookingId', courtBookingId);
+
+
+        const response = await fetch(url + `?${searchParams}`, {
+            method: HTTP_REQUEST_METHOD.GET,
+            headers: headers,
+        });
+
+        if (response.status === HTTP_STATUS.OK) {
+            let data = await response.json();
+            setCenterIdState(data.courtCenterId);
+            return data.courtCenterId;
+        }
+    }
+
     useEffect(() => {
         loadProductList();
     }, [tokenState.accessToken]);
 
     async function loadProductList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
+        let centerId = await loadCenterId();
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.LIST + `?centerId=${centerId}`, {
+        let url = API_URL.BASE + API_URL.PRODUCT_INVENTORY.BASE + API_URL.PRODUCT_INVENTORY.USER + API_URL.PRODUCT_INVENTORY.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('centerId', centerId);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -45,6 +78,7 @@ export default function UserProductOrder() {
 
     function addProductToCart(productInventoryId) {
         let cartIem = cartList.find(item => item.id === productInventoryId);
+
         if (cartIem) {
             addQuantity(productInventoryId);
         } else {
@@ -56,6 +90,14 @@ export default function UserProductOrder() {
             setCartList(prevState => [...prevState, newCartItem]);
             setCartPriceTotal(prevState => prevState + newCartItem.productPrice);
         }
+
+        setProductList(productList.map(item => {
+            if (item.id === productInventoryId) {
+                return {...item, quantity: item.quantity - 1};
+            } else {
+                return item;
+            }
+        }));
     }
 
     function addQuantity(productInventoryId) {
@@ -84,15 +126,33 @@ export default function UserProductOrder() {
                 return item;
             }
         }).filter(item => item.quantity > 0));
+
+        setProductList(productList.map(item => {
+            if (item.id === productInventoryId) {
+                return {...item, quantity: item.quantity + 1};
+            } else {
+                return item;
+            }
+        }));
     }
 
     function removeCartIem(productInventoryId) {
+        let cartListItem = cartList.find(item => item.id === productInventoryId);
+
         setCartList(cartList.filter(item => {
             if (item.id !== productInventoryId) {
                 return true;
             } else {
                 setCartPriceTotal(prevState => prevState - (item.productPrice * item.quantity));
                 return false;
+            }
+        }));
+
+        setProductList(productList.map(item => {
+            if (item.id === productInventoryId) {
+                return {...item, quantity: item.quantity + cartListItem.quantity};
+            } else {
+                return item;
             }
         }));
     }
@@ -107,10 +167,10 @@ export default function UserProductOrder() {
     }
 
     async function submitCartCheckoutData() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
         let cartItemList = cartList.map(item => {
@@ -122,11 +182,14 @@ export default function UserProductOrder() {
 
         let bodyData = {
             total: cartPriceTotal,
-            centerId: centerId,
+            centerId: centerIdState,
             cart: cartItemList,
+            courtBookingId: courtBookingId,
         };
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT_ORDER.BASE, {
+        let url = API_URL.BASE + API_URL.COURT_BOOKING_PRODUCT_ORDER.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(bodyData),
@@ -137,6 +200,8 @@ export default function UserProductOrder() {
             closeCartModal();
             clearCart();
         }
+
+        loadProductList();
     }
 
     return (
@@ -147,12 +212,12 @@ export default function UserProductOrder() {
                 <div className="user-product-order__container__header">
                     <div className="user-product-order__container__header__title">
                         <div className="user-product-order__container__header__title__label">
-                            <h4>Product order</h4>
+                            <h4>Court booking id {courtBookingId} product order</h4>
                         </div>
                     </div>
                     <div className="user-product-order__container__header__button-group">
                         <div className="user-product-order__container__header__button-group__view-cart-button" onClick={() => setCartModalState(true)}>
-                            View cart
+                            <FontAwesomeIcon icon={faShoppingCart} />
                         </div>
                     </div>
                 </div>
@@ -173,15 +238,15 @@ export default function UserProductOrder() {
                                     {item.productName}
                                 </div>
                                 <div className="user-product-order__container__product-list__list__item__detail__price">
-                                    Price: {item.productPrice}
+                                    Price: {item.productPrice}₫
                                 </div>
                                 <div className="user-product-order__container__product-list__list__list__item__detail__quantity">
-                                    Quantity: {item.quantity}
+                                    Remaining stock: {item.quantity}
                                 </div>
                             </div>
                             <div className="user-product-order__container__product-list__list__item__button-group">
                                 <div className="user-product-order__container__product-list__list__item__button-group__add-to-cart-button" onClick={() => addProductToCart(item.id)}>
-                                    Add to cart
+                                    <FontAwesomeIcon icon={faPlus} />
                                 </div>
                             </div>
                         </div>
@@ -196,7 +261,7 @@ export default function UserProductOrder() {
                             <h5>Cart detail</h5>
                         </div>
                         <div className="user-product-order__cart-modal__form__header__close-button" onClick={() => closeCartModal()}>
-                            Close
+                            <FontAwesomeIcon icon={faXmark} />
                         </div>
                     </div>
                     <div className="user-product-order__cart-modal__form__cart-detail">
@@ -218,18 +283,18 @@ export default function UserProductOrder() {
                             <div className="user-product-order__cart-modal__form__cart-detail__item__button-group">
                                 <div className="user-product-order__cart-modal__form__cart-detail__item__button-group__first">
                                     <div className="user-product-order__cart-modal__form__cart-detail__item__button-group__first__remove-button" onClick={() => removeCartIem(item.id)}>
-                                        X
+                                        <FontAwesomeIcon icon={faTrash} />
                                     </div>
                                 </div>
                                 <div className="user-product-order__cart-modal__form__cart-detail__item__button-group__quantity">
                                     <div className="user-product-order__cart-modal__form__cart-detail__item__button-group__quantity__subtract-button" onClick={() => subtractQuantity(item.id)}>
-                                        -
+                                        <FontAwesomeIcon icon={faSubtract} />
                                     </div>
                                     <div className="user-product-order__cart-modal__form__cart-detail__item__button-group__quantity__label">
                                         {item.quantity}
                                     </div>
                                     <div className="user-product-order__cart-modal__form__cart-detail__item__button-group__quantity__add-button" onClick={() => addQuantity(item.id)}>
-                                        +
+                                        <FontAwesomeIcon icon={faAdd} />
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +307,7 @@ export default function UserProductOrder() {
                         </div>
                         <div className="user-product-order__cart-modal__form__footer__checkout">
                             <div className="user-product-order__cart-modal__form__footer__checkout__checkout-button" onClick={() => submitCartCheckoutData()}>
-                                Checkout
+                                Add
                             </div>
                         </div>
                     </div>

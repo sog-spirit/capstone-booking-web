@@ -23,34 +23,171 @@
 
         &__header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             margin-top: margin.$title-margin;
+
+            &__title {
+                display: flex;
+                justify-content: space-between;
+
+                &__label {
+                    margin-right: margin.$input-item-margin;
+                }
+
+                &__search-input {
+                    min-width: 0;
+                    flex: 1;
+
+                    input {
+                        @include input.input-style;
+                    }
+                }
+            }
 
             &__button-group {
                 display: flex;
+                justify-content: space-between;
+                margin-top: margin.$input-item-margin;
 
-                &__refresh-button {
-                    background: button.$primary-background-color;
-                    border-radius: button.$border-radius;
-                    height: fit-content;
-                    padding: padding.$small-padding;
-                    margin-right: margin.$input-item-margin;
+                &__left {
+                    display: flex;
 
-                    &:hover {
-                        cursor: pointer;
-                        background: button.$primary-background-hover-color;
+                    &__add-filters {
+                        &__label {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__menu {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+                            display: flex;
+                            flex-direction: column;
+
+                            &__item {
+                                &:not(:first-child) {
+                                    margin-top: margin.$input-item-margin;
+                                }
+                            }
+                        }
+                    }
+
+                    &__center-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__product-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
                     }
                 }
 
-                &__add-new-button {
-                    background: button.$primary-background-color;
-                    border-radius: button.$border-radius;
-                    height: fit-content;
-                    padding: padding.$small-padding;
+                &__right {
+                    display: flex;
 
-                    &:hover {
-                        cursor: pointer;
-                        background: button.$primary-background-hover-color;
+                    &__refresh-button {
+                        background: button.$primary-background-color;
+                        border-radius: button.$border-radius;
+                        height: fit-content;
+                        padding: padding.$small-padding;
+                        margin-right: margin.$input-item-margin;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+    
+                    &__add-new-button {
+                        background: button.$primary-background-color;
+                        border-radius: button.$border-radius;
+                        height: fit-content;
+                        padding: padding.$small-padding;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
                     }
                 }
             }
@@ -58,6 +195,7 @@
 
         &__list {
             margin-top: margin.$title-margin;
+            overflow-x: auto;
 
             &__header {
                 display: flex;
@@ -65,21 +203,54 @@
                 border-bottom: border.$small-border-line;
                 border-top: border.$small-border-line;
                 font-weight: 700;
+                min-width: fit-content;
+
+                &__inventory-id {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
 
                 &__product {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 }
 
                 &__center {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 }
 
                 &__quantity {
-                    width: 100px;
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__action {
+                    width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
                 }
@@ -90,6 +261,13 @@
                     display: flex;
                     vertical-align: middle;
                     border-bottom: border.$small-border-line;
+                    min-width: fit-content;
+
+                    &__inventory-id {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
 
                     &__product {
                         width: 200px;
@@ -104,11 +282,97 @@
                     }
     
                     &__quantity {
-                        width: 100px;
-                        text-align: end;
+                        width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
                     }
+
+                    &__action {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                        display: flex;
+
+                        &__edit-button {
+                            background: button.$light-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            width: fit-content;
+                            margin-right: margin.$label-input-margin;
+                            padding: padding.$small-padding;
+    
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+
+                        &__delete-button {
+                            background: button.$light-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            width: fit-content;
+                            padding: padding.$small-padding;
+    
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__pagination {
+            display: flex;
+            margin-top: margin.$input-item-margin;
+
+            &__previous {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-left-radius: button.$border-radius;
+                border-bottom-left-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
+                }
+            }
+
+            &__page-number-button-list {
+                display: flex;
+
+                &__item {
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+
+                    &--active {
+                        background: button.$primary-background-color;
+                        padding: padding.$small-padding;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+                }
+            }
+
+            &__next {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-right-radius: button.$border-radius;
+                border-bottom-right-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
                 }
             }
         }
@@ -248,6 +512,79 @@
                 justify-content: end;
 
                 &__add-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &__edit-modal {
+        position: fixed;
+        z-index: z-index.$modal-index;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        background: modal.$background-color;
+
+        &__form {
+            top: 50%;
+            left: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 80%;
+            background: color-theme.$light-theme-background-color;
+            border-radius: border.$container-border-radius;
+
+            &__header {
+                display: flex;
+                justify-content: space-between;
+                padding: padding.$small-padding;
+                border-top-left-radius: border.$container-border-radius;
+                border-top-right-radius: border.$container-border-radius;
+
+                &__close-button {
+                    background: button.$light-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+            }
+
+            &__content {
+                padding: padding.$small-padding;
+
+                input {
+                    @include input.input-style;
+                }
+
+                &__quantity {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+                }
+            }
+
+            &__footer {
+                padding: padding.$small-padding;
+                display: flex;
+                justify-content: end;
+
+                &__save-button {
                     background: button.$primary-background-color;
                     border-radius: button.$border-radius;
                     padding: padding.$small-padding;

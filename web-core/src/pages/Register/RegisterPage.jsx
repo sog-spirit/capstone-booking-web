@@ -10,6 +10,8 @@ import Header from "../../components/Header";
 import { handleInputChange } from "../../utils/input/InputUtils";
 
 export default function RegisterPage() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -32,8 +34,6 @@ export default function RegisterPage() {
 
     const [registerRoleList, setRegisterRoleList] = useState([]);
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         loadRegisterListRole();
     }, []);
@@ -42,7 +42,9 @@ export default function RegisterPage() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.USER.BASE + API_URL.USER.REGISTER, {
+        let url = API_URL.BASE + API_URL.USER.BASE + API_URL.USER.REGISTER;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(formData),
@@ -73,7 +75,9 @@ export default function RegisterPage() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.ROLE.BASE + API_URL.ROLE.REGISTER_ROLE_LIST, {
+        let url = API_URL.BASE + API_URL.ROLE.BASE + API_URL.ROLE.REGISTER_ROLE_LIST;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
@@ -133,7 +137,7 @@ export default function RegisterPage() {
                         <input type="password" placeholder="Password" className={`register-page__form-container__form__password__input ${inputStatus.password ? 'input-error' : ''}`} name="password" onChange={event => handleInputChange(event, setFormData)} />
                         <div className="register-page__form-container__form__password__error-message input-error-message">{inputStatus.password ? inputStatus.password : ''}</div>
                     </div>
-                    <div className="register-page__form-container__form__login-alt">
+                    <div className="register-page__form-container__form__login-alt" onClick={() => navigate(PAGE_URL.LOGIN)}>
                         Already have an account? Sign in
                     </div>
                     <div className="register-page__form-container__form__register-button" onClick={submitData}>

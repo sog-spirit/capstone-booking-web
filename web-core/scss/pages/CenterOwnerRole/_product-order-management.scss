@@ -22,26 +22,369 @@
 
         &__header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             margin-top: margin.$title-margin;
-
-            &__search-input {
-
-            }
 
             &__button-group {
                 display: flex;
+                justify-content: space-between;
 
-                &__refresh-button {
-                    background: button.$primary-background-color;
-                    border-radius: button.$border-radius;
-                    height: fit-content;
-                    padding: padding.$small-padding;
-                    margin-right: margin.$input-item-margin;
+                &__left {
+                    display: flex;
+                    flex-wrap: wrap;
+                    > * {
+                        padding-bottom: padding.$small-padding;
+                    }
 
-                    &:hover {
-                        cursor: pointer;
-                        background: button.$primary-background-hover-color;
+                    &__add-filters {
+                        &__label {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__menu {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+                            display: flex;
+                            flex-direction: column;
+
+                            &__item {
+                                &:not(:first-child) {
+                                    margin-top: margin.$input-item-margin;
+                                }
+                            }
+                        }
+                    }
+
+                    &__id-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__court-booking-id-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__product-inventory-id-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__user-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__create-timestamp-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__quantity-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__fee-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &__status-filter {
+                        &__button {
+                            background: button.$primary-background-color;
+                            border-radius: button.$border-radius;
+                            height: fit-content;
+                            padding: padding.$small-padding;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+        
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__filter-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            input {
+                                @include input.input-style;
+                            }
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__right {
+                    &__refresh-button {
+                        background: button.$primary-background-color;
+                        border-radius: button.$border-radius;
+                        height: fit-content;
+                        padding: padding.$small-padding;
+                        margin-right: margin.$input-item-margin;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
                     }
                 }
             }
@@ -49,6 +392,7 @@
 
         &__list {
             margin-top: margin.$title-margin;
+            overflow-x: auto;
 
             &__header {
                 display: flex;
@@ -56,38 +400,97 @@
                 border-bottom: border.$small-border-line;
                 border-top: border.$small-border-line;
                 font-weight: 700;
+                min-width: fit-content;
 
                 &__id {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__court-booking-id {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__product-inventory-id {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 }
 
                 &__user {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 }
 
                 &__create-timestamp {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 }
 
-                &__total {
+                &__quantity {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 }
 
-                &__center {
+                &__fee {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
                 }
 
                 &__status {
+                    width: 200px;
+                    margin-top: margin.$input-item-margin;
+                    margin-bottom: margin.$input-item-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                &__action {
                     width: 200px;
                     margin-top: margin.$input-item-margin;
                     margin-bottom: margin.$input-item-margin;
@@ -99,8 +502,21 @@
                     display: flex;
                     vertical-align: middle;
                     border-bottom: border.$small-border-line;
+                    min-width: fit-content;
 
                     &__id {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__court-booking-id {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                    }
+
+                    &__product-inventory-id {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
@@ -118,13 +534,13 @@
                         margin-bottom: margin.$input-item-margin;
                     }
     
-                    &__total {
+                    &__quantity {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
                     }
     
-                    &__center {
+                    &__fee {
                         width: 200px;
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
@@ -135,6 +551,91 @@
                         margin-top: margin.$input-item-margin;
                         margin-bottom: margin.$input-item-margin;
                     }
+
+                    &__action {
+                        width: 200px;
+                        margin-top: margin.$input-item-margin;
+                        margin-bottom: margin.$input-item-margin;
+                        display: flex;
+
+                        &__cancel-button {
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+                            margin-right: margin.$input-item-margin;
+                            width: fit-content;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+
+                        &__checkout-button {
+                            background: button.$light-background-color;
+                            padding: padding.$small-padding;
+                            border-radius: button.$border-radius;
+                            width: fit-content;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$light-background-hover-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__pagination {
+            display: flex;
+            margin-top: margin.$input-item-margin;
+
+            &__previous {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-left-radius: button.$border-radius;
+                border-bottom-left-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
+                }
+            }
+
+            &__page-number-button-list {
+                display: flex;
+
+                &__item {
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+
+                    &--active {
+                        background: button.$primary-background-color;
+                        padding: padding.$small-padding;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+                }
+            }
+
+            &__next {
+                background: button.$light-background-color;
+                padding: padding.$small-padding;
+                border-top-right-radius: button.$border-radius;
+                border-bottom-right-radius: button.$border-radius;
+
+                &:hover {
+                    cursor: pointer;
+                    background: button.$light-background-hover-color;
                 }
             }
         }

@@ -7,6 +7,7 @@
 @use '../../components/modal';
 @use '../../components/input';
 @use '../../components/z-index';
+@use '../../components/shadow';
 
 .center-detail-page {
     padding-top: header.$header-height;
@@ -47,6 +48,19 @@
                     background: button.$light-background-color;
                     padding: padding.$small-padding;
                     border-radius: button.$border-radius;
+                    margin-right: margin.$button-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+
+                &__booking-order-button {
+                    height: fit-content;
+                    background: button.$light-background-color;
+                    padding: padding.$small-padding;
+                    border-radius: button.$border-radius;
 
                     &:hover {
                         cursor: pointer;
@@ -57,54 +71,255 @@
         }
 
         &__court-list {
+            &__status-legend {
+                display: flex;
+                margin-bottom: margin.$title-margin;
+
+                &__available {
+                    display: flex;
+
+                    &__label {
+                        margin-right: margin.$label-input-margin;
+                    }
+
+                    &__color {
+                        width: 30px;
+                        height: 20px;
+                        border: border.$small-border-line;
+                        background-color: color-theme.$white;
+                        margin-right: margin.$title-margin;
+                    }
+                }
+
+                &__is-booking {
+                    display: flex;
+
+                    &__label {
+                        margin-right: margin.$label-input-margin;
+                    }
+
+                    &__color {
+                        width: 30px;
+                        height: 20px;
+                        border: border.$small-border-line;
+                        background-color: color-theme.$success;
+                        margin-right: margin.$title-margin;
+                    }
+                }
+
+                &__booked {
+                    display: flex;
+
+                    &__label {
+                        margin-right: margin.$label-input-margin;
+                    }
+
+                    &__color {
+                        width: 30px;
+                        height: 20px;
+                        border: border.$small-border-line;
+                        background-color: color-theme.$danger;
+                        margin-right: margin.$title-margin;
+                    }
+                }
+
+                &__unavailable {
+                    display: flex;
+
+                    &__label {
+                        width: 30px;
+                        height: 20px;
+                        border: border.$small-border-line;
+                        background-color: color-theme.$secondary;
+                        margin-right: margin.$label-input-margin;
+                    }
+
+                    &__color {
+                        margin-right: margin.$title-margin;
+                    }
+                }
+            }
+
             &__title {
                 margin-bottom: margin.$label-input-margin;
             }
 
             &__list {
-                &__item {
-                    border: border.$small-border-line;
-                    border-radius: border.$container-border-radius;
+                overflow-x: auto;
 
-                    &:not(:first-child) {
-                        margin-top: margin.$input-item-margin;
+                &__date {
+                    margin-bottom: margin.$label-input-margin;
+                }
+
+                &__detail {
+                    display: grid;
+                    border-top: border.$small-border-line;
+                    border-left: border.$small-border-line;
+                    min-width: fit-content;
+
+                    &__item {
+                        padding: padding.$small-padding;
+                        border-right: border.$small-border-line;
+                        border-bottom: border.$small-border-line;
                     }
 
-                    &__header {
-                        display:  flex;
-                        justify-content: space-between;
-                        padding-top: padding.$small-padding;
-                        padding-left: padding.$small-padding;
-                        padding-right: padding.$small-padding;
+                    &__item.hoverable:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
 
-                        &__label-group {
-                            &__name {
-                            }
-                        }
-        
-                        &__button-group {
-                            &__edit-button {
-                                background: button.$light-background-color;
-                                border-radius: button.$border-radius;
-                                height: fit-content;
+                    &__court-booking-info-modal {
+                        position: fixed;
+                        z-index: z-index.$modal-index;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100vh;
+                        overflow: auto;
+                        background: modal.$background-color;
+
+                        &__form {
+                            top: 50%;
+                            left: 50%;
+                            position: fixed;
+                            transform: translate(-50%, -50%);
+                            width: 70%;
+                            height: 80%;
+                            background: color-theme.$light-theme-background-color;
+                            border-radius: border.$container-border-radius;
+
+                            &__header {
+                                display: flex;
+                                justify-content: space-between;
                                 padding: padding.$small-padding;
-        
-                                &:hover {
-                                    cursor: pointer;
-                                    background: button.$light-background-hover-color;
+                                border-top-left-radius: border.$container-border-radius;
+                                border-top-right-radius: border.$container-border-radius;
+
+                                &__close-button {
+                                    background: button.$light-background-color;
+                                    border-radius: button.$border-radius;
+                                    height: fit-content;
+                                    padding: padding.$small-padding;
+
+                                    &:hover {
+                                        cursor: pointer;
+                                        background: button.$light-background-hover-color;
+                                    }
                                 }
                             }
-                        }
-                    }
 
-                    &__booking-list {
-                        padding: padding.$small-padding;
+                            &__content {
+                                padding: padding.$small-padding;
 
-                        &__item {
-                            width: fit-content;
-                            background: color-theme.$light-theme-background-secondary-color;
-                            padding: padding.$small-padding;
-                            border-radius: border.$input-border-radius;
+                                &__buttons {
+                                    display: flex;
+                                    margin-top: margin.$title-margin;
+
+                                    &__checkout {
+                                        background: button.$light-background-color;
+                                        border-radius: button.$border-radius;
+                                        height: fit-content;
+                                        padding: padding.$small-padding;
+                                        margin-right: margin.$label-input-margin;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            background: button.$light-background-hover-color;
+                                        }
+                                    }
+
+                                    &__order {
+                                        background: button.$light-background-color;
+                                        border-radius: button.$border-radius;
+                                        height: fit-content;
+                                        padding: padding.$small-padding;
+                                        margin-right: margin.$label-input-margin;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            background: button.$light-background-hover-color;
+                                        }
+                                    }
+
+                                    &__cancel {
+                                        background: button.$light-background-color;
+                                        border-radius: button.$border-radius;
+                                        height: fit-content;
+                                        padding: padding.$small-padding;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            background: button.$light-background-hover-color;
+                                        }
+                                    }
+                                }
+
+                                &__product-order-list-label {
+                                    margin-top: margin.$title-margin;
+                                    margin-bottom: margin.$title-margin;
+                                }
+
+                                &__product-order-list {
+                                    margin-top: margin.$title-margin;
+                                    height: 400px;
+                                    overflow-y: auto;
+
+                                    &__item {
+                                        border: border.$small-border-line;
+                                        border-radius: border.$container-border-radius;
+                                        padding: padding.$small-padding;
+                                        display: flex;
+                                        margin-bottom: margin.$input-item-margin;
+
+                                        &__label {
+                                            img {
+                                                border-top-left-radius: border.$container-border-radius;
+                                                border-bottom-left-radius: border.$container-border-radius;
+                                                height: 150px;
+                                                width: 150px;
+                                                object-fit: cover;
+                                            }
+                                        }
+
+                                        &__info {
+                                            margin-left: margin.$label-input-margin;
+
+                                            &__button-group {
+                                                display: flex;
+                                                margin-top: margin.$label-input-margin;
+
+                                                &__checkout {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    padding: button.$padding;
+                                                    background: button.$primary-background-color;
+                                                    border-radius: button.$border-radius;
+                                                    margin-right: margin.$button-margin;
+
+                                                    &:hover {
+                                                        cursor: pointer;
+                                                        background: button.$primary-background-hover-color;
+                                                    }
+                                                }
+
+                                                &__cancel {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    padding: button.$padding;
+                                                    background: button.$primary-background-color;
+                                                    border-radius: button.$border-radius;
+                                                    margin-right: margin.$button-margin;
+
+                                                    &:hover {
+                                                        cursor: pointer;
+                                                        background: button.$primary-background-hover-color;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -248,10 +463,224 @@
                     background: button.$primary-background-color;
                     border-radius: button.$border-radius;
                     padding: padding.$small-padding;
+                    margin-right: margin.$label-input-margin;
 
                     &:hover {
                         cursor: pointer;
                         background: button.$primary-background-hover-color;
+                    }
+                }
+
+                &__delete-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &__new-booking-modal {
+        position: fixed;
+        z-index: z-index.$modal-index;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        background: modal.$background-color;
+
+        &__form {
+            top: 50%;
+            left: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 80%;
+            background: color-theme.$light-theme-background-color;
+            border-radius: border.$container-border-radius;
+
+            &__header {
+                display: flex;
+                justify-content: space-between;
+                padding: padding.$small-padding;
+                border-top-left-radius: border.$container-border-radius;
+                border-top-right-radius: border.$container-border-radius;
+
+                &__close-button {
+                    background: button.$light-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+            }
+
+            &__content {
+                padding: padding.$small-padding;
+
+                input {
+                    @include input.input-style;
+                }
+
+                &__court {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__select {
+                        &__select-button {
+                            padding: padding.$small-padding;
+                            border: border.$small-border-line;
+                            border-radius: input.$border-radius;
+
+                            &:hover {
+                                cursor: pointer;
+                                background: button.$primary-background-hover-color;
+                            }
+                        }
+
+                        &__select-option {
+                            position: fixed;
+                            padding: padding.$small-padding;
+                            background: color-theme.$light-theme-background-color;
+                            box-shadow: shadow.$small-shadow;
+                            overflow-y: auto;
+                            max-height: 300px;
+
+                            &__item {
+                                padding: padding.$small-padding;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    background: button.$primary-background-hover-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__booking-legends {
+                    display: flex;
+                    margin-top: margin.$input-item-margin;
+
+                    &__available {
+                        display: flex;
+    
+                        &__label {
+                            margin-right: margin.$label-input-margin;
+                        }
+    
+                        &__color {
+                            width: 30px;
+                            height: 20px;
+                            border: border.$small-border-line;
+                            background-color: color-theme.$white;
+                            margin-right: margin.$title-margin;
+                        }
+                    }
+    
+                    &__is-booking {
+                        display: flex;
+    
+                        &__label {
+                            margin-right: margin.$label-input-margin;
+                        }
+    
+                        &__color {
+                            width: 30px;
+                            height: 20px;
+                            border: border.$small-border-line;
+                            background-color: color-theme.$success;
+                            margin-right: margin.$title-margin;
+                        }
+                    }
+    
+                    &__booked {
+                        display: flex;
+    
+                        &__label {
+                            margin-right: margin.$label-input-margin;
+                        }
+    
+                        &__color {
+                            width: 30px;
+                            height: 20px;
+                            border: border.$small-border-line;
+                            background-color: color-theme.$danger;
+                            margin-right: margin.$title-margin;
+                        }
+                    }
+    
+                    &__unavailable {
+                        display: flex;
+    
+                        &__color {
+                            width: 30px;
+                            height: 20px;
+                            border: border.$small-border-line;
+                            background-color: color-theme.$secondary;
+                            margin-right: margin.$title-margin;
+                        }
+    
+                        &__label {
+                            margin-right: margin.$label-input-margin;
+                        }
+    
+                    }
+                }
+
+                &__usage-time {
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    margin-top: margin.$input-item-margin;
+
+                    &__item {
+                        width: 70px;
+                        text-align: center;
+                        padding: padding.$small-padding;
+                        border: border.$small-border-line;
+                        border-radius: border.$input-border-radius;
+                        margin-top: margin.$label-input-margin;
+                        margin-right: margin.$label-input-margin;
+
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
+                    }
+                }
+            }
+
+            &__footer {
+                padding: padding.$small-padding;
+                display: flex;
+                justify-content: space-between;
+
+                &__left {
+
+                }
+
+                &__right {
+                    &__add-button {
+                        background: button.$primary-background-color;
+                        border-radius: button.$border-radius;
+                        padding: padding.$small-padding;
+    
+                        &:hover {
+                            cursor: pointer;
+                            background: button.$primary-background-hover-color;
+                        }
                     }
                 }
             }

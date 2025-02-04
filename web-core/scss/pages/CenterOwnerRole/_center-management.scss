@@ -208,6 +208,7 @@
             height: 80%;
             background: color-theme.$light-theme-background-color;
             border-radius: border.$container-border-radius;
+            overflow-x: auto;
 
             &__header {
                 display: flex;
@@ -245,6 +246,68 @@
                 &__address {
                     &__label {
                         margin-bottom: margin.$label-input-margin;
+                    }
+                }
+
+                &__thumbnail-photo {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__preview {
+                        &__item {
+                            position: relative;
+                            width: 100px;
+                            height: 100px;
+
+                            img {
+                                width: 100px;
+                                height: 100px;
+                                object-fit: contain;
+                            }
+    
+                            &__close {
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+
+                                &:hover {
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__showcase-photo {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__preview {
+                        display: flex;
+
+                        &__item {
+                            position: relative;
+                            width: 100px;
+                            height: 100px;
+
+                            img {
+                                width: 100px;
+                                height: 100px;
+                                object-fit: contain;
+                            }
+
+                            &__close {
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+
+                                &:hover {
+                                    cursor: pointer;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -288,6 +351,7 @@
             height: 80%;
             background: color-theme.$light-theme-background-color;
             border-radius: border.$container-border-radius;
+            overflow-x: auto;
 
             &__header {
                 display: flex;
@@ -327,6 +391,68 @@
                         margin-bottom: margin.$label-input-margin;
                     }
                 }
+
+                &__thumbnail-photo {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__preview {
+                        &__item {
+                            position: relative;
+                            width: 100px;
+                            height: 100px;
+
+                            img {
+                                width: 100px;
+                                height: 100px;
+                                object-fit: contain;
+                            }
+    
+                            &__close {
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+
+                                &:hover {
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &__showcase-photo {
+                    &__label {
+                        margin-bottom: margin.$label-input-margin;
+                    }
+
+                    &__preview {
+                        display: flex;
+
+                        &__item {
+                            position: relative;
+                            width: 100px;
+                            height: 100px;
+
+                            img {
+                                width: 100px;
+                                height: 100px;
+                                object-fit: contain;
+                            }
+
+                            &__close {
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+
+                                &:hover {
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             &__footer {
@@ -335,6 +461,19 @@
                 justify-content: end;
 
                 &__save-button {
+                    background: button.$primary-background-color;
+                    border-radius: button.$border-radius;
+                    height: fit-content;
+                    padding: padding.$small-padding;
+                    margin-right: margin.$label-input-margin;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+
+                &__delete-button {
                     background: button.$primary-background-color;
                     border-radius: button.$border-radius;
                     height: fit-content;

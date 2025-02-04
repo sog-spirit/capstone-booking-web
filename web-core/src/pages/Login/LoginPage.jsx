@@ -11,6 +11,10 @@ import { LoginContext, TokenContext } from "../../App";
 import { handleInputChange } from "../../utils/input/InputUtils";
 
 export default function LoginPage() {
+    const {loginState, setLoginState} = useContext(LoginContext);
+    const {tokenState, setTokenState} = useContext(TokenContext);
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -19,15 +23,14 @@ export default function LoginPage() {
         username: '',
         password: '',
     });
-    const {loginState, setLoginState} = useContext(LoginContext);
-    const {tokenState, setTokenState} = useContext(TokenContext);
-    const navigate = useNavigate();
 
     async function submitData() {
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
 
-        const response = await fetch(API_URL.BASE + API_URL.USER.BASE + API_URL.USER.LOGIN, {
+        let url = API_URL.BASE + API_URL.USER.BASE + API_URL.USER.LOGIN;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: JSON.stringify(formData),
@@ -87,7 +90,7 @@ export default function LoginPage() {
                         <div className="login-page__form-container__form__text-group__forgot-password">
                             Forgot password?
                         </div>
-                        <div className="login-page__form-container__form__text-group__register-account">
+                        <div className="login-page__form-container__form__text-group__register-account" onClick={() => navigate(PAGE_URL.REGISTER)}>
                             Create new account
                         </div>
                     </div>

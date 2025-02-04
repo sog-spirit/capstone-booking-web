@@ -8,6 +8,7 @@ import { API_URL } from "../../../utils/consts/APIConsts";
 import { HTTP_STATUS } from "../../../utils/consts/HttpStatusCode";
 import { defaultSuccessToastNotification } from "../../../utils/toast/ToastUtils";
 import { MESSAGE_CONSTS } from "../../../utils/consts/MessageConsts";
+import { DEFAULT_PAGE_SIZE, nextPage, paginate, previousPage } from "../../../utils/pagination/PaginationUtils";
 
 export default function ProductCenterOwnerPage() {
     const {tokenState, setTokenState} = useContext(TokenContext);
@@ -43,22 +44,24 @@ export default function ProductCenterOwnerPage() {
     const [editImagePreviewUrl, setEditImagePreviewUrl] = useState(null);
     const editImageRef = useRef();
 
-    useEffect(() => {
-        loadProductList();
-    }, [tokenState.accessToken, addNewModalState, editModalState]);
+    const [currentPageNumber, setCurrentPageNumber] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
+    const [pageNumberButtonList, setPageNumberButtonList] = useState([]);
 
     async function submitAddNewProduct() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const formData = new FormData();
         formData.append('name', addNewFormData.name);
         formData.append('price', addNewFormData.price);
         formData.append('photo', addNewImage);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE, {
+        let url = API_URL.BASE + API_URL.PRODUCT.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.POST,
             headers: headers,
             body: formData,
@@ -87,21 +90,45 @@ export default function ProductCenterOwnerPage() {
         addNewImageRef.current.value = null;
     }
 
+    function handleAddNewImageChange(event) {
+        const photoFile = event.target.files[0];
+        if (photoFile) {
+            setAddNewImage(photoFile);
+            setAddNewImagePreviewUrl(URL.createObjectURL(photoFile));
+        }
+    }
+
+    useEffect(() => {
+        loadProductList();
+    }, [tokenState.accessToken,
+        addNewModalState,
+        editModalState,
+        currentPageNumber,
+        totalPage,
+        pageNumberButtonList.length,
+    ]);
+
     async function loadProductList() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
         headers.append(HTTP_REQUEST_HEADER_NAME.CONTENT_TYPE, HTTP_REQUEST_HEADER_VALUE.APPLICATION_JSON);
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.LIST, {
+        let url = API_URL.BASE + API_URL.PRODUCT.BASE + API_URL.PRODUCT.CENTER_OWNER + API_URL.PRODUCT.LIST;
+        let searchParams = new URLSearchParams();
+        searchParams.append('pageNo', currentPageNumber - 1);
+        searchParams.append('pageSize', 15);
+
+        const response = await fetch(url + `?${searchParams}`, {
             method: HTTP_REQUEST_METHOD.GET,
             headers: headers,
         });
 
         if (response.status === HTTP_STATUS.OK) {
-            let productList = await response.json();
-            setProductList(productList);
+            let data = await response.json();
+            setProductList(data.productList);
+            setTotalPage(data.totalPage);
         }
     }
 
@@ -137,10 +164,10 @@ export default function ProductCenterOwnerPage() {
     }
 
     async function submitEditData() {
-        await refreshAccessToken(setTokenState);
+        let accessToken = await refreshAccessToken(setTokenState);
 
         const headers = new Headers();
-        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, tokenState.accessToken);
+        headers.append(HTTP_REQUEST_HEADER_NAME.AUTHORIZATION, accessToken);
 
         const formData = new FormData();
         formData.append('id', editFormData.id);
@@ -148,7 +175,9 @@ export default function ProductCenterOwnerPage() {
         formData.append('price', editFormData.price);
         formData.append('photo', editImage);
 
-        const response = await fetch(API_URL.BASE + API_URL.PRODUCT.BASE, {
+        let url = API_URL.BASE + API_URL.PRODUCT.BASE;
+
+        const response = await fetch(url, {
             method: HTTP_REQUEST_METHOD.PUT,
             headers: headers,
             body: formData,
@@ -157,14 +186,6 @@ export default function ProductCenterOwnerPage() {
         if (response.status === HTTP_STATUS.OK) {
             closeEditModal();
             defaultSuccessToastNotification(MESSAGE_CONSTS.EDIT_SUCCESS);
-        }
-    }
-
-    function handleAddNewImageChange(event) {
-        const photoFile = event.target.files[0];
-        if (photoFile) {
-            setAddNewImage(photoFile);
-            setAddNewImagePreviewUrl(URL.createObjectURL(photoFile));
         }
     }
 
@@ -179,6 +200,10 @@ export default function ProductCenterOwnerPage() {
     function clearEditImageInput() {
         editImageRef.current.value = null;
     }
+
+    useEffect(() => {
+        setPageNumberButtonList(paginate(currentPageNumber, totalPage));
+    }, [currentPageNumber, totalPage, pageNumberButtonList.length]);
 
     return (
         <>
@@ -224,12 +249,33 @@ export default function ProductCenterOwnerPage() {
                                 </div>
                             </div>
                             <div className="product-page__container__product-list__list__item__button-group">
+                                <div className="product-page__container__product-list__list__item__button-group__remove-button">
+                                    Remove
+                                </div>
                                 <div className="product-page__container__product-list__list__item__button-group__edit-button" onClick={() => openEditModal(item.id)}>
                                     Edit
                                 </div>
                             </div>
                         </div>
                         ))}
+                    </div>
+                </div>
+                <div className="product-order__container__pagination">
+                    <div className="product-order__container__pagination__previous" onClick={() => previousPage(currentPageNumber, setCurrentPageNumber)}>
+                        Previous
+                    </div>
+                    <div className="product-order__container__pagination__page-number-button-list">
+                        {pageNumberButtonList.map(item => Number.isInteger(item) ?
+                            (<div className={`product-order__container__pagination__page-number-button-list__item${item === currentPageNumber ? '--active' : ''}`} key={item} onClick={() => setCurrentPageNumber(item)}>
+                                {item}
+                            </div>)
+                        : (<div className="product-order__container__pagination__page-number-button-list__item" key={item}>
+                                {item}
+                        </div>)
+                        )}
+                    </div>
+                    <div className="product-order__container__pagination__next" onClick={() => nextPage(currentPageNumber, setCurrentPageNumber, totalPage)}>
+                        Next
                     </div>
                 </div>
             </div>

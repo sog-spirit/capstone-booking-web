@@ -1,0 +1,314 @@
+@use '../components/header';
+@use '../components/margin';
+@use '../components/border';
+@use '../components/color-theme';
+@use '../components/button';
+@use '../components/padding';
+@use '../components/input';
+@use '../components/shadow';
+
+.home-page {
+    padding-top: header.$header-height;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-image: url('/home-page-background.avif');
+
+    &__container {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &__welcome {
+            display: flex;
+            height: calc(100vh - header.$header-height);
+            flex-direction: column;
+
+            &__introduction {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &__content {
+                    padding: padding.$small-padding;
+
+                    &__title {
+                        text-align: center;
+                        font-size: 5rem;
+                        font-weight: 700;
+                        color: white;
+                        text-shadow: 2px 2px 20px black;
+                    }
+
+                    &__paragraph {
+                        text-align: center;
+                        font-size: 2rem;
+                        color: white;
+                        text-shadow: 2px 2px 20px black;
+                    }
+                }
+            }
+
+            &__button-group {
+                margin-top: margin.$input-item-margin;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &__login {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: button.$padding;
+                    color: button.$primary-background-color;
+                    background: color-theme.$light-theme-background-color;
+                    border-radius: button.$border-radius;
+                    margin-right: margin.$button-margin;
+                    font-size: 2rem;
+                    border-radius: 50%;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$light-background-hover-color;
+                    }
+                }
+
+                &__register {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: button.$padding;
+                    background: button.$primary-background-color;
+                    color: white;
+                    border-radius: button.$border-radius;
+                    margin-right: margin.$button-margin;
+                    font-size: 2rem;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: button.$primary-background-hover-color;
+                    }
+                }
+            }
+        }
+
+        &__button-group {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: margin.$title-margin;
+
+            &__center {
+                width: 300px;
+                height: 200px;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                background: rgba(white, 0.7);
+                backdrop-filter: blur(4px);
+
+                &__label {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &__icon, &__title {
+                        font-size: 1.5rem;
+                    }
+    
+                    &__icon {
+                        margin-right: margin.$input-item-margin;
+                    }
+    
+                    &:hover {
+                        cursor: pointer;
+                        background: rgba(white, 0.2);
+                    }
+                }
+            }
+
+            &__center-review {
+                width: 300px;
+                height: 200px;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                background: rgba(white, 0.7);
+                backdrop-filter: blur(4px);
+                
+                &__label {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &__icon, &__title {
+                        font-size: 1.5rem;
+                    }
+    
+                    &__icon {
+                        margin-right: margin.$input-item-margin;
+                    }
+    
+                    &:hover {
+                        cursor: pointer;
+                        background: rgba(white, 0.2);
+                    }
+                }
+            }
+
+            &__booking-order-list {
+                width: 300px;
+                height: 200px;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                background: rgba(white, 0.7);
+                backdrop-filter: blur(4px);
+
+                &__label {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &__icon, &__title {
+                        font-size: 1.5rem;
+                    }
+    
+                    &__icon {
+                        margin-right: margin.$input-item-margin;
+                    }
+    
+                    &:hover {
+                        cursor: pointer;
+                        background: rgba(white, 0.2);
+                    }
+                }
+            }
+
+            &__booking-order {
+                width: 300px;
+                height: 200px;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                background: rgba(white, 0.7);
+                backdrop-filter: blur(4px);
+
+                &__label {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &__icon, &__title {
+                        font-size: 1.5rem;
+                    }
+    
+                    &__icon {
+                        margin-right: margin.$input-item-margin;
+                    }
+    
+                    &:hover {
+                        cursor: pointer;
+                        background: rgba(white, 0.2);
+                    }
+                }
+            }
+
+            &__product-inventory {
+                width: 300px;
+                height: 200px;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                background: rgba(white, 0.7);
+                backdrop-filter: blur(4px);
+
+                &__label {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &__icon, &__title {
+                        font-size: 1.5rem;
+                    }
+    
+                    &__icon {
+                        margin-right: margin.$input-item-margin;
+                    }
+    
+                    &:hover {
+                        cursor: pointer;
+                        background: rgba(white, 0.2);
+                    }
+                }
+            }
+
+            &__product-order {
+                width: 300px;
+                height: 200px;
+                border-radius: border.$container-border-radius;
+                margin-right: margin.$input-item-margin;
+                margin-top: margin.$input-item-margin;
+                background: rgba(white, 0.7);
+                backdrop-filter: blur(4px);
+
+                &__label {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &__icon, &__title {
+                        font-size: 1.5rem;
+                    }
+    
+                    &__icon {
+                        margin-right: margin.$input-item-margin;
+                    }
+    
+                    &:hover {
+                        cursor: pointer;
+                        background: rgba(white, 0.2);
+                    }
+                }
+            }
+
+            &__product {
+                width: 300px;
+                height: 200px;
+                border-radius: border.$container-border-radius;
+                margin-top: margin.$input-item-margin;
+                margin-right: margin.$input-item-margin;
+                background: rgba(white, 0.7);
+                backdrop-filter: blur(4px);
+
+                &__label {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &__icon, &__title {
+                        font-size: 1.5rem;
+                    }
+    
+                    &__icon {
+                        margin-right: margin.$input-item-margin;
+                    }
+    
+                    &:hover {
+                        cursor: pointer;
+                        background: rgba(white, 0.2);
+                    }
+                }
+            }
+        }
+    }
+}
